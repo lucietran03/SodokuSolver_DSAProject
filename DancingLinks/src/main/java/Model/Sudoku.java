@@ -1,4 +1,5 @@
 package Model;
+
 import Algorithm.AlgorithmX;
 
 import java.io.*;
@@ -107,10 +108,17 @@ public class Sudoku {
      * @param in The input stream to read from.
      * @throws Exception If an error occurs while reading from the input stream.
      */
-    public void read(InputStream in) throws Exception {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                grid[i][j] = readInteger(in);
+    public void read(String input) throws Exception {
+        if (input.length() != N) { // N là 81
+            throw new IllegalArgumentException("Input length must be " + (N));
+        }
+
+        int index = 0;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                char c = input.charAt(index);
+                grid[i][j] = Character.getNumericValue(c);
+                index++;
             }
         }
     }
