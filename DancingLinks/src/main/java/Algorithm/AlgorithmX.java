@@ -208,6 +208,53 @@ public class AlgorithmX {
         }
         return filled;
     }
+/*=========================
+ * Dancing Links Structure
+ * =========================
+ * 1. search:
+Method search là phần cốt lõi của thuật toán. 
+Đây là một phương thức đệ quy để tìm kiếm các giải pháp của Sudoku. 
+Thuật toán sử dụng phương pháp Dancing Links để giảm số lượng các phép toán cần thiết khi duyệt qua các lựa chọn.
+Cách hoạt động:
+- Đầu tiên, thuật toán kiểm tra xem tất cả các cột đã được chọn chưa (if (root.right == root)). Nếu đúng, tức là một giải pháp đã được tìm thấy và được ánh xạ vào bảng Sudoku.
+- Nếu chưa, thuật toán chọn cột với kích thước nhỏ nhất (ít nhất các phần tử) để giảm bớt không gian tìm kiếm (choose()).
+- Sau khi chọn cột, thuật toán che giấu cột và tiếp tục duyệt qua các dòng (row) của cột đó.
+- Mỗi dòng đại diện cho một giá trị có thể của Sudoku, và thuật toán sẽ che giấu các cột liên quan đến dòng đó (mỗi giá trị của Sudoku có thể ảnh hưởng đến nhiều cột khác nhau, như hàng, cột, và vùng 3x3).
+- Sau khi tìm một giá trị hợp lệ (được đại diện bởi r trong mã), thuật toán gọi lại search(k + 1, grid) để tiếp tục tìm kiếm cho các bước tiếp theo.
+- Khi thuật toán quay lại, nó sẽ mở lại các cột đã che giấu để thử các giá trị khác, điều này giúp thuật toán duyệt qua tất cả các khả năng.
+
+2. Phương thức choose:
+Phương thức choose là một phần quan trọng để tối ưu hóa thuật toán. 
+Nó chọn cột có số lượng phần tử ít nhất (đây là một chiến lược heuristic giúp giảm số lượng lựa chọn trong mỗi bước).
+Cách hoạt động:
+- Phương thức duyệt qua tất cả các cột và chọn cột có số lượng phần tử (size) nhỏ nhất, từ đó giảm không gian tìm kiếm trong mỗi bước.
+- Cột này sẽ được che giấu và tiếp tục duyệt qua các dòng của nó.
+
+3. Phương thức cover:
+Phương thức cover có nhiệm vụ che giấu một cột trong cấu trúc Dancing Links. 
+Khi một cột bị che giấu, thuật toán không thể chọn cột đó trong các bước tiếp theo. 
+Nó cũng loại bỏ các hàng có chứa giá trị từ cột đó (loại bỏ các lựa chọn không hợp lệ).
+Cách hoạt động:
+- Phương thức loại bỏ các liên kết giữa cột và các hàng trong ma trận.
+- Các giá trị trong cột này sẽ không được xem xét trong các bước tiếp theo.
+
+4. Phương thức uncover:
+Phương thức uncover là ngược lại với cover, tức là mở lại một cột đã bị che giấu. 
+Khi thuật toán quay lại sau khi thử một lựa chọn, nó cần phải mở lại các cột và hàng đã bị che giấu để tiếp tục thử các lựa chọn khác.
+Cách hoạt động:
+- Phương thức tái tạo lại các liên kết giữa cột và các hàng, từ đó các giá trị bị loại bỏ sẽ có thể được lựa chọn lại trong các bước tiếp theo.
+
+5. Phương thức mapSolvedToGrid:
+Phương thức mapSolvedToGrid ánh xạ giải pháp đã tìm được vào bảng Sudoku. 
+Sau khi thuật toán tìm được giải pháp, nó sẽ lấy các giá trị đã chọn (được lưu trong danh sách solution) và gán chúng vào bảng Sudoku ban đầu.
+Cách hoạt động:
+- Đầu tiên, phương thức duyệt qua danh sách solution, trong đó mỗi phần tử là một ô đã được chọn.
+- Mỗi phần tử chứa thông tin về giá trị (số) và vị trí của ô (cellNo).
+- Sau khi lấy được tất cả các giá trị, chúng được đưa vào một mảng result.
+- Cuối cùng, mảng result được chuyển vào bảng Sudoku, hoàn thành việc giải quyết bài toán.
+ */
+
+
 
     /**
      * Recursive search method to solve the Sudoku using Algorithm X.
