@@ -339,11 +339,20 @@ public class SudokuSolver {
 
             try {
                 SudokuSolver solver = new SudokuSolver(puzzle);
+
+                // Start timing
+                long startTime = System.nanoTime();
+
                 int[][] solution = solver.solve();
+
+                // End timing
+                long endTime = System.nanoTime();
+                long duration = endTime - startTime;
 
                 if (solution != null) {
                     System.out.println("\nSolution:");
                     printGrid(solution);
+                    System.out.println("\nTime taken to solve: " + duration / 1_000_000 + " ms");
                 } else {
                     System.out.println("\nNo solution exists.");
                 }
