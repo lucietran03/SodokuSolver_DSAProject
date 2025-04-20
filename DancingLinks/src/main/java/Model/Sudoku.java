@@ -105,7 +105,7 @@ public class Sudoku {
      * Reads the Sudoku grid from the input stream.
      * Each cell value is read using the readInteger method.
      *
-     * @param in The input stream to read from.
+     * @param input The input stream to read from.
      * @throws Exception If an error occurs while reading from the input stream.
      */
     public void read(String input) throws Exception {
