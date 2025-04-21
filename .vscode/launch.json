@@ -2,6 +2,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "SudokuSolverBasic",
+      "request": "launch",
+      "mainClass": "BasicBacktracking.SudokuSolverBasic",
+      "projectName": "SodokuSolver_DSAProject_ac53f8c8"
+    },
+    {
+      "type": "java",
+      "name": "SudokuSolverBruteForce",
+      "request": "launch",
+      "mainClass": "BruteForce.SudokuSolverBruteForce",
+      "projectName": "SodokuSolver_DSAProject_ac53f8c8"
+    },
+    {
+      "type": "java",
+      "name": "SudokuSolver",
+      "request": "launch",
+      "mainClass": "MRV_FWC.SudokuSolver",
+      "projectName": "SodokuSolver_DSAProject_ac53f8c8"
+    },
+    {
+      "type": "java",
       "name": "SudokuSolver",
       "request": "launch",
       "mainClass": "SudokuSolver",
