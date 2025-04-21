@@ -5,6 +5,13 @@
       "name": "SudokuSolver",
       "request": "launch",
       "mainClass": "SudokuSolver",
+      "projectName": "SodokuSolver_DSAProject_ac53f8c8"
+    },
+    {
+      "type": "java",
+      "name": "SudokuSolver",
+      "request": "launch",
+      "mainClass": "SudokuSolver",
       "projectName": "SodokuSolver_DSAProject_2139929"
     },
     {

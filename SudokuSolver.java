@@ -170,15 +170,21 @@ public class SudokuSolver {
         }
     }
 
-    // Hàm in lưới Sudoku
     public void printGrid() {
-        for (int r = 0; r < SIZE; r++) { // Duyệt qua từng hàng
-            for (int c = 0; c < SIZE; c++) { // Duyệt qua từng cột
-                System.out.print(grid[r][c] + " "); // In giá trị của ô
+        for (int r = 0; r < SIZE; r++) {
+            if (r % 3 == 0) {
+                System.out.println("+-------+-------+-------+");
             }
-            System.out.println(); // Xuống dòng sau mỗi hàng
+            for (int c = 0; c < SIZE; c++) {
+                if (c % 3 == 0) {
+                    System.out.print("| ");
+                }
+                System.out.print(grid[r][c] + " ");
+            }
+            System.out.println("|");
         }
-    }
+        System.out.println("+-------+-------+-------+");
+    }    
 
     public static void main(String[] args) {
         int[][] puzzle = { // Lưới Sudoku cần giải
