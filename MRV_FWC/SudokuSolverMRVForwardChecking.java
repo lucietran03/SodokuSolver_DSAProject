@@ -1,11 +1,11 @@
 package MRV_FWC;
 
-public class SudokuSolver {
+public class SudokuSolverMRVForwardChecking {
     private static final int SIZE = 9;
     private int[][] grid;
     private boolean[][][] domains; // domains[row][col][value] = true nếu value+1 hợp lệ cho ô (row, col)
 
-    public SudokuSolver(int[][] grid) {
+    public SudokuSolverMRVForwardChecking(int[][] grid) {
         this.grid = grid;
         this.domains = new boolean[SIZE][SIZE][SIZE]; // Miền giá trị là 1–9, ta dùng index 0–8
         initializeDomains();
@@ -190,7 +190,7 @@ public class SudokuSolver {
                 { 0, 0, 0, 0, 8, 0, 0, 7, 9 }
         };
 
-        SudokuSolver solver = new SudokuSolver(puzzle); // Tạo đối tượng giải Sudoku
+        SudokuSolverMRVForwardChecking solver = new SudokuSolverMRVForwardChecking(puzzle); // Tạo đối tượng giải Sudoku
 
         if (solver.solve()) { // Nếu giải được Sudoku
             System.out.println("Sudoku Solved:"); // In thông báo

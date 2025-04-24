@@ -11,9 +11,9 @@ public class SudokuSolver {
      * @throws Exception If an error occurs during execution.
      */
     public static void main(String args[]) throws Exception {
-        // Khai báo input cứng
+        
         String input = "387205619419080502625319874063597241900804003204001905100960350796003428508402100";
-        int puzzleSize = 9; // hoặc tự tính sqrt(input.length()) nếu muốn linh động
+        int puzzleSize = 9; 
     
         if (puzzleSize > 100 || puzzleSize < 1) {
             System.out.println("Error: The Sudoku puzzle size must be between 1 and 100.");

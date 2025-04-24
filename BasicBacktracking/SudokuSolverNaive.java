@@ -1,37 +1,32 @@
-package BruteForce;
+package BasicBacktracking;
 
-public class SudokuSolverBruteForce {
+public class SudokuSolverNaive {
     private static final int SIZE = 9;
     private int[][] grid;
 
-    public SudokuSolverBruteForce(int[][] grid) {
+    public SudokuSolverNaive(int[][] grid) {
         this.grid = grid;
     }
 
     public boolean solve() {
-        return tryAllCombinations(0, 0);
-    }
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (grid[row][col] == 0) {
+                    for (int num = 1; num <= 9; num++) {
+                        if (isValid(row, col, num)) {
+                            grid[row][col] = num;
 
-    private boolean tryAllCombinations(int row, int col) {
-        if (row == SIZE)
-            return true;
-        if (col == SIZE)
-            return tryAllCombinations(row + 1, 0);
-        if (grid[row][col] != 0)
-            return tryAllCombinations(row, col + 1);
+                            if (solve())
+                                return true;
 
-        for (int num = 1; num <= 9; num++) {
-            if (isValid(row, col, num)) {
-                grid[row][col] = num;
-
-                if (tryAllCombinations(row, col + 1))
-                    return true;
-
-                grid[row][col] = 0; // undo
+                            grid[row][col] = 0; // backtrack
+                        }
+                    }
+                    return false; // không số nào hợp lệ
+                }
             }
         }
-
-        return false; // thử hết mà không được
+        return true; // hoàn thành
     }
 
     private boolean isValid(int row, int col, int value) {
@@ -80,7 +75,7 @@ public class SudokuSolverBruteForce {
                 { 0, 0, 0, 0, 8, 0, 0, 7, 9 }
         };
 
-        SudokuSolverBruteForce solver = new SudokuSolverBruteForce(puzzle); // Tạo đối tượng giải Sudoku
+        SudokuSolverNaive solver = new SudokuSolverNaive(puzzle); // Tạo đối tượng giải Sudoku
 
         if (solver.solve()) { // Nếu giải được Sudoku
             System.out.println("Sudoku Solved:"); // In thông báo

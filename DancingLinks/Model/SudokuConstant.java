@@ -1,4 +1,4 @@
-package Constant;
+package Model;
 
 public class SudokuConstant {
     public static final int SIZE = 3;

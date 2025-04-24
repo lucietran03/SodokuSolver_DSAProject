@@ -3,9 +3,10 @@ package Algorithm;
 // Algorithm X is a recursive, nondeterministic, depth-first, backtracking algorithm for solving the exact cover problem.
 // The implementation uses a doubly linked list to represent the sparse matrix and solve the Sudoku constraints.
 
-import Constant.SudokuConstant;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import Model.SudokuConstant;
 
 /**
  * AlgorithmX class implements Donald Knuth's Algorithm X using the Dancing
