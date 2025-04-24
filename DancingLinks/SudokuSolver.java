@@ -29,6 +29,6 @@ public class SudokuSolver {
         long endTime = System.currentTimeMillis();
     
         System.out.println(endTime - startTime);
-        // s.print();
+        s.print();
     }    
 }

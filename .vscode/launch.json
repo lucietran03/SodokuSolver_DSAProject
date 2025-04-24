@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "SudokuSolverNaive",
+      "request": "launch",
+      "mainClass": "BasicBacktracking.SudokuSolverNaive",
+      "projectName": "SodokuSolver_DSAProject_278fb3af"
+    },
+    {
+      "type": "java",
+      "name": "SudokuSolver",
+      "request": "launch",
+      "mainClass": "SudokuSolver",
+      "projectName": "SodokuSolver_DSAProject_278fb3af"
+    },
+    {
+      "type": "java",
+      "name": "Launch JavaFX Application",
+      "request": "launch",
+      "mainClass": "edu.rmit.trustmejunior.Main",
+      "vmArgs": "--module-path D:/JavaFX/lib --add-modules javafx.controls,javafx.fxml"
+    }
+  ]
+}

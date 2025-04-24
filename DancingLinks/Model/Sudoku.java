@@ -140,23 +140,18 @@ public class Sudoku {
      * Includes grid lines to separate sub-grids.
      */
     public void print() {
-        int digits = (int) Math.floor(Math.log(N) / Math.log(10)) + 1;
-        int lineLength = (digits + 1) * N + 2 * SIZE - 3;
-        StringBuffer line = new StringBuffer();
-        for (int lineInit = 0; lineInit < lineLength; lineInit++)
-            line.append('-');
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                printFixedWidth(String.valueOf(grid[i][j]), digits);
-                if ((j < N - 1) && ((j + 1) % SIZE == 0))
-                    System.out.print(" |");
-                System.out.print(" ");
+        for (int r = 0; r < SIZE; r++) {
+            if (r % 3 == 0) {
+                System.out.println("+-------+-------+-------+");
             }
-            System.out.println();
-
-            if ((i < N - 1) && ((i + 1) % SIZE == 0))
-                System.out.println(line.toString());
+            for (int c = 0; c < SIZE; c++) {
+                if (c % 3 == 0) {
+                    System.out.print("| ");
+                }
+                System.out.print(grid[r][c] + " ");
+            }
+            System.out.println("|");
         }
+        System.out.println("+-------+-------+-------+");
     }
 }
