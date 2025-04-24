@@ -1,0 +1,76 @@
+/* General styling for all text fields (cells) */
+.text-field {
+    -fx-border-color: lightgray;
+    -fx-border-width: 1;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #f5f5f5; /* Light background for cells */
+    -fx-background-radius: 5px; /* Slightly rounded corners */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.3, 1, 1); /* Subtle shadow for depth */
+}
+
+/* Styling for the solution text (if applicable) */
+.solution {
+    -fx-text-fill: #4ccbf2;
+}
+
+/* Hover effect for interactivity */
+.text-field:hover {
+    -fx-background-color: #e0f7fa; /* Light cyan background on hover */
+    -fx-border-color: #4ccbf2; /* Matching cyan border on hover */
+    -fx-border-width: 2;
+}
+
+/* Thicker right borders for box separation with gradient */
+#cell02, #cell12, #cell22, #cell32, #cell42, #cell52, #cell62, #cell72, #cell82,
+#cell05, #cell15, #cell25, #cell35, #cell45, #cell55, #cell65, #cell75, #cell85,
+#cell08, #cell18, #cell28, #cell38, #cell48, #cell58, #cell68, #cell78, #cell88 {
+    -fx-border-right-width: 3;
+    -fx-border-right-color: linear-gradient(to bottom, #4ccbf2, #0288d1); /* Gradient from light to dark blue */
+}
+
+/* Thicker left borders for box separation with gradient */
+#cell00, #cell10, #cell20, #cell30, #cell40, #cell50, #cell60, #cell70, #cell80 {
+    -fx-border-left-width: 3;
+    -fx-border-left-color: linear-gradient(to bottom, #4ccbf2, #0288d1);
+}
+
+/* Thicker bottom borders for box separation with gradient */
+#cell20, #cell21, #cell22, #cell23, #cell24, #cell25, #cell26, #cell27, #cell28,
+#cell50, #cell51, #cell52, #cell53, #cell54, #cell55, #cell56, #cell57, #cell58,
+#cell80, #cell81, #cell82, #cell83, #cell84, #cell85, #cell86, #cell87, #cell88 {
+    -fx-border-bottom-width: 3;
+    -fx-border-bottom-color: linear-gradient(to right, #4ccbf2, #0288d1);
+}
+
+/* Thicker top borders for box separation with gradient */
+#cell00, #cell01, #cell02, #cell03, #cell04, #cell05, #cell06, #cell07, #cell08 {
+    -fx-border-top-width: 3;
+    -fx-border-top-color: linear-gradient(to right, #4ccbf2, #0288d1);
+}
+.button {
+    -fx-background-color: #4ccbf2;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 1, 1);
+}
+.button:hover {
+    -fx-background-color: #0288d1;
+}
+#anchorPane {
+    -fx-background-color: linear-gradient(to bottom right, #e3f2fd, #b3e5fc);
+}
+.label {
+    -fx-text-fill: #4ccbf2;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.choice-box .list-cell {
+    -fx-pref-height: 20px; /* Set the preferred height for each item */
+    -fx-font-size: 12px;   /* Optionally adjust the font size */
+    -fx-max-height: 20px;  /* Limit the height of the pop-up menu items */
+}

@@ -200,11 +200,12 @@ public class SudokuSolver {
 
     /// Step3 : Algorithm X implementation
     private boolean search() {
+        /// step3.1 : check if the root is empty
         if (root.right == root) {
             return true;
         }
 
-        // Choose column with smallest size
+        /// step3.2 : find the column with the minimum size
         ColumnNode c = null;
         int minSize = Integer.MAX_VALUE;
         for (ColumnNode i = (ColumnNode) root.right; i != root; i = (ColumnNode) i.right) {
@@ -213,22 +214,34 @@ public class SudokuSolver {
                 c = i;
             }
         }
-
         if (c == null || c.size == 0) return false;
 
+
+        ///  Step3.3 : Cover the Selected Column
+        /// Remove the selected column and all rows containing nodes in that column from the matrix.
         cover(c);
+
+        /// Step 3.4: Try Each Row
+        /// Test each row (placement) that satisfies the selected column, recursively searching for a solution.
+        /// Step 3.4.1 : Iterate Over Rows
         for (Node r = c.down; r != c; r = r.down) {
+            /// Step 3.4.2 : Add the Row to the Solution
             solution.add(r);
+            /// Step 3.4.3 : Cover the Columns
             for (Node j = r.right; j != r; j = j.right) {
                 cover(j.column);
             }
+            /// Step 3.4.4 : Recursively Search
             if (search()) return true;
+            /// Step 3.4.5 : Uncover the Columns
             solution.remove(solution.size() - 1);
             for (Node j = r.left; j != r; j = j.left) {
                 uncover(j.column);
             }
         }
+        /// Step 3.5 : Uncover the Selected Column
         uncover(c);
+        /// Step 3.6 : Return False 
         return false;
     }
     // Cover a column in the DLX matrix

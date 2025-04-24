@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.SudokuController">
+   <children>
+      <AnchorPane fx:id="anchorPane" layoutX="195.0" prefHeight="466.0" prefWidth="444.0" stylesheets="@style.css">
+         <children>
+            <GridPane fx:id="gridPane" layoutX="22.0" layoutY="83.0" opacity="0.48" prefHeight="299.0" prefWidth="401.0" stylesheets="@style.css" AnchorPane.topAnchor="83.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="cell00" prefHeight="47.0" prefWidth="44.0" />
+                  <TextField fx:id="cell01" prefHeight="42.0" prefWidth="44.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="cell02" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" />
+                  <TextField fx:id="cell03" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" />
+                  <TextField fx:id="cell04" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" />
+                  <TextField fx:id="cell05" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" />
+                  <TextField fx:id="cell10" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell20" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell30" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell40" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell50" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell60" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell70" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell80" prefHeight="36.0" prefWidth="44.0" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell65" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell21" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell31" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell41" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell51" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell61" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell71" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell81" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell12" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell22" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell32" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell42" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell52" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell62" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell72" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell82" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell13" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell23" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell33" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell43" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell53" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell63" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell73" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell83" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell14" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell15" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell06" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" />
+                  <TextField fx:id="cell07" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" />
+                  <TextField fx:id="cell08" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" />
+                  <TextField fx:id="cell16" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell17" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell24" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell54" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell44" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell34" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell64" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell74" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell84" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell75" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell55" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell45" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell35" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell25" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell11" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell26" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell85" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell36" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell46" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell56" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell66" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell76" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell86" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell18" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                  <TextField fx:id="cell27" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell28" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <TextField fx:id="cell37" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell38" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                  <TextField fx:id="cell47" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell48" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+                  <TextField fx:id="cell57" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell58" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+                  <TextField fx:id="cell67" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell68" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+                  <TextField fx:id="cell77" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell78" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+                  <TextField fx:id="cell87" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+                  <TextField fx:id="cell88" prefHeight="36.0" prefWidth="44.0" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+               </children>
+            </GridPane>
+            <Button fx:id="solveButton" layoutX="193.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleSolveButton" stylesheets="@style.css" text="Solve" />
+            <Button fx:id="returnButton" layoutX="36.0" layoutY="397.0" mnemonicParsing="false" onAction="#returnButtonAction" stylesheets="@style.css" text="Return" />
+            <Button fx:id="resetButton" layoutX="359.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleResetButton" stylesheets="@style.css" text="Reset" />
+            <Label layoutX="84.0" layoutY="8.0" text="Sudoku Solver">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="imageView" fitHeight="466.0" fitWidth="195.0" pickOnBounds="true">
+         <image>
+            <Image url="@image1.jpeg" />
+         </image>
+      </ImageView>
+      <Label fx:id="timer" layoutX="320.0" layoutY="428.0" prefHeight="18.0" prefWidth="195.0" />
+   </children>
+</AnchorPane>
