@@ -29,13 +29,13 @@ public class ArrayStack<T> {
         return false;
     }
 
-    public boolean pop() {
+    public T pop() {
         // make sure the stack is not empty
         if (isEmpty()) {
-            return false;
+            return null;
         }
         size--;
-        return true;
+        return items[size];
     }
 
     public T peek() {
