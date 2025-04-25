@@ -1,13 +1,21 @@
 package sudoku;
 
 import sudoku.common.Utils;
-import sudoku.model.Sudoku;
+import sudoku.model.*;
 import sudoku.solver.*;
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String input = "800000000003600000070090200050007000000045700000100030001000068008500010090000400"; // ví dụ
+        Scanner scanner = new Scanner(System.in);
+        String input = SudokuManager.getSudokuMatrix(scanner);
+
+        if (input == null) {
+            System.out.println("Provided Sudoku is invalid. Exiting the program.");
+            return;
+        }
 
         Solver[] solvers = {
                 new DancingLinks(),

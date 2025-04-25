@@ -44,15 +44,6 @@ public class Sudoku {
         return grid;
     }
 
-    private void printTimeAndMemory(long startTime, long startMemory, long endTime, long endMemory) {
-        long timeElapsed = endTime - startTime;
-        long memoryUsed = endMemory - startMemory;
-
-        System.out.printf("Time: %.2f ms\n", Utils.nanoToMillis(timeElapsed));
-        System.out.printf("Memory used: %.2f KB\n\n", Utils.bytesToKilobytes(memoryUsed));
-    }
-
-
     /**
      * Reads the Sudoku grid from the input stream.
      * Each cell value is read using the readInteger method.
