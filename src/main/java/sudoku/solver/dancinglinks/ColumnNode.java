@@ -1,6 +1,6 @@
-package Algorithm;
+package sudoku.solver.dancinglinks;
 
 public class ColumnNode extends Node {
     int size = 0;
-    ColumnID info;
+    ColumnId info;
 }

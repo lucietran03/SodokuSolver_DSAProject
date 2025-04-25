@@ -1,6 +1,6 @@
-package Algorithm;
+package sudoku.solver.dancinglinks;
 
-public class ColumnID {
+public class ColumnId {
     int constraint = -1;
     int number = -1;
     int position = -1;
