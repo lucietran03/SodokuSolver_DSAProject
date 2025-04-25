@@ -1,7 +1,5 @@
 package sudoku.model;
 
-import sudoku.common.Utils;
-
 /**
  * The Sudoku class represents a Sudoku puzzle and provides methods to read,
  * solve, and print the puzzle.
@@ -84,5 +82,63 @@ public class Sudoku {
             System.out.println("|");
         }
         System.out.println("+-------+-------+-------+");
+    }
+
+    public boolean isSolved() {
+        // Check rows, columns, and 3x3 subgrids
+        for (int i = 0; i < N; i++) {
+            // Check row and column for duplicates
+            if (!checkRowAndColumn(i)) {
+                return false;
+            }
+
+            // Check the corresponding 3x3 subgrid for duplicates
+            if (!checkSubgrid(i)) {
+                return false;
+            }
+        }
+
+        return true;  // No duplicates found, Sudoku is valid
+    }
+
+    // Helper method to check a row and its corresponding column for duplicates
+    private boolean checkRowAndColumn(int index) {
+        boolean[] checkRow = new boolean[N + 1];  // To track seen numbers in the row
+        boolean[] checkCol = new boolean[N + 1];  // To track seen numbers in the column
+        for (int i = 0; i < N; i++) {
+            int rowValue = this.grid[index][i];
+            int colValue = this.grid[i][index];
+
+            // Check for duplicates in the row
+            if (rowValue != 0 && checkRow[rowValue]) {
+                return false;  // Duplicate in the row
+            }
+            checkRow[rowValue] = true;
+
+            // Check for duplicates in the column
+            if (colValue != 0 && checkCol[colValue]) {
+                return false;  // Duplicate in the column
+            }
+            checkCol[colValue] = true;
+        }
+        return true;
+    }
+
+    // Helper method to check a 3x3 subgrid for duplicates
+    private boolean checkSubgrid(int index) {
+        boolean[] checkBox = new boolean[N + 1];  // To track seen numbers in the subgrid
+        int boxRowStart = (index / 3) * 3;
+        int boxColStart = (index % 3) * 3;
+
+        for (int row = boxRowStart; row < boxRowStart + 3; row++) {
+            for (int col = boxColStart; col < boxColStart + 3; col++) {
+                int value = this.grid[row][col];
+                if (value != 0 && checkBox[value]) {
+                    return false;  // Duplicate found in the 3x3 subgrid
+                }
+                checkBox[value] = true;
+            }
+        }
+        return true;
     }
 }

@@ -1,44 +1,50 @@
 package sudoku.solver;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import sudoku.model.*;
 
-public class ForwardCheckingTest {
+class SudokuTest {
 
-    private ForwardChecking forwardChecking;
-
-    @BeforeEach
-    public void setUp() {
-        forwardChecking = new ForwardChecking();
+    @Test
+    void testDancingLinksSolver() throws Exception {
+        testSolver(new DancingLinks());  // Test the Dancing Links solver
     }
 
     @Test
-    public void test1() {
-        int num = 5;
-        assertNotNull(num);
+    void testBasicBacktrackingSolver() throws Exception {
+        testSolver(new BasicBacktracking());  // Test the Basic Backtracking solver
     }
-//    @Test
-//    public void testInitializeDomains() {
-//        int[][] grid = new int[9][9];  // 9x9 sudoku grid
-//        forwardChecking.initializeDomains(grid);
-//        // Kiểm tra xem tất cả các domain được khởi tạo đúng cách chưa
-//        assertNotNull(forwardChecking.getDomains());
-//    }
-//
-//    @Test
-//    public void testSelectCellWithMRV() {
-//        int[][] grid = new int[9][9];
-//        grid[0][0] = 5;  // đặt giá trị ở ô (0,0)
-//        int[] selected = forwardChecking.selectCellWithMRV(grid);
-//        assertNotNull(selected);  // chắc chắn có ô được chọn
-//    }
-//
-//    @Test
-//    public void testSolve() {
-//        int[][] grid = new int[9][9];
-//        grid[0][0] = 5;  // bắt đầu với một số đã được điền
-//        boolean result = forwardChecking.solve();
-//        assertTrue(result);  // Kiểm tra xem solver có thể tìm ra lời giải không
-//    }
+
+    @Test
+    void testForwardCheckingSolver() throws Exception {
+        testSolver(new ForwardChecking());  // Test the Forward Checking solver
+    }
+
+    @Test
+    void testMRVBacktrackingSolver() throws Exception {
+        testSolver(new MRVBacktracking());  // Test the MRV Backtracking solver
+    }
+
+    // This method tests the solver and checks if it solves the puzzle correctly
+    private void testSolver(Solver solver) throws Exception {
+        // Input Sudoku puzzle as a string
+        String input = "000000000090060800010400030950300008000500200040900600205000000080070100001040002";  // Example Sudoku input
+
+        // Create a new Sudoku instance and load the input
+        Sudoku sudoku = new Sudoku(SudokuConstant.N);
+        sudoku.read(input);
+
+        // Set the Sudoku puzzle to the solver
+        solver.setSudoku(sudoku);
+
+        // Solve the puzzle
+        boolean solved = solver.solve();  // Run the solver
+
+        // Check if the solver solved the Sudoku correctly
+        assertTrue(solved, "The Sudoku puzzle was not solved correctly!");
+
+        // Verify that the Sudoku puzzle is solved correctly
+        assertTrue(sudoku.isSolved(), "The Sudoku puzzle was not solved correctly!");
+    }
 }
