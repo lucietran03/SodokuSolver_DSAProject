@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import Model.SudokuConstant;
 
+
 /**
  * AlgorithmX class implements Donald Knuth's Algorithm X using the Dancing
  * Links technique
@@ -24,6 +25,7 @@ public class AlgorithmX {
     private ArrayList<Node> solution = new ArrayList<>(); // Stores the solution path
     int N = SudokuConstant.N; // Size of the Sudoku grid (e.g., 9 for a 9x9 grid)
     int SIZE = SudokuConstant.SIZE; // Size of each sub-grid (e.g., 3 for a 3x3 sub-grid)
+    private int recursionCount = 0; // Track recursion count
 
     /**
      * Runs the Algorithm X on the given Sudoku grid.
@@ -213,8 +215,8 @@ public class AlgorithmX {
  * Dancing Links Structure
  * =========================
  * 1. search:
-Method search là phần cốt lõi của thuật toán. 
-Đây là một phương thức đệ quy để tìm kiếm các giải pháp của Sudoku. 
+Method search là phần cốt lõi của thuật toán.
+Đây là một phương thức đệ quy để tìm kiếm các giải pháp của Sudoku.
 Thuật toán sử dụng phương pháp Dancing Links để giảm số lượng các phép toán cần thiết khi duyệt qua các lựa chọn.
 Cách hoạt động:
 - Đầu tiên, thuật toán kiểm tra xem tất cả các cột đã được chọn chưa (if (root.right == root)). Nếu đúng, tức là một giải pháp đã được tìm thấy và được ánh xạ vào bảng Sudoku.
@@ -225,28 +227,28 @@ Cách hoạt động:
 - Khi thuật toán quay lại, nó sẽ mở lại các cột đã che giấu để thử các giá trị khác, điều này giúp thuật toán duyệt qua tất cả các khả năng.
 
 2. Phương thức choose:
-Phương thức choose là một phần quan trọng để tối ưu hóa thuật toán. 
+Phương thức choose là một phần quan trọng để tối ưu hóa thuật toán.
 Nó chọn cột có số lượng phần tử ít nhất (đây là một chiến lược heuristic giúp giảm số lượng lựa chọn trong mỗi bước).
 Cách hoạt động:
 - Phương thức duyệt qua tất cả các cột và chọn cột có số lượng phần tử (size) nhỏ nhất, từ đó giảm không gian tìm kiếm trong mỗi bước.
 - Cột này sẽ được che giấu và tiếp tục duyệt qua các dòng của nó.
 
 3. Phương thức cover:
-Phương thức cover có nhiệm vụ che giấu một cột trong cấu trúc Dancing Links. 
-Khi một cột bị che giấu, thuật toán không thể chọn cột đó trong các bước tiếp theo. 
+Phương thức cover có nhiệm vụ che giấu một cột trong cấu trúc Dancing Links.
+Khi một cột bị che giấu, thuật toán không thể chọn cột đó trong các bước tiếp theo.
 Nó cũng loại bỏ các hàng có chứa giá trị từ cột đó (loại bỏ các lựa chọn không hợp lệ).
 Cách hoạt động:
 - Phương thức loại bỏ các liên kết giữa cột và các hàng trong ma trận.
 - Các giá trị trong cột này sẽ không được xem xét trong các bước tiếp theo.
 
 4. Phương thức uncover:
-Phương thức uncover là ngược lại với cover, tức là mở lại một cột đã bị che giấu. 
+Phương thức uncover là ngược lại với cover, tức là mở lại một cột đã bị che giấu.
 Khi thuật toán quay lại sau khi thử một lựa chọn, nó cần phải mở lại các cột và hàng đã bị che giấu để tiếp tục thử các lựa chọn khác.
 Cách hoạt động:
 - Phương thức tái tạo lại các liên kết giữa cột và các hàng, từ đó các giá trị bị loại bỏ sẽ có thể được lựa chọn lại trong các bước tiếp theo.
 
 5. Phương thức mapSolvedToGrid:
-Phương thức mapSolvedToGrid ánh xạ giải pháp đã tìm được vào bảng Sudoku. 
+Phương thức mapSolvedToGrid ánh xạ giải pháp đã tìm được vào bảng Sudoku.
 Sau khi thuật toán tìm được giải pháp, nó sẽ lấy các giá trị đã chọn (được lưu trong danh sách solution) và gán chúng vào bảng Sudoku ban đầu.
 Cách hoạt động:
 - Đầu tiên, phương thức duyệt qua danh sách solution, trong đó mỗi phần tử là một ô đã được chọn.
@@ -264,6 +266,7 @@ Cách hoạt động:
      * @param grid The Sudoku grid to be solved.
      */
     private void search(int k, int[][] grid) {
+        recursionCount++; // Increment recursion count
         if (root.right == root) { // If all columns are covered, the solution is found
             mapSolvedToGrid(grid);
             return;
@@ -388,5 +391,8 @@ Cách hoạt động:
                 resultCounter++;
             }
         }
+    }
+    public int getRecursionCount() {
+        return recursionCount;
     }
 }

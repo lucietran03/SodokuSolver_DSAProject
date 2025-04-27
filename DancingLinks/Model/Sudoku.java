@@ -10,7 +10,7 @@ import java.io.*;
  * It uses the Algorithm X method to solve the puzzle.
  */
 public class Sudoku {
-
+    int theRecurstionCount;
     /**
      * The size of the smaller sub-grid (e.g., 3 for a standard 9x9 Sudoku).
      */
@@ -32,10 +32,12 @@ public class Sudoku {
      *
      * @param size The size of the smaller sub-grid.
      */
-    public Sudoku(int size) {
-        SIZE = size;
-        N = size * size;
-
+    public Sudoku(int gridSize) {
+        N = gridSize; // Full grid size (e.g., 9 for 9x9)
+        SIZE = (int) Math.sqrt(gridSize); // Sub-grid size (e.g., 3 for 3x3)
+        if (SIZE * SIZE != gridSize) {
+            throw new IllegalArgumentException("Grid size must be a perfect square (e.g., 9 for a 9x9 Sudoku).");
+        }
         grid = new int[N][N];
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
@@ -45,9 +47,11 @@ public class Sudoku {
     /**
      * Solves the Sudoku puzzle using the Algorithm X method.
      */
-    public void solve() {
+    public boolean solve() {
         AlgorithmX solver = new AlgorithmX();
-        solver.run(grid);
+        solver.run(grid); // Attempt to solve the puzzle using Algorithm X
+        this.theRecurstionCount = solver.getRecursionCount();
+        return isSolved(); // Verify if the grid is solved correctly
     }
 
     /**
@@ -109,13 +113,13 @@ public class Sudoku {
      * @throws Exception If an error occurs while reading from the input stream.
      */
     public void read(String input) throws Exception {
-        if (input.length() != N) { // N là 81
-            throw new IllegalArgumentException("Input length must be " + (N));
+        if (input.length() != N * N) {
+            throw new IllegalArgumentException("Input length must be " + (N * N));
         }
 
         int index = 0;
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 char c = input.charAt(index);
                 grid[i][j] = Character.getNumericValue(c);
                 index++;
@@ -140,12 +144,12 @@ public class Sudoku {
      * Includes grid lines to separate sub-grids.
      */
     public void print() {
-        for (int r = 0; r < SIZE; r++) {
-            if (r % 3 == 0) {
+        for (int r = 0; r < N; r++) {
+            if (r % SIZE == 0) {
                 System.out.println("+-------+-------+-------+");
             }
-            for (int c = 0; c < SIZE; c++) {
-                if (c % 3 == 0) {
+            for (int c = 0; c < N; c++) {
+                if (c % SIZE == 0) {
                     System.out.print("| ");
                 }
                 System.out.print(grid[r][c] + " ");
@@ -153,5 +157,67 @@ public class Sudoku {
             System.out.println("|");
         }
         System.out.println("+-------+-------+-------+");
+    }
+
+    /**
+     * Checks if the Sudoku grid is completely solved.
+     *
+     * @return True if all cells are filled (non-zero), false otherwise.
+     */
+    public boolean isSolved() {
+        // Check for any empty cells (zeros)
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (grid[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+
+        // Check rows
+        for (int i = 0; i < N; i++) {
+            boolean[] seen = new boolean[N + 1];
+            for (int j = 0; j < N; j++) {
+                int num = grid[i][j];
+                if (num < 1 || num > N || seen[num]) {
+                    return false;
+                }
+                seen[num] = true;
+            }
+        }
+
+        // Check columns
+        for (int j = 0; j < N; j++) {
+            boolean[] seen = new boolean[N + 1];
+            for (int i = 0; i < N; i++) {
+                int num = grid[i][j];
+                if (num < 1 || num > N || seen[num]) {
+                    return false;
+                }
+                seen[num] = true;
+            }
+        }
+
+        // Check 3x3 blocks
+        for (int blockRow = 0; blockRow < SIZE; blockRow++) {
+            for (int blockCol = 0; blockCol < SIZE; blockCol++) {
+                boolean[] seen = new boolean[N + 1];
+                for (int i = blockRow * SIZE; i < blockRow * SIZE + SIZE; i++) {
+                    for (int j = blockCol * SIZE; j < blockCol * SIZE + SIZE; j++) {
+                        int num = grid[i][j];
+                        if (num < 1 || num > N || seen[num]) {
+                            return false;
+                        }
+                        seen[num] = true;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public int getRecursionCount() {
+        return theRecurstionCount;
     }
 }
