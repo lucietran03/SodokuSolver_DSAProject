@@ -5,10 +5,3 @@ Time Taken: 8 ms
 Memory Used: 461712 bytes
 Total Recursions: 82
 ----------------------------------------
-Sudoku Solver Results - 2025-04-27 15:59:35
-Question: 387205619419080502625319874063597241900804003204001905100960350796003428508402100
-Status: Solved
-Time Taken: 7 ms
-Memory Used: 461712 bytes
-Total Recursions: 82
-----------------------------------------

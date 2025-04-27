@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,8 +20,8 @@ public class WriteFile {
      * @param question       The Sudoku puzzle question string.
      */
     public static void writeFile(boolean status, long time, long memoryUsed, int recursionCount, String question) {
-        // Use an absolute path for the file
-        String filePath = System.getProperty("user.dir") + "/src/main/java/DancingLinks/Resources/output.txt";
+        // Use a platform-independent path
+        String filePath = Paths.get(System.getProperty("user.dir"), "DancingLinks", "Resources", "output.txt").toString();
 
         // Ensure the output directory exists
         File file = new File(filePath);
