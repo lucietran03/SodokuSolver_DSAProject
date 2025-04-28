@@ -1,12 +1,11 @@
-package Algorithm;
+package sudoku.solver.dancinglinks;
 // This class implements the Algorithm X using Dancing Links (DLX) to solve the Sudoku puzzle.
 // Algorithm X is a recursive, nondeterministic, depth-first, backtracking algorithm for solving the exact cover problem.
 // The implementation uses a doubly linked list to represent the sparse matrix and solve the Sudoku constraints.
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import Model.SudokuConstant;
+import sudoku.model.SudokuConstant;
 
 /**
  * AlgorithmX class implements Donald Knuth's Algorithm X using the Dancing
@@ -30,10 +29,16 @@ public class AlgorithmX {
      *
      * @param defaultMatrix The initial Sudoku grid with pre-filled values.
      */
-    public void run(int[][] defaultMatrix) {
-        byte[][] matrix = createMatrix(defaultMatrix); // Create the exact cover matrix
-        ColumnNode linkedMatrix = covertToDLL(matrix); // Convert the matrix to a doubly linked list
-        search(0, defaultMatrix); // Perform the search to solve the Sudoku
+    public boolean run(int[][] defaultMatrix) {
+        byte[][] matrix = createMatrix(defaultMatrix); // Tạo exact cover matrix
+        ColumnNode linkedMatrix = covertToDLL(matrix); // Convert sang DLL
+
+        boolean solved = search(0, defaultMatrix); // Bắt đầu giải
+        if (solved) {
+            mapSolvedToGrid(defaultMatrix); // Ánh xạ kết quả ra lại grid
+        }
+
+        return solved;
     }
 
     /**
@@ -49,7 +54,7 @@ public class AlgorithmX {
 
         // Create column headers and link them circularly
         for (int col = 0; col < matrix[0].length; col++) {
-            ColumnID colID = new ColumnID(); // Column metadata
+            ColumnId colID = new ColumnId(); // Column metadata
             if (col < 3 * N * N) {
                 int digit = (col / (3 * N)) + 1;
                 colID.number = digit;
@@ -209,53 +214,6 @@ public class AlgorithmX {
         }
         return filled;
     }
-/*=========================
- * Dancing Links Structure
- * =========================
- * 1. search:
-Method search là phần cốt lõi của thuật toán. 
-Đây là một phương thức đệ quy để tìm kiếm các giải pháp của Sudoku. 
-Thuật toán sử dụng phương pháp Dancing Links để giảm số lượng các phép toán cần thiết khi duyệt qua các lựa chọn.
-Cách hoạt động:
-- Đầu tiên, thuật toán kiểm tra xem tất cả các cột đã được chọn chưa (if (root.right == root)). Nếu đúng, tức là một giải pháp đã được tìm thấy và được ánh xạ vào bảng Sudoku.
-- Nếu chưa, thuật toán chọn cột với kích thước nhỏ nhất (ít nhất các phần tử) để giảm bớt không gian tìm kiếm (choose()).
-- Sau khi chọn cột, thuật toán che giấu cột và tiếp tục duyệt qua các dòng (row) của cột đó.
-- Mỗi dòng đại diện cho một giá trị có thể của Sudoku, và thuật toán sẽ che giấu các cột liên quan đến dòng đó (mỗi giá trị của Sudoku có thể ảnh hưởng đến nhiều cột khác nhau, như hàng, cột, và vùng 3x3).
-- Sau khi tìm một giá trị hợp lệ (được đại diện bởi r trong mã), thuật toán gọi lại search(k + 1, grid) để tiếp tục tìm kiếm cho các bước tiếp theo.
-- Khi thuật toán quay lại, nó sẽ mở lại các cột đã che giấu để thử các giá trị khác, điều này giúp thuật toán duyệt qua tất cả các khả năng.
-
-2. Phương thức choose:
-Phương thức choose là một phần quan trọng để tối ưu hóa thuật toán. 
-Nó chọn cột có số lượng phần tử ít nhất (đây là một chiến lược heuristic giúp giảm số lượng lựa chọn trong mỗi bước).
-Cách hoạt động:
-- Phương thức duyệt qua tất cả các cột và chọn cột có số lượng phần tử (size) nhỏ nhất, từ đó giảm không gian tìm kiếm trong mỗi bước.
-- Cột này sẽ được che giấu và tiếp tục duyệt qua các dòng của nó.
-
-3. Phương thức cover:
-Phương thức cover có nhiệm vụ che giấu một cột trong cấu trúc Dancing Links. 
-Khi một cột bị che giấu, thuật toán không thể chọn cột đó trong các bước tiếp theo. 
-Nó cũng loại bỏ các hàng có chứa giá trị từ cột đó (loại bỏ các lựa chọn không hợp lệ).
-Cách hoạt động:
-- Phương thức loại bỏ các liên kết giữa cột và các hàng trong ma trận.
-- Các giá trị trong cột này sẽ không được xem xét trong các bước tiếp theo.
-
-4. Phương thức uncover:
-Phương thức uncover là ngược lại với cover, tức là mở lại một cột đã bị che giấu. 
-Khi thuật toán quay lại sau khi thử một lựa chọn, nó cần phải mở lại các cột và hàng đã bị che giấu để tiếp tục thử các lựa chọn khác.
-Cách hoạt động:
-- Phương thức tái tạo lại các liên kết giữa cột và các hàng, từ đó các giá trị bị loại bỏ sẽ có thể được lựa chọn lại trong các bước tiếp theo.
-
-5. Phương thức mapSolvedToGrid:
-Phương thức mapSolvedToGrid ánh xạ giải pháp đã tìm được vào bảng Sudoku. 
-Sau khi thuật toán tìm được giải pháp, nó sẽ lấy các giá trị đã chọn (được lưu trong danh sách solution) và gán chúng vào bảng Sudoku ban đầu.
-Cách hoạt động:
-- Đầu tiên, phương thức duyệt qua danh sách solution, trong đó mỗi phần tử là một ô đã được chọn.
-- Mỗi phần tử chứa thông tin về giá trị (số) và vị trí của ô (cellNo).
-- Sau khi lấy được tất cả các giá trị, chúng được đưa vào một mảng result.
-- Cuối cùng, mảng result được chuyển vào bảng Sudoku, hoàn thành việc giải quyết bài toán.
- */
-
-
 
     /**
      * Recursive search method to solve the Sudoku using Algorithm X.
@@ -263,37 +221,37 @@ Cách hoạt động:
      * @param k    The depth of the search tree.
      * @param grid The Sudoku grid to be solved.
      */
-    private void search(int k, int[][] grid) {
-        if (root.right == root) { // If all columns are covered, the solution is found
-            mapSolvedToGrid(grid);
-            return;
+    private boolean search(int k, int[][] grid) {
+        if (root.right == root) {
+            return true;
         }
-        ColumnNode c = choose(); // Choose the column with the smallest size
-        cover(c); // Cover the chosen column
-        Node r = c.down;
-        while (r != c) {
-            if (k < solution.size()) {
-                solution.remove(k);
-            }
-            solution.add(k, r);
 
-            Node j = r.right;
-            while (j != r) {
-                cover(j.head); // Cover all columns in the row
-                j = j.right;
-            }
-            search(k + 1, grid); // Recursive call to search for the next solution
+        ColumnNode c = choose();
+        cover(c);
 
-            Node r2 = (Node) solution.get(k);
-            Node j2 = r2.left;
-            while (j2 != r2) {
-                uncover(j2.head); // Uncover all columns in the row
-                j2 = j2.left;
+        for (Node r = c.down; r != c; r = r.down) {
+            solution.add(r);
+
+            for (Node j = r.right; j != r; j = j.right) {
+                cover(j.head);
             }
-            r = r.down;
+
+            if (search(k + 1, grid)) {
+                return true;
+            }
+
+            r = solution.remove(solution.size() - 1);
+            c = r.head;
+
+            for (Node j = r.left; j != r; j = j.left) {
+                uncover(j.head);
+            }
         }
-        uncover(c); // Uncover the chosen column
+
+        uncover(c);
+        return false;
     }
+
 
     /**
      * Chooses the column with the smallest size (heuristic for optimization).
@@ -390,3 +348,4 @@ Cách hoạt động:
         }
     }
 }
+

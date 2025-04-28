@@ -1,8 +1,4 @@
-package Model;
-
-import Algorithm.AlgorithmX;
-
-import java.io.*;
+package sudoku.model;
 
 /**
  * The Sudoku class represents a Sudoku puzzle and provides methods to read,
@@ -42,63 +38,8 @@ public class Sudoku {
                 grid[i][j] = 0;
     }
 
-    /**
-     * Solves the Sudoku puzzle using the Algorithm X method.
-     */
-    public void solve() {
-        AlgorithmX solver = new AlgorithmX();
-        solver.run(grid);
-    }
-
-    /**
-     * Reads an integer from the input stream. If the input is "x", it is treated as
-     * 0.
-     *
-     * @param in The input stream to read from.
-     * @return The integer value read from the input stream.
-     * @throws Exception If an error occurs while reading from the input stream.
-     */
-    static int readInteger(InputStream in) throws Exception {
-        int result = 0;
-        boolean success = false;
-
-        while (!success) {
-            String word = readWord(in);
-
-            try {
-                result = Integer.parseInt(word);
-                success = true;
-            } catch (Exception e) {
-                if (word.compareTo("x") == 0) {
-                    result = 0;
-                    success = true;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Reads a word (sequence of non-whitespace characters) from the input stream.
-     *
-     * @param in The input stream to read from.
-     * @return The word read from the input stream.
-     * @throws Exception If an error occurs while reading from the input stream.
-     */
-    static String readWord(InputStream in) throws Exception {
-        StringBuffer result = new StringBuffer();
-        int currentChar = in.read();
-        String whiteSpace = " \t\r\n";
-        while (whiteSpace.indexOf(currentChar) > -1) {
-            currentChar = in.read();
-        }
-
-        while (whiteSpace.indexOf(currentChar) == -1) {
-            result.append((char) currentChar);
-            currentChar = in.read();
-        }
-        return result.toString();
+    public int[][] getGrid() {
+        return grid;
     }
 
     /**
@@ -124,18 +65,6 @@ public class Sudoku {
     }
 
     /**
-     * Prints a string with a fixed width by padding it with spaces.
-     *
-     * @param text  The text to print.
-     * @param width The fixed width for the text.
-     */
-    void printFixedWidth(String text, int width) {
-        for (int i = 0; i < width - text.length(); i++)
-            System.out.print(" ");
-        System.out.print(text);
-    }
-
-    /**
      * Prints the Sudoku grid in a formatted manner.
      * Includes grid lines to separate sub-grids.
      */
@@ -153,5 +82,63 @@ public class Sudoku {
             System.out.println("|");
         }
         System.out.println("+-------+-------+-------+");
+    }
+
+    public boolean isSolved() {
+        // Check rows, columns, and 3x3 subgrids
+        for (int i = 0; i < N; i++) {
+            // Check row and column for duplicates
+            if (!checkRowAndColumn(i)) {
+                return false;
+            }
+
+            // Check the corresponding 3x3 subgrid for duplicates
+            if (!checkSubgrid(i)) {
+                return false;
+            }
+        }
+
+        return true;  // No duplicates found, Sudoku is valid
+    }
+
+    // Helper method to check a row and its corresponding column for duplicates
+    private boolean checkRowAndColumn(int index) {
+        boolean[] checkRow = new boolean[N + 1];  // To track seen numbers in the row
+        boolean[] checkCol = new boolean[N + 1];  // To track seen numbers in the column
+        for (int i = 0; i < N; i++) {
+            int rowValue = this.grid[index][i];
+            int colValue = this.grid[i][index];
+
+            // Check for duplicates in the row
+            if (rowValue != 0 && checkRow[rowValue]) {
+                return false;  // Duplicate in the row
+            }
+            checkRow[rowValue] = true;
+
+            // Check for duplicates in the column
+            if (colValue != 0 && checkCol[colValue]) {
+                return false;  // Duplicate in the column
+            }
+            checkCol[colValue] = true;
+        }
+        return true;
+    }
+
+    // Helper method to check a 3x3 subgrid for duplicates
+    private boolean checkSubgrid(int index) {
+        boolean[] checkBox = new boolean[N + 1];  // To track seen numbers in the subgrid
+        int boxRowStart = (index / 3) * 3;
+        int boxColStart = (index % 3) * 3;
+
+        for (int row = boxRowStart; row < boxRowStart + 3; row++) {
+            for (int col = boxColStart; col < boxColStart + 3; col++) {
+                int value = this.grid[row][col];
+                if (value != 0 && checkBox[value]) {
+                    return false;  // Duplicate found in the 3x3 subgrid
+                }
+                checkBox[value] = true;
+            }
+        }
+        return true;
     }
 }

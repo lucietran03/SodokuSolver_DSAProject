@@ -1,4 +1,4 @@
-package Algorithm;
+package sudoku.solver.dancinglinks;
 
 public class Node {
     Node left;
