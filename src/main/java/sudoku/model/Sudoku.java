@@ -27,6 +27,7 @@ public class Sudoku {
      * Initializes the grid with all zeros.
      *
      * @param size The size of the smaller sub-grid.
+     * Time Complexity: O(N^2) in the worst case, where N is the size of the entire grid.
      */
     public Sudoku(int size) {
         SIZE = size;
@@ -38,19 +39,26 @@ public class Sudoku {
                 grid[i][j] = 0;
     }
 
+    /**
+     * Returns the Sudoku grid.
+     *
+     * @return The 2D array representing the Sudoku grid.
+     * Time Complexity: O(1).
+     */
     public int[][] getGrid() {
         return grid;
     }
 
     /**
-     * Reads the Sudoku grid from the input stream.
-     * Each cell value is read using the readInteger method.
+     * Reads the Sudoku grid from the input string.
+     * Each cell value is read from the string and populated into the grid.
      *
-     * @param input The input stream to read from.
-     * @throws Exception If an error occurs while reading from the input stream.
+     * @param input The input string representing the Sudoku grid.
+     * @throws Exception If the input length is invalid.
+     * Time Complexity: O(N^2) in the worst case, where N is the size of the entire grid.
      */
     public void read(String input) throws Exception {
-        if (input.length() != N) { // N là 81
+        if (input.length() != N) { // N is 81
             throw new IllegalArgumentException("Input length must be " + (N));
         }
 
@@ -67,6 +75,7 @@ public class Sudoku {
     /**
      * Prints the Sudoku grid in a formatted manner.
      * Includes grid lines to separate sub-grids.
+     * Time Complexity: O(N^2) in the worst case, where N is the size of the entire grid.
      */
     public void print() {
         for (int r = 0; r < SIZE; r++) {
@@ -84,49 +93,63 @@ public class Sudoku {
         System.out.println("+-------+-------+-------+");
     }
 
+    /**
+     * Checks if the Sudoku puzzle is solved.
+     * Validates rows, columns, and 3x3 subgrids for duplicates.
+     *
+     * @return True if the Sudoku is solved, false otherwise.
+     * Time Complexity: O(N^2) in the worst case, where N is the size of the entire grid.
+     */
     public boolean isSolved() {
-        // Check rows, columns, and 3x3 subgrids
         for (int i = 0; i < N; i++) {
-            // Check row and column for duplicates
             if (!checkRowAndColumn(i)) {
                 return false;
             }
 
-            // Check the corresponding 3x3 subgrid for duplicates
             if (!checkSubgrid(i)) {
                 return false;
             }
         }
 
-        return true;  // No duplicates found, Sudoku is valid
+        return true;
     }
 
-    // Helper method to check a row and its corresponding column for duplicates
+    /**
+     * Helper method to check a row and its corresponding column for duplicates.
+     *
+     * @param index The index of the row and column to check.
+     * @return True if no duplicates are found, false otherwise.
+     * Time Complexity: O(N) in the worst case, where N is the size of the entire grid.
+     */
     private boolean checkRowAndColumn(int index) {
-        boolean[] checkRow = new boolean[N + 1];  // To track seen numbers in the row
-        boolean[] checkCol = new boolean[N + 1];  // To track seen numbers in the column
+        boolean[] checkRow = new boolean[N + 1];
+        boolean[] checkCol = new boolean[N + 1];
         for (int i = 0; i < N; i++) {
             int rowValue = this.grid[index][i];
             int colValue = this.grid[i][index];
 
-            // Check for duplicates in the row
             if (rowValue != 0 && checkRow[rowValue]) {
-                return false;  // Duplicate in the row
+                return false;
             }
             checkRow[rowValue] = true;
 
-            // Check for duplicates in the column
             if (colValue != 0 && checkCol[colValue]) {
-                return false;  // Duplicate in the column
+                return false;
             }
             checkCol[colValue] = true;
         }
         return true;
     }
 
-    // Helper method to check a 3x3 subgrid for duplicates
+    /**
+     * Helper method to check a 3x3 subgrid for duplicates.
+     *
+     * @param index The index of the subgrid to check.
+     * @return True if no duplicates are found, false otherwise.
+     * Time Complexity: O(N) in the worst case, where N is the size of the entire grid.
+     */
     private boolean checkSubgrid(int index) {
-        boolean[] checkBox = new boolean[N + 1];  // To track seen numbers in the subgrid
+        boolean[] checkBox = new boolean[N + 1];
         int boxRowStart = (index / 3) * 3;
         int boxColStart = (index % 3) * 3;
 
@@ -134,7 +157,7 @@ public class Sudoku {
             for (int col = boxColStart; col < boxColStart + 3; col++) {
                 int value = this.grid[row][col];
                 if (value != 0 && checkBox[value]) {
-                    return false;  // Duplicate found in the 3x3 subgrid
+                    return false;
                 }
                 checkBox[value] = true;
             }

@@ -1,7 +1,4 @@
 package sudoku.solver.dancinglinks;
-// This class implements the Algorithm X using Dancing Links (DLX) to solve the Sudoku puzzle.
-// Algorithm X is a recursive, nondeterministic, depth-first, backtracking algorithm for solving the exact cover problem.
-// The implementation uses a doubly linked list to represent the sparse matrix and solve the Sudoku constraints.
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,13 +6,11 @@ import sudoku.model.SudokuConstant;
 
 /**
  * AlgorithmX class implements Donald Knuth's Algorithm X using the Dancing
- * Links technique
- * to solve exact cover problems, specifically tailored for solving Sudoku
+ * Links technique to solve exact cover problems, specifically tailored for solving Sudoku
  * puzzles.
- *
+ * <p>
  * This class provides methods to create an exact cover matrix for Sudoku
- * constraints,
- * convert the matrix into a Dancing Links structure, and recursively search for
+ * constraints, convert the matrix into a Dancing Links structure, and recursively search for
  * solutions.
  */
 public class AlgorithmX {
@@ -28,14 +23,15 @@ public class AlgorithmX {
      * Runs the Algorithm X on the given Sudoku grid.
      *
      * @param defaultMatrix The initial Sudoku grid with pre-filled values.
+     * @return True if the Sudoku puzzle is solved, false otherwise.
      */
     public boolean run(int[][] defaultMatrix) {
-        byte[][] matrix = createMatrix(defaultMatrix); // Tạo exact cover matrix
-        ColumnNode linkedMatrix = covertToDLL(matrix); // Convert sang DLL
+        byte[][] matrix = createMatrix(defaultMatrix); // Create exact cover matrix
+        ColumnNode linkedMatrix = covertToDLL(matrix); // Convert to Doubly Linked List (DLL)
 
-        boolean solved = search(0, defaultMatrix); // Bắt đầu giải
+        boolean solved = search(0, defaultMatrix); // Start solving the puzzle
         if (solved) {
-            mapSolvedToGrid(defaultMatrix); // Ánh xạ kết quả ra lại grid
+            mapSolvedToGrid(defaultMatrix); // Map the solved result back to the grid
         }
 
         return solved;
@@ -85,12 +81,12 @@ public class AlgorithmX {
         root.left = current;
 
         // Populate the matrix with nodes and link them circularly
-        for (int row = 0; row < matrix.length; row++) {
+        for (byte[] bytes : matrix) {
             current = (ColumnNode) root.right;
             Node lastCreatedElement = null;
             Node firstElement = null;
-            for (int col = 0; col < matrix[row].length; col++) {
-                if (matrix[row][col] == 1) { // If the matrix element is 1, create a node
+            for (byte aByte : bytes) {
+                if (aByte == 1) { // If the matrix element is 1, create a node
                     Node colElement = current;
                     while (colElement.down != null) {
                         colElement = colElement.down;
@@ -152,7 +148,7 @@ public class AlgorithmX {
         }
         clues = new int[counter][];
         for (int i = 0; i < counter; i++) {
-            clues[i] = (int[]) cluesList.get(i);
+            clues[i] = cluesList.get(i);
         }
 
         byte[][] matrix = new byte[N * N * N][4 * N * N]; // Exact cover matrix
@@ -183,21 +179,23 @@ public class AlgorithmX {
     }
 
     /**
-     * Checks if a cell is already filled based on the pre-filled clues.
+     * Checks if a digit is already placed in the Sudoku grid based on pre-filled clues.
+     * This method ensures that constraints for row, column, and block are satisfied by
+     * a specific digit placement.
      *
      * @param digit   The digit to check.
-     * @param row     The row index of the cell.
-     * @param col     The column index of the cell.
+     * @param row     The row index in the Sudoku grid.
+     * @param col     The column index in the Sudoku grid.
      * @param prefill The pre-filled clues in the Sudoku grid.
-     * @return True if the cell is already filled, false otherwise.
+     * @return True if the cell is filled by a clue, false if not.
      */
     private boolean filled(int digit, int row, int col, int[][] prefill) {
         boolean filled = false;
         if (prefill != null) {
-            for (int i = 0; i < prefill.length; i++) {
-                int d = prefill[i][0] - 1;
-                int r = prefill[i][1];
-                int c = prefill[i][2];
+            for (int[] num : prefill) {
+                int d = num[0] - 1;
+                int r = num[1];
+                int c = num[2];
                 int blockStartIndexCol = (c / SIZE) * SIZE;
                 int blockEndIndexCol = blockStartIndexCol + SIZE;
                 int blockStartIndexRow = (r / SIZE) * SIZE;
@@ -206,8 +204,7 @@ public class AlgorithmX {
                     filled = true;
                 } else if ((d == digit) && (row == r || col == c) && !(row == r && col == c)) {
                     filled = true;
-                } else if ((d == digit) && (row > blockStartIndexRow) && (row < blockEndIndexRow)
-                        && (col > blockStartIndexCol) && (col < blockEndIndexCol) && !(row == r && col == c)) {
+                } else if (d == digit && row > blockStartIndexRow && row < blockEndIndexRow && col > blockStartIndexCol && col < blockEndIndexCol && !(row == r)) {
                     filled = true;
                 }
             }
@@ -216,22 +213,26 @@ public class AlgorithmX {
     }
 
     /**
-     * Recursive search method to solve the Sudoku using Algorithm X.
+     * Executes the recursive search method for solving the Sudoku puzzle. This
+     * method performs a depth-first search by choosing a column, covering it, and
+     * recursively exploring possible row combinations.
      *
-     * @param k    The depth of the search tree.
-     * @param grid The Sudoku grid to be solved.
+     * @param k    The current level of recursion (depth of the search).
+     * @param grid The current Sudoku grid being solved.
+     * @return True if a solution is found, false otherwise.
      */
     private boolean search(int k, int[][] grid) {
         if (root.right == root) {
             return true;
         }
 
-        ColumnNode c = choose();
-        cover(c);
+        ColumnNode c = choose(); // Select the next column to cover
+        cover(c); // Cover the chosen column
 
         for (Node r = c.down; r != c; r = r.down) {
             solution.add(r);
 
+            // Cover the columns of the current row
             for (Node j = r.right; j != r; j = j.right) {
                 cover(j.head);
             }
@@ -240,7 +241,8 @@ public class AlgorithmX {
                 return true;
             }
 
-            r = solution.remove(solution.size() - 1);
+            // If no solution is found, backtrack by uncovering columns
+            r = solution.removeLast();
             c = r.head;
 
             for (Node j = r.left; j != r; j = j.left) {
@@ -248,13 +250,13 @@ public class AlgorithmX {
             }
         }
 
-        uncover(c);
+        uncover(c); // Uncover the chosen column if no solution is found
         return false;
     }
 
-
     /**
-     * Chooses the column with the smallest size (heuristic for optimization).
+     * Chooses the column with the smallest size to optimize the search by reducing
+     * the number of possibilities.
      *
      * @return The column node with the smallest size.
      */
@@ -271,9 +273,8 @@ public class AlgorithmX {
     }
 
     /**
-     * Covers a column in the Dancing Links structure, removing it and its
-     * associated rows
-     * from the matrix.
+     * Covers a column in the Dancing Links structure, removing it from the matrix
+     * and removing all rows associated with the column.
      *
      * @param column The column node to be covered.
      */
@@ -296,8 +297,7 @@ public class AlgorithmX {
 
     /**
      * Uncovers a column in the Dancing Links structure, restoring it and its
-     * associated rows
-     * to the matrix.
+     * associated rows to the matrix.
      *
      * @param column The column node to be uncovered.
      */
@@ -318,17 +318,16 @@ public class AlgorithmX {
     }
 
     /**
-     * Maps the solved solution back to the Sudoku grid.
+     * Maps the solution found by Algorithm X back to the Sudoku grid.
      *
-     * @param grid The Sudoku grid to be updated with the solved solution.
+     * @param grid The Sudoku grid to be updated with the solved values.
      */
     private void mapSolvedToGrid(int[][] grid) {
         int[] result = new int[N * N];
-        for (Iterator<Node> it = solution.iterator(); it.hasNext();) {
+        for (Node node : solution) {
             int number = -1;
             int cellNo = -1;
-            Node element = (Node) it.next();
-            Node next = element;
+            Node next = node;
             do {
                 if (next.head.info.constraint == 0) {
                     number = next.head.info.number;
@@ -336,7 +335,7 @@ public class AlgorithmX {
                     cellNo = next.head.info.position;
                 }
                 next = next.right;
-            } while (element != next);
+            } while (node != next);
             result[cellNo] = number;
         }
         int resultCounter = 0;
@@ -348,4 +347,3 @@ public class AlgorithmX {
         }
     }
 }
-
