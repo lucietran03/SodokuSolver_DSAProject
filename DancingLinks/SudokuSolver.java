@@ -1,6 +1,9 @@
 import Model.Sudoku;
 import Resources.WriteFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class SudokuSolver {
     /**
      * The main method to run the Sudoku solver.
@@ -41,8 +44,17 @@ public class SudokuSolver {
 
         // Get recursion count
         int recursionCount = s.getRecursionCount();
+
+        // Get current timestamp
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestamp = LocalDateTime.now().format(dtf);
+
+        // Define level and algorithm
+        String level = "easy"; // Example level
+        String algorithm = "Dancing Links"; // Example algorithm
+
         // Write results to file, including the question string
-        WriteFile.writeFile(status, timeTaken, memoryUsed, recursionCount, input);
+        WriteFile.writeFile(level, status, timeTaken, memoryUsed, recursionCount, algorithm, timestamp);
 
         // Print results
         System.out.println("Status: " + (status ? "Solved" : "Unsolved"));

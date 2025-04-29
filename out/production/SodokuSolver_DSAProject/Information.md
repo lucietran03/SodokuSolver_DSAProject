@@ -1,71 +1,73 @@
-# Sudoku Solver - DSA Project  
+# Sudoku Solver - DSA Project
 
-## Overview  
+## Overview
 
-This project implements a Sudoku solver using the Dancing Links algorithm. The solver efficiently handles the exact cover problem, which is central to solving Sudoku puzzles, by leveraging the power of the Dancing Links technique.  
+This project implements a Sudoku solver using advanced algorithmic techniques to efficiently solve Sudoku puzzles. The solver combines **Backtracking**, **Minimum Remaining Values (MRV) Heuristic**, and **Forward Checking** to optimize the solving process.
 
----  
+---
 
-## Technique Used: Dancing Links Algorithm  
+## Techniques Used
 
-The Dancing Links algorithm, also known as DLX, is an efficient method for solving exact cover problems. It is based on Donald Knuth's Algorithm X and uses a clever data structure to dynamically update and restore the state of the problem during the solving process.  
+### 1. Backtracking Algorithm
+Backtracking is a general algorithmic approach for solving constraint satisfaction problems like Sudoku. It works by:
 
-In the context of Sudoku:  
-- Represent the Sudoku grid as an exact cover problem.  
-- Use a sparse matrix to encode constraints (rows, columns, subgrids).  
-- Solve the problem by iteratively selecting and removing rows and columns, backtracking when necessary.  
+- Trying to place a value in a cell.
+- Recursively attempting to solve the rest of the puzzle.
+- Backtracking (undoing the last step) if the current placement leads to a dead end.
 
----  
+In the context of Sudoku:
+- Fill empty cells one by one.
+- Check if the current placement is valid.
+- If invalid, undo the placement and try the next possible value.
 
-## Implementation Details  
+---
 
-### Key Steps in the Algorithm:  
-1. **Matrix Representation**: Encode the Sudoku grid as a sparse matrix representing constraints.  
-2. **Cover and Uncover**: Dynamically update the matrix by covering and uncovering rows and columns during the solving process.  
-3. **Recursive Search**: Use Algorithm X to recursively search for a solution.  
-4. **Backtracking**: Restore the matrix state when a dead end is reached.  
+### 2. Heuristics: Minimum Remaining Values (MRV)
+MRV is a heuristic that improves the efficiency of backtracking by prioritizing cells with the fewest legal values remaining. This reduces the branching factor and increases the likelihood of finding a solution faster.
 
----  
+Steps in Sudoku:
+- For each empty cell, calculate the number of valid numbers that can be placed.
+- Prioritize cells with fewer options, as they are more constrained.
 
-## Pseudocode  
+---
 
-```java  
-public boolean solveSudoku(int[][] board) {  
-    DancingLinks dlx = new DancingLinks(board);  
-    return dlx.solve();  
-}  
+### 3. Forward Checking
+Forward checking is an optimization technique that ensures the validity of future moves after placing a value in a cell.
 
-class DancingLinks {  
-    // Initialize the data structure and constraints  
-    public DancingLinks(int[][] board) {  
-        // Implementation details  
-    }  
+Steps in Sudoku:
+- When a number is placed in a cell, update the possible values for all related cells (same row, column, and 3x3 subgrid).
+- If any related cell has no valid numbers left, undo the placement and try the next value.
 
-    // Solve the exact cover problem  
-    public boolean solve() {  
-        // Recursive implementation of Algorithm X  
-        return true;  
-    }  
-}  
-```  
+---
 
-### Helper Functions:  
-- `initializeMatrix(board)`: Converts the Sudoku grid into a sparse matrix representation.  
-- `cover(row)`: Covers a row and its associated columns in the matrix.  
-- `uncover(row)`: Restores a previously covered row and its columns.  
+## Combined Approach: Backtracking + MRV + Forward Checking
 
----  
+When combined, these techniques work as follows:
+1. Use MRV to select the next cell to fill.
+2. Place a value in the cell and update constraints using forward checking.
+3. Recursively attempt to solve the puzzle.
+4. If forward checking detects a conflict or the recursive call fails, backtrack and try the next value.
 
-## Advantages and Limitations  
+This combination significantly reduces the search space and improves the efficiency of solving Sudoku puzzles.
 
-### Advantages:  
-- Highly efficient for solving exact cover problems.  
-- Scales well for complex Sudoku puzzles.  
+---
 
-### Limitations:  
-- Requires a deeper understanding of the Dancing Links data structure.  
-- Implementation complexity is higher compared to basic backtracking.  
+## Pseudocode
 
----  
+```python
+function solveSudoku(board):
+    if board is complete:
+        return true
 
-This implementation of the Dancing Links algorithm provides a robust and efficient method for solving Sudoku puzzles, showcasing the power of advanced data structures in algorithm design.  
+    cell = selectCellUsingMRV(board)  # Choose the cell with the fewest options
+    for value in getValidValues(cell, board):
+        placeValue(cell, value, board)
+        if forwardCheck(board):  # Ensure no conflicts arise
+            if solveSudoku(board):  # Recursive call
+                return true
+        removeValue(cell, value, board)  # Backtrack
+
+    return false
+```
+
+This pseudocode outlines the combined approach, leveraging MRV, forward checking, and backtracking to solve Sudoku puzzles efficiently.

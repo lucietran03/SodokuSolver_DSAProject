@@ -5,55 +5,82 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class WriteFile {
     /**
-     * Writes the status, time, memory used, recursion count, and question string to a file.
-     * Appends the results to the file instead of overwriting it, with a timestamp and separator.
+     * Writes the Sudoku solving results to both a text file and a CSV file.
      *
+     * @param level          The difficulty level of the Sudoku puzzle (e.g., "easy").
      * @param status         Whether the Sudoku was solved successfully.
      * @param time           The time taken to solve the Sudoku (in milliseconds).
      * @param memoryUsed     The memory used during the solving process (in bytes).
      * @param recursionCount The total number of recursions performed.
-     * @param question       The Sudoku puzzle question string.
+     * @param algorithm      The algorithm used to solve the Sudoku.
+     * @param timestamp      The timestamp of when the solving occurred.
      */
-    public static void writeFile(boolean status, long time, long memoryUsed, int recursionCount, String question) {
-        // Use a platform-independent path
-        String filePath = Paths.get(System.getProperty("user.dir"), "DancingLinks", "Resources", "output.txt").toString();
+    public static void writeFile(String level, boolean status, long time, long memoryUsed, int recursionCount, String algorithm, String timestamp) {
+        String txtFilePath = Paths.get(System.getProperty("user.dir"), "DancingLinks", "Resources", "output.txt").toString();
+        String csvFilePath = Paths.get(System.getProperty("user.dir"), "DancingLinks", "Resources", "output2.csv").toString();
 
-        // Ensure the output directory exists
+        writeToTxtFile(txtFilePath, level, status, time, memoryUsed, recursionCount, algorithm, timestamp);
+        writeToCsvFile(csvFilePath, level, status, time, memoryUsed, recursionCount, algorithm, timestamp);
+    }
+
+    private static void writeToTxtFile(String filePath, String level, boolean status, long time, long memoryUsed, int recursionCount, String algorithm, String timestamp) {
         File file = new File(filePath);
-        File parentDir = file.getParentFile();
-        if (parentDir != null && !parentDir.exists()) {
-            if (!parentDir.mkdirs()) {
-                System.err.println("Failed to create directory: " + parentDir.getAbsolutePath());
-                return; // Exit method to avoid further errors
-            }
-        }
+        boolean isFileEmpty = !file.exists() || file.length() == 0;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            // Write timestamp for clarity
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            writer.write("Sudoku Solver Results - " + LocalDateTime.now().format(dtf));
-            writer.newLine();
+            // Write header row if the file is empty
+            if (isFileEmpty) {
+                writer.write(String.format("| %-10s | %-10s | %-20s | %-20s | %-20s | %-20s | %-20s |",
+                        "Level", "Status", "Time Taken (ms)", "Memory Used (bytes)", "Total Recursions", "Algorithm", "Time"));
+                writer.newLine();
+                writer.write(String.format("| %-10s | %-10s | %-20s | %-20s | %-20s | %-20s | %-20s |",
+                        "----------", "----------", "--------------------", "--------------------", "--------------------", "--------------------", "--------------------"));
+                writer.newLine();
+            }
 
-            // Write results
-            writer.write("Question: " + question);
-            writer.newLine();
-            writer.write("Status: " + (status ? "Solved" : "Unsolved"));
-            writer.newLine();
-            writer.write("Time Taken: " + time + " ms");
-            writer.newLine();
-            writer.write("Memory Used: " + memoryUsed + " bytes");
-            writer.newLine();
-            writer.write("Total Recursions: " + recursionCount);
-            writer.newLine();
-            writer.write("----------------------------------------");
+            // Write results in table format with separators
+            writer.write(String.format("| %-10s | %-10s | %-20d | %-20d | %-20d | %-20s | %-20s |",
+                    level,
+                    (status ? "Solved" : "Unsolved"),
+                    time,
+                    memoryUsed,
+                    recursionCount,
+                    algorithm,
+                    timestamp));
             writer.newLine();
         } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+            System.err.println("Error writing to text file: " + e.getMessage());
+        }
+    }
+
+    private static void writeToCsvFile(String filePath, String level, boolean status, long time, long memoryUsed, int recursionCount, String algorithm, String timestamp) {
+        File file = new File(filePath);
+        boolean isFileEmpty = !file.exists() || file.length() == 0;
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            // Write header row if the file is empty
+            if (isFileEmpty) {
+                writer.write("Level,Status,Time Taken (ms),Memory Used (bytes),Total Recursions,Algorithm,Time");
+                writer.newLine();
+            }
+
+            // Write results in CSV format
+            String csvLine = String.format("%s,%s,%d,%d,%d,%s,%s",
+                    level,
+                    (status ? "Solved" : "Unsolved"),
+                    time,
+                    memoryUsed,
+                    recursionCount,
+                    algorithm,
+                    timestamp);
+
+            writer.write(csvLine);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV file: " + e.getMessage());
         }
     }
 }
