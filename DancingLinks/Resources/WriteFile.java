@@ -63,19 +63,16 @@ public class WriteFile {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             // Write header row if the file is empty
             if (isFileEmpty) {
-                writer.write("Level,Status,Time Taken (ms),Memory Used (bytes),Total Recursions,Algorithm,Time");
+                writer.write("Level,Status,Time Taken (ms),Memory Used (bytes)");
                 writer.newLine();
             }
 
-            // Write results in CSV format
-            String csvLine = String.format("%s,%s,%d,%d,%d,%s,%s",
+            // Write results in CSV format with only the required fields
+            String csvLine = String.format("%s,%s,%d,%d",
                     level,
                     (status ? "Solved" : "Unsolved"),
                     time,
-                    memoryUsed,
-                    recursionCount,
-                    algorithm,
-                    timestamp);
+                    memoryUsed);
 
             writer.write(csvLine);
             writer.newLine();
