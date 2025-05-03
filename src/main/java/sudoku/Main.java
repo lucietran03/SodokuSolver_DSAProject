@@ -37,7 +37,7 @@ public class Main {
             long beforeMemory = Utils.getMemoryUsed(false);
             long startTime = System.nanoTime();
 
-            final boolean[] solved = {false};
+            final boolean[] solved = { false };
             Thread solverThread = new Thread(() -> {
                 solved[0] = solver.solve();
             });
@@ -58,11 +58,11 @@ public class Main {
             } else {
                 System.out.println("Time (ms): " + timeUsed / 1_000_000);
                 System.out.println("Memory (KB): " + memoryUsed / 1024);
-                sudoku.print();
+                // sudoku.print();
 
-//                if (solver.getName().equals("Dancing Links")) {
-//                    sudoku.print();
-//                }
+                // if (solver.getName().equals("Dancing Links")) {
+                // sudoku.print();
+                // }
             }
 
             System.out.println("----------");
