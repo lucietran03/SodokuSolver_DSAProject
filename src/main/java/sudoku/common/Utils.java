@@ -23,28 +23,4 @@ public class Utils {
 
         return runtime.totalMemory() - runtime.freeMemory();
     }
-
-    /**
-     * Converts a time duration from nanoseconds to milliseconds.
-     *
-     * @param nano The time duration in nanoseconds.
-     * @return The equivalent time duration in milliseconds.
-     *
-     * Time Complexity: O(1)
-     */
-    public static double nanoToMillis(long nano) {
-        return nano / 1_000_000.0;
-    }
-
-    /**
-     * Converts a size from bytes to kilobytes.
-     *
-     * @param bytes The size in bytes.
-     * @return The equivalent size in kilobytes.
-     *
-     * Time Complexity: O(1)
-     */
-    public static double bytesToKilobytes(long bytes) {
-        return bytes / 1024.0;
-    }
 }

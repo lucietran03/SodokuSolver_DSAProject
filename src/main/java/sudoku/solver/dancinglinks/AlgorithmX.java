@@ -1,16 +1,18 @@
 package sudoku.solver.dancinglinks;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import sudoku.model.SudokuConstant;
 
 /**
  * AlgorithmX class implements Donald Knuth's Algorithm X using the Dancing
- * Links technique to solve exact cover problems, specifically tailored for solving Sudoku
+ * Links technique to solve exact cover problems, specifically tailored for
+ * solving Sudoku
  * puzzles.
  * <p>
  * This class provides methods to create an exact cover matrix for Sudoku
- * constraints, convert the matrix into a Dancing Links structure, and recursively search for
+ * constraints, convert the matrix into a Dancing Links structure, and
+ * recursively search for
  * solutions.
  */
 public class AlgorithmX {
@@ -24,6 +26,8 @@ public class AlgorithmX {
      *
      * @param defaultMatrix The initial Sudoku grid with pre-filled values.
      * @return True if the Sudoku puzzle is solved, false otherwise.
+     * 
+     * Big-O (Worst Case): O(2^(N^2)) - Exponential due to the recursive search.
      */
     public boolean run(int[][] defaultMatrix) {
         byte[][] matrix = createMatrix(defaultMatrix); // Create exact cover matrix
@@ -43,6 +47,8 @@ public class AlgorithmX {
      *
      * @param matrix The exact cover matrix representing Sudoku constraints.
      * @return The root node of the Dancing Links structure.
+     * 
+     * Big-O (Worst Case): O(N^4) - Iterates through the matrix to create nodes.
      */
     private ColumnNode covertToDLL(byte[][] matrix) {
         root = new ColumnNode(); // Root node of the Dancing Links structure
@@ -131,6 +137,8 @@ public class AlgorithmX {
      *
      * @param initialMatrix The initial Sudoku grid with pre-filled values.
      * @return A 2D byte array representing the exact cover matrix.
+     * 
+     * Big-O (Worst Case): O(N^4) - Iterates through all cells and constraints.
      */
     private byte[][] createMatrix(int[][] initialMatrix) {
         int[][] clues = null; // Stores the pre-filled clues in the Sudoku grid
@@ -179,8 +187,10 @@ public class AlgorithmX {
     }
 
     /**
-     * Checks if a digit is already placed in the Sudoku grid based on pre-filled clues.
-     * This method ensures that constraints for row, column, and block are satisfied by
+     * Checks if a digit is already placed in the Sudoku grid based on pre-filled
+     * clues.
+     * This method ensures that constraints for row, column, and block are satisfied
+     * by
      * a specific digit placement.
      *
      * @param digit   The digit to check.
@@ -188,6 +198,8 @@ public class AlgorithmX {
      * @param col     The column index in the Sudoku grid.
      * @param prefill The pre-filled clues in the Sudoku grid.
      * @return True if the cell is filled by a clue, false if not.
+     * 
+     * Big-O (Worst Case): O(N^2) - Iterates through all pre-filled clues.
      */
     private boolean filled(int digit, int row, int col, int[][] prefill) {
         boolean filled = false;
@@ -204,7 +216,8 @@ public class AlgorithmX {
                     filled = true;
                 } else if ((d == digit) && (row == r || col == c) && !(row == r && col == c)) {
                     filled = true;
-                } else if (d == digit && row > blockStartIndexRow && row < blockEndIndexRow && col > blockStartIndexCol && col < blockEndIndexCol && !(row == r)) {
+                } else if (d == digit && row > blockStartIndexRow && row < blockEndIndexRow && col > blockStartIndexCol
+                        && col < blockEndIndexCol && !(row == r)) {
                     filled = true;
                 }
             }
@@ -220,6 +233,8 @@ public class AlgorithmX {
      * @param k    The current level of recursion (depth of the search).
      * @param grid The current Sudoku grid being solved.
      * @return True if a solution is found, false otherwise.
+     * 
+     * Big-O (Worst Case): O(2^(N^2)) - Exponential due to the recursive nature of the search.
      */
     private boolean search(int k, int[][] grid) {
         if (root.right == root) {
@@ -259,6 +274,8 @@ public class AlgorithmX {
      * the number of possibilities.
      *
      * @return The column node with the smallest size.
+     * 
+     * Big-O (Worst Case): O(N^2) - Iterates through all columns to find the smallest.
      */
     private ColumnNode choose() {
         ColumnNode rightOfRoot = (ColumnNode) root.right;
@@ -277,6 +294,8 @@ public class AlgorithmX {
      * and removing all rows associated with the column.
      *
      * @param column The column node to be covered.
+     * 
+     * Big-O (Worst Case): O(N^2) - Iterates through all rows and nodes in the column.
      */
     private void cover(Node column) {
         column.right.left = column.left;
@@ -300,6 +319,8 @@ public class AlgorithmX {
      * associated rows to the matrix.
      *
      * @param column The column node to be uncovered.
+     * 
+     * Big-O (Worst Case): O(N^2) - Iterates through all rows and nodes in the column.
      */
     private void uncover(Node column) {
         Node curRow = column.up;
@@ -321,6 +342,8 @@ public class AlgorithmX {
      * Maps the solution found by Algorithm X back to the Sudoku grid.
      *
      * @param grid The Sudoku grid to be updated with the solved values.
+     * 
+     * Big-O (Worst Case): O(N^2) - Iterates through all cells in the grid.
      */
     private void mapSolvedToGrid(int[][] grid) {
         int[] result = new int[N * N];

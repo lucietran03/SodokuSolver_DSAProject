@@ -1,5 +1,10 @@
 package performance;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 import sudoku.model.Sudoku;
 import sudoku.solver.BasicBacktracking;
 import sudoku.solver.DancingLinks;
@@ -7,22 +12,30 @@ import sudoku.solver.ForwardChecking;
 import sudoku.solver.MRVBacktracking;
 import sudoku.solver.Solver;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
-
+/**
+ * This class is responsible for benchmarking various Sudoku solving algorithms
+ * by performing dummy runs to warm up the JVM and actual runs to record
+ * performance metrics.
+ */
 public class TestInput {
-    private static Solver[] solvers = {
+    private static final Solver[] solvers = {
             new DancingLinks(),
             new BasicBacktracking(),
             new ForwardChecking(),
             new MRVBacktracking(),
     };
 
+    /**
+     * Performs a series of dummy runs on the provided input file to warm up the
+     * JVM.
+     * This helps achieve more accurate performance measurements during actual runs.
+     *
+     * @param inputFilePath the path to the file containing Sudoku puzzles.
+     * @param dummyRuns     the number of dummy runs to perform per solver.
+     * @throws IOException if there is an issue reading the input file.
+     */
     public static void dummyRuns(String inputFilePath, int dummyRuns) throws IOException {
         for (Solver solver : solvers) {
-            // Perform dummy runs
             try (BufferedReader dummyReader = new BufferedReader(new FileReader(inputFilePath))) {
                 String line;
                 int currentRun = 0;
@@ -42,24 +55,30 @@ public class TestInput {
                         throw new RuntimeException(e);
                     }
 
-                    solver.solve(); // Solve the puzzle without recording results
+                    solver.solve(); // Warm-up run, result not recorded
                     currentRun++;
                 }
             }
         }
     }
 
+    /**
+     * The main method that executes dummy runs for warm-up and actual runs to
+     * collect performance data on solving Sudoku puzzles using multiple algorithms.
+     *
+     * @param args command line arguments (not used).
+     */
     public static void main(String[] args) {
         String inputFilePath = Paths.get(
                 System.getProperty("user.dir"),
                 "src", "main", "java", "performance", "input.txt").toString();
-        int dummyRuns = 10; // Number of dummy runs for JVM warm-up
+        int dummyRuns = 10; // JVM warm-up run count
 
         try {
             dummyRuns(inputFilePath, dummyRuns);
+            WriteFile.clearFile(); // Clear previous output before actual test
 
             for (Solver solver : solvers) {
-                // Process the file again for actual runs
                 try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
                     String line;
 
@@ -78,32 +97,33 @@ public class TestInput {
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
-                        System.gc();
-                        // Measure memory usage before solving
+
+                        System.gc(); // Suggest garbage collection
+
+                        // Memory before
                         Runtime runtime = Runtime.getRuntime();
                         long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
 
-                        // Measure time and solve
+                        // Timing and solving
                         long startTime = System.nanoTime();
                         boolean status = solver.solve();
                         long endTime = System.nanoTime();
 
-                        // Measure memory usage after solving
+                        // Memory after
                         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
                         long memoryUsed = memoryAfter - memoryBefore;
                         System.gc();
 
-                        // Calculate time taken in microseconds
+                        // Time in microseconds
                         long timeTaken = (endTime - startTime) / 1000;
 
-                        // Define algorithm and timestamp
+                        // Metadata
                         String algorithm = solver.getName();
                         String timestamp = java.time.LocalDateTime.now()
                                 .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-                        // Write results to output files
-                        WriteFile.writeFile(level, status, timeTaken, memoryUsed, algorithm,
-                        timestamp);
+                        // Output
+                        WriteFile.writeFile(level, status, timeTaken, memoryUsed, algorithm, timestamp);
                     }
                 }
             }

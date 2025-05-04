@@ -39,6 +39,9 @@ public abstract class Solver {
      *     <li>Whether the value already exists in the 3x3 subgrid that contains the specified cell.</li>
      * </ul>
      *
+     * Big O Complexity: O(n), where **n** is the size of the grid (typically 9 for a 9x9 grid).
+     * - The method iterates through the row, column, and 3x3 subgrid, each requiring up to 9 checks.
+     *
      * @param row   The row index where the value is to be placed (0-based index).
      * @param col   The column index where the value is to be placed (0-based index).
      * @param value The value to be placed in the grid.
@@ -69,6 +72,9 @@ public abstract class Solver {
     /**
      * Sets the Sudoku puzzle to be solved by this solver.
      *
+     * Big O Complexity: O(1).
+     * - This method simply assigns a reference to the Sudoku object, which is a constant-time operation.
+     *
      * @param sudoku The Sudoku puzzle.
      */
     public void setSudoku(Sudoku sudoku) {
@@ -77,6 +83,9 @@ public abstract class Solver {
 
     /**
      * Returns the name of the solver algorithm.
+     *
+     * Big O Complexity: O(1).
+     * - This method simply returns a string, which is a constant-time operation.
      *
      * @return The name of the solver.
      */
@@ -89,6 +98,10 @@ public abstract class Solver {
      * <p>
      * This is an abstract method that must be implemented by subclasses to provide the
      * specific solving algorithm (e.g., backtracking, dancing links, etc.).
+     *
+     * Big O Complexity: Depends on the specific algorithm implemented in subclasses.
+     * - For example, a backtracking solver could have a worst-case time complexity of O(9^(n^2)),
+     *   where **n** is the size of the grid.
      *
      * @return {@code true} if the puzzle is solved, {@code false} otherwise.
      */

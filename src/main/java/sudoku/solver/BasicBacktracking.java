@@ -10,6 +10,8 @@ public class BasicBacktracking extends Solver {
 
     /**
      * Constructs a new BasicBacktracking solver with the name "Backtracking".
+     * 
+     * Time Complexity: O(1) - Constructor execution is constant time.
      */
     public BasicBacktracking() {
         super("Backtracking");
@@ -19,9 +21,12 @@ public class BasicBacktracking extends Solver {
      * Solves the Sudoku puzzle using the backtracking algorithm.
      * It iterates over all cells in the grid, and for each empty cell, it tries numbers from 1 to 9.
      * If a number is valid, it places the number and proceeds recursively to solve the next cell.
-     * If a number of leads to an invalid configuration, it backtracks by resetting the cell and trying the next number.
+     * If a number leads to an invalid configuration, it backtracks by resetting the cell and trying the next number.
      *
      * @return true if the Sudoku puzzle is solved, false if no solution exists.
+     * 
+     * Time Complexity (Worst Case): O(9^(N*N)) - For an N x N grid, in the worst case, 
+     * every cell may need to try all 9 numbers.
      */
     @Override
     public boolean solve() {

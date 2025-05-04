@@ -28,6 +28,7 @@ public class MRVBacktracking extends Solver {
      * potentially speeding up the solution process by prioritizing the most constrained cells.
      *
      * @return true if the puzzle is solved, false otherwise.
+     * Big O Complexity: O(9^(n^2)) in the worst case.
      */
     @Override
     public boolean solve() {
@@ -41,6 +42,7 @@ public class MRVBacktracking extends Solver {
      *
      * @param grid The current state of the Sudoku grid.
      * @return true if the puzzle is solved, false otherwise.
+     * Big O Complexity: O(9^(n^2)) in the worst case.
      */
     private boolean solveWithMRV(int[][] grid) {
         int[] cell = selectCellWithMRV(grid);
@@ -67,6 +69,7 @@ public class MRVBacktracking extends Solver {
      *
      * @param grid The current state of the Sudoku grid.
      * @return The row and column of the cell with the least valid options, or null if no unassigned cells exist.
+     * Big O Complexity: O(n^2 * n) = O(n^3) in the worst case, where n is the size of the grid.
      */
     private int[] selectCellWithMRV(int[][] grid) {
         int minCount = SIZE + 1;

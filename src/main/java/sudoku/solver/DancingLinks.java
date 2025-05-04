@@ -23,6 +23,8 @@ public class DancingLinks extends Solver {
 
     /**
      * Constructs a new DancingLinks solver with the name "Dancing Links".
+     * <p>
+     * Big O Complexity: O(1) in the worst case, as this is a simple constructor.
      */
     public DancingLinks() {
         super("Dancing Links");
@@ -34,6 +36,8 @@ public class DancingLinks extends Solver {
      * The method initializes the Algorithm X solver and runs it on the current Sudoku grid
      * to find a solution. It uses the `run` method from the AlgorithmX class to perform the actual
      * solving.
+     * <p>
+     * Big O Complexity: O(2^n) in the worst case, where n is the number of variables in the exact cover problem.
      *
      * @return true if the puzzle is solved, false otherwise.
      */
