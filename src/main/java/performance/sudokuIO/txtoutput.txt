@@ -1,0 +1,206 @@
+| ID    | Algorithm             | Level      | Status     | Time Taken (ms)      | Memory Used (bytes)  | Time                 |
+| ----- | --------------------- | ---------- | ---------- | -------------------- | -------------------- | -------------------- |
+| 1     | Dancing Links         | EASY       | Solved     | 1561                 | 0                    | 2025-05-04 19:48:28  |
+| 1     | Backtracking          | EASY       | Solved     | 854                  | 1090                 | 2025-05-04 19:48:28  |
+| 1     | Forward Checking      | EASY       | Solved     | 6106                 | 2587728              | 2025-05-04 19:48:28  |
+| 1     | Backtracking with MRV | EASY       | Solved     | 224                  | 14912                | 2025-05-04 19:48:28  |
+| 2     | Dancing Links         | EASY       | Solved     | 645                  | 345688               | 2025-05-04 19:48:28  |
+| 2     | Backtracking          | EASY       | Solved     | 23                   | 0                    | 2025-05-04 19:48:29  |
+| 2     | Forward Checking      | EASY       | Solved     | 12272                | 2957144              | 2025-05-04 19:48:29  |
+| 2     | Backtracking with MRV | EASY       | Solved     | 919                  | 84744                | 2025-05-04 19:48:29  |
+| 3     | Dancing Links         | EASY       | Solved     | 586                  | 335632               | 2025-05-04 19:48:29  |
+| 3     | Backtracking          | EASY       | Solved     | 5                    | 0                    | 2025-05-04 19:48:29  |
+| 3     | Forward Checking      | EASY       | Solved     | 1565                 | 2366920              | 2025-05-04 19:48:29  |
+| 3     | Backtracking with MRV | EASY       | Solved     | 1524                 | 41112                | 2025-05-04 19:48:29  |
+| 4     | Dancing Links         | EASY       | Solved     | 615                  | 346032               | 2025-05-04 19:48:29  |
+| 4     | Backtracking          | EASY       | Solved     | 1                    | 0                    | 2025-05-04 19:48:29  |
+| 4     | Forward Checking      | EASY       | Solved     | 6281                 | 1275952              | 2025-05-04 19:48:29  |
+| 4     | Backtracking with MRV | EASY       | Solved     | 3665                 | 1481192              | 2025-05-04 19:48:29  |
+| 5     | Dancing Links         | EASY       | Solved     | 616                  | 342528               | 2025-05-04 19:48:29  |
+| 5     | Backtracking          | EASY       | Solved     | 10                   | 0                    | 2025-05-04 19:48:30  |
+| 5     | Forward Checking      | EASY       | Solved     | 411                  | 1443880              | 2025-05-04 19:48:30  |
+| 5     | Backtracking with MRV | EASY       | Solved     | 171                  | 75976                | 2025-05-04 19:48:30  |
+| 6     | Dancing Links         | EASY       | Solved     | 542                  | 380856               | 2025-05-04 19:48:30  |
+| 6     | Backtracking          | EASY       | Solved     | 3                    | 0                    | 2025-05-04 19:48:30  |
+| 6     | Forward Checking      | EASY       | Solved     | 526                  | 1596376              | 2025-05-04 19:48:30  |
+| 6     | Backtracking with MRV | EASY       | Solved     | 142                  | 75976                | 2025-05-04 19:48:30  |
+| 7     | Dancing Links         | EASY       | Solved     | 505                  | 380856               | 2025-05-04 19:48:30  |
+| 7     | Backtracking          | EASY       | Solved     | 1                    | 0                    | 2025-05-04 19:48:30  |
+| 7     | Forward Checking      | EASY       | Solved     | 734                  | 1595928              | 2025-05-04 19:48:30  |
+| 7     | Backtracking with MRV | EASY       | Solved     | 1980                 | 75976                | 2025-05-04 19:48:30  |
+| 8     | Dancing Links         | EASY       | Solved     | 531                  | 380856               | 2025-05-04 19:48:30  |
+| 8     | Backtracking          | EASY       | Solved     | 1                    | 0                    | 2025-05-04 19:48:31  |
+| 8     | Forward Checking      | EASY       | Solved     | 796                  | 1824432              | 2025-05-04 19:48:31  |
+| 8     | Backtracking with MRV | EASY       | Solved     | 160                  | 75976                | 2025-05-04 19:48:31  |
+| 9     | Dancing Links         | EASY       | Solved     | 551                  | 380856               | 2025-05-04 19:48:31  |
+| 9     | Backtracking          | EASY       | Solved     | 3                    | 0                    | 2025-05-04 19:48:31  |
+| 9     | Forward Checking      | EASY       | Solved     | 4114                 | 4025104              | 2025-05-04 19:48:31  |
+| 9     | Backtracking with MRV | EASY       | Solved     | 142                  | 117992               | 2025-05-04 19:48:31  |
+| 10    | Dancing Links         | EASY       | Solved     | 633                  | 354624               | 2025-05-04 19:48:31  |
+| 10    | Backtracking          | EASY       | Solved     | 1                    | 0                    | 2025-05-04 19:48:32  |
+| 10    | Forward Checking      | EASY       | Solved     | 524                  | 2124368              | 2025-05-04 19:48:32  |
+| 10    | Backtracking with MRV | EASY       | Solved     | 149                  | 117992               | 2025-05-04 19:48:32  |
+| 11    | Dancing Links         | EASY       | Solved     | 616                  | 354624               | 2025-05-04 19:48:32  |
+| 11    | Backtracking          | EASY       | Solved     | 4                    | 0                    | 2025-05-04 19:48:32  |
+| 11    | Forward Checking      | EASY       | Solved     | 724                  | 2950792              | 2025-05-04 19:48:32  |
+| 11    | Backtracking with MRV | EASY       | Solved     | 313                  | 117992               | 2025-05-04 19:48:32  |
+| 12    | Dancing Links         | EASY       | Solved     | 526                  | 354624               | 2025-05-04 19:48:32  |
+| 12    | Backtracking          | EASY       | Solved     | 446                  | 0                    | 2025-05-04 19:48:32  |
+| 12    | Forward Checking      | EASY       | Solved     | 908                  | 2006544              | 2025-05-04 19:48:32  |
+| 12    | Backtracking with MRV | EASY       | Solved     | 196                  | 117992               | 2025-05-04 19:48:32  |
+| 13    | Dancing Links         | EASY       | Solved     | 834                  | 354624               | 2025-05-04 19:48:32  |
+| 13    | Backtracking          | EASY       | Solved     | 1                    | 0                    | 2025-05-04 19:48:33  |
+| 13    | Forward Checking      | EASY       | Solved     | 619                  | 2242736              | 2025-05-04 19:48:33  |
+| 13    | Backtracking with MRV | EASY       | Solved     | 186                  | 117992               | 2025-05-04 19:48:33  |
+| 14    | Dancing Links         | EASY       | Solved     | 595                  | 354624               | 2025-05-04 19:48:33  |
+| 14    | Backtracking          | EASY       | Solved     | 2                    | 0                    | 2025-05-04 19:48:33  |
+| 14    | Forward Checking      | EASY       | Solved     | 5912                 | 2096392              | 2025-05-04 19:48:33  |
+| 14    | Backtracking with MRV | EASY       | Solved     | 135                  | 120616               | 2025-05-04 19:48:33  |
+| 15    | Dancing Links         | EASY       | Solved     | 634                  | 362496               | 2025-05-04 19:48:33  |
+| 15    | Backtracking          | EASY       | Solved     | 1                    | 0                    | 2025-05-04 19:48:34  |
+| 15    | Forward Checking      | EASY       | Solved     | 423                  | 1568232              | 2025-05-04 19:48:34  |
+| 15    | Backtracking with MRV | EASY       | Solved     | 487                  | 120616               | 2025-05-04 19:48:34  |
+| 16    | Dancing Links         | MEDIUM     | Solved     | 610                  | 362496               | 2025-05-04 19:48:34  |
+| 16    | Backtracking          | MEDIUM     | Solved     | 1                    | 0                    | 2025-05-04 19:48:34  |
+| 16    | Forward Checking      | MEDIUM     | Solved     | 877                  | 2774728              | 2025-05-04 19:48:34  |
+| 16    | Backtracking with MRV | MEDIUM     | Solved     | 143                  | 120616               | 2025-05-04 19:48:34  |
+| 17    | Dancing Links         | MEDIUM     | Solved     | 573                  | 362496               | 2025-05-04 19:48:34  |
+| 17    | Backtracking          | MEDIUM     | Solved     | 11                   | 0                    | 2025-05-04 19:48:34  |
+| 17    | Forward Checking      | MEDIUM     | Solved     | 639                  | 2051496              | 2025-05-04 19:48:34  |
+| 17    | Backtracking with MRV | MEDIUM     | Solved     | 147                  | 120616               | 2025-05-04 19:48:34  |
+| 18    | Dancing Links         | MEDIUM     | Solved     | 562                  | 362496               | 2025-05-04 19:48:34  |
+| 18    | Backtracking          | MEDIUM     | Solved     | 46                   | 839                  | 2025-05-04 19:48:35  |
+| 18    | Forward Checking      | MEDIUM     | Solved     | 787                  | 2654448              | 2025-05-04 19:48:35  |
+| 18    | Backtracking with MRV | MEDIUM     | Solved     | 152                  | 120616               | 2025-05-04 19:48:35  |
+| 19    | Dancing Links         | MEDIUM     | Solved     | 493                  | 362496               | 2025-05-04 19:48:35  |
+| 19    | Backtracking          | MEDIUM     | Solved     | 1                    | 0                    | 2025-05-04 19:48:35  |
+| 19    | Forward Checking      | MEDIUM     | Solved     | 995                  | 2171352              | 2025-05-04 19:48:35  |
+| 19    | Backtracking with MRV | MEDIUM     | Solved     | 140                  | 120616               | 2025-05-04 19:48:35  |
+| 20    | Dancing Links         | MEDIUM     | Solved     | 590                  | 362496               | 2025-05-04 19:48:35  |
+| 20    | Backtracking          | MEDIUM     | Solved     | 1                    | 0                    | 2025-05-04 19:48:36  |
+| 20    | Forward Checking      | MEDIUM     | Solved     | 597                  | 1930128              | 2025-05-04 19:48:36  |
+| 20    | Backtracking with MRV | MEDIUM     | Solved     | 3119                 | 120616               | 2025-05-04 19:48:36  |
+| 21    | Dancing Links         | MEDIUM     | Solved     | 959                  | 362496               | 2025-05-04 19:48:36  |
+| 21    | Backtracking          | MEDIUM     | Solved     | 9                    | 0                    | 2025-05-04 19:48:36  |
+| 21    | Forward Checking      | MEDIUM     | Solved     | 492                  | 1809488              | 2025-05-04 19:48:36  |
+| 21    | Backtracking with MRV | MEDIUM     | Solved     | 216                  | 120616               | 2025-05-04 19:48:36  |
+| 22    | Dancing Links         | MEDIUM     | Solved     | 584                  | 362496               | 2025-05-04 19:48:36  |
+| 22    | Backtracking          | MEDIUM     | Solved     | 1                    | 0                    | 2025-05-04 19:48:36  |
+| 22    | Forward Checking      | MEDIUM     | Solved     | 2134                 | 1688872              | 2025-05-04 19:48:36  |
+| 22    | Backtracking with MRV | MEDIUM     | Solved     | 810                  | 120616               | 2025-05-04 19:48:36  |
+| 23    | Dancing Links         | MEDIUM     | Solved     | 1141                 | 362496               | 2025-05-04 19:48:36  |
+| 23    | Backtracking          | MEDIUM     | Solved     | 3                    | 0                    | 2025-05-04 19:48:37  |
+| 23    | Forward Checking      | MEDIUM     | Solved     | 488                  | 1689216              | 2025-05-04 19:48:37  |
+| 23    | Backtracking with MRV | MEDIUM     | Solved     | 146                  | 120616               | 2025-05-04 19:48:37  |
+| 24    | Dancing Links         | MEDIUM     | Solved     | 520                  | 362496               | 2025-05-04 19:48:37  |
+| 24    | Backtracking          | MEDIUM     | Solved     | 4805                 | 0                    | 2025-05-04 19:48:38  |
+| 24    | Forward Checking      | MEDIUM     | Solved     | 562                  | 1930136              | 2025-05-04 19:48:38  |
+| 24    | Backtracking with MRV | MEDIUM     | Solved     | 13097                | 482464               | 2025-05-04 19:48:38  |
+| 25    | Dancing Links         | MEDIUM     | Solved     | 1060                 | 362496               | 2025-05-04 19:48:38  |
+| 25    | Backtracking          | MEDIUM     | Solved     | 6                    | 0                    | 2025-05-04 19:48:38  |
+| 25    | Forward Checking      | MEDIUM     | Solved     | 730                  | 1688840              | 2025-05-04 19:48:38  |
+| 25    | Backtracking with MRV | MEDIUM     | Solved     | 352                  | 120616               | 2025-05-04 19:48:38  |
+| 26    | Dancing Links         | MEDIUM     | Solved     | 754                  | 362496               | 2025-05-04 19:48:38  |
+| 26    | Backtracking          | MEDIUM     | Solved     | 5                    | 0                    | 2025-05-04 19:48:39  |
+| 26    | Forward Checking      | MEDIUM     | Solved     | 566                  | 2050840              | 2025-05-04 19:48:39  |
+| 26    | Backtracking with MRV | MEDIUM     | Solved     | 164                  | 120616               | 2025-05-04 19:48:39  |
+| 27    | Dancing Links         | MEDIUM     | Solved     | 1733                 | 362496               | 2025-05-04 19:48:39  |
+| 27    | Backtracking          | MEDIUM     | Solved     | 1                    | 0                    | 2025-05-04 19:48:39  |
+| 27    | Forward Checking      | MEDIUM     | Solved     | 1403                 | 3257072              | 2025-05-04 19:48:39  |
+| 27    | Backtracking with MRV | MEDIUM     | Solved     | 245                  | 120616               | 2025-05-04 19:48:39  |
+| 28    | Dancing Links         | MEDIUM     | Solved     | 695                  | 446400               | 2025-05-04 19:48:39  |
+| 28    | Backtracking          | MEDIUM     | Solved     | 112                  | 0                    | 2025-05-04 19:48:40  |
+| 28    | Forward Checking      | MEDIUM     | Solved     | 1032                 | 2533256              | 2025-05-04 19:48:40  |
+| 28    | Backtracking with MRV | MEDIUM     | Solved     | 140                  | 120616               | 2025-05-04 19:48:40  |
+| 29    | Dancing Links         | MEDIUM     | Solved     | 561                  | 362496               | 2025-05-04 19:48:40  |
+| 29    | Backtracking          | MEDIUM     | Solved     | 0                    | 0                    | 2025-05-04 19:48:40  |
+| 29    | Forward Checking      | MEDIUM     | Solved     | 495                  | 1809912              | 2025-05-04 19:48:40  |
+| 29    | Backtracking with MRV | MEDIUM     | Solved     | 262                  | 120616               | 2025-05-04 19:48:40  |
+| 30    | Dancing Links         | MEDIUM     | Solved     | 735                  | 362496               | 2025-05-04 19:48:40  |
+| 30    | Backtracking          | MEDIUM     | Solved     | 764                  | 0                    | 2025-05-04 19:48:40  |
+| 30    | Forward Checking      | MEDIUM     | Solved     | 4100                 | 2895800              | 2025-05-04 19:48:40  |
+| 30    | Backtracking with MRV | MEDIUM     | Solved     | 210                  | 120616               | 2025-05-04 19:48:40  |
+| 31    | Dancing Links         | HARD       | Solved     | 562                  | 362496               | 2025-05-04 19:48:40  |
+| 31    | Backtracking          | HARD       | Solved     | 2                    | 0                    | 2025-05-04 19:48:41  |
+| 31    | Forward Checking      | HARD       | Solved     | 746                  | 2051600              | 2025-05-04 19:48:41  |
+| 31    | Backtracking with MRV | HARD       | Solved     | 193                  | 120616               | 2025-05-04 19:48:41  |
+| 32    | Dancing Links         | HARD       | Solved     | 963                  | 362496               | 2025-05-04 19:48:41  |
+| 32    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:41  |
+| 32    | Forward Checking      | HARD       | Solved     | 1144                 | 2376096              | 2025-05-04 19:48:41  |
+| 32    | Backtracking with MRV | HARD       | Solved     | 344                  | 120616               | 2025-05-04 19:48:41  |
+| 33    | Dancing Links         | HARD       | Solved     | 613                  | 530288               | 2025-05-04 19:48:41  |
+| 33    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:42  |
+| 33    | Forward Checking      | HARD       | Solved     | 1417                 | 2654480              | 2025-05-04 19:48:42  |
+| 33    | Backtracking with MRV | HARD       | Solved     | 314                  | 120616               | 2025-05-04 19:48:42  |
+| 34    | Dancing Links         | HARD       | Solved     | 612                  | 362496               | 2025-05-04 19:48:42  |
+| 34    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:42  |
+| 34    | Forward Checking      | HARD       | Solved     | 652                  | 1809576              | 2025-05-04 19:48:42  |
+| 34    | Backtracking with MRV | HARD       | Solved     | 163                  | 120616               | 2025-05-04 19:48:42  |
+| 35    | Dancing Links         | HARD       | Solved     | 685                  | 362496               | 2025-05-04 19:48:42  |
+| 35    | Backtracking          | HARD       | Solved     | 48                   | 0                    | 2025-05-04 19:48:42  |
+| 35    | Forward Checking      | HARD       | Solved     | 4884                 | 2197000              | 2025-05-04 19:48:42  |
+| 35    | Backtracking with MRV | HARD       | Solved     | 1174                 | 2097152              | 2025-05-04 19:48:42  |
+| 36    | Dancing Links         | HARD       | Solved     | 618                  | 548488               | 2025-05-04 19:48:42  |
+| 36    | Backtracking          | HARD       | Solved     | 26                   | 0                    | 2025-05-04 19:48:43  |
+| 36    | Forward Checking      | HARD       | Solved     | 811                  | 1645784              | 2025-05-04 19:48:43  |
+| 36    | Backtracking with MRV | HARD       | Solved     | 145                  | 137128               | 2025-05-04 19:48:43  |
+| 37    | Dancing Links         | HARD       | Solved     | 515                  | 411712               | 2025-05-04 19:48:43  |
+| 37    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:43  |
+| 37    | Forward Checking      | HARD       | Solved     | 923                  | 2057728              | 2025-05-04 19:48:43  |
+| 37    | Backtracking with MRV | HARD       | Solved     | 273                  | 137128               | 2025-05-04 19:48:43  |
+| 38    | Dancing Links         | HARD       | Solved     | 621                  | 411712               | 2025-05-04 19:48:43  |
+| 38    | Backtracking          | HARD       | Solved     | 2                    | 0                    | 2025-05-04 19:48:43  |
+| 38    | Forward Checking      | HARD       | Solved     | 934                  | 1921016              | 2025-05-04 19:48:43  |
+| 38    | Backtracking with MRV | HARD       | Solved     | 360                  | 137128               | 2025-05-04 19:48:43  |
+| 39    | Dancing Links         | HARD       | Solved     | 542                  | 411728               | 2025-05-04 19:48:43  |
+| 39    | Backtracking          | HARD       | Solved     | 2                    | 0                    | 2025-05-04 19:48:44  |
+| 39    | Forward Checking      | HARD       | Solved     | 546                  | 2057112              | 2025-05-04 19:48:44  |
+| 39    | Backtracking with MRV | HARD       | Solved     | 690                  | 137128               | 2025-05-04 19:48:44  |
+| 40    | Dancing Links         | HARD       | Solved     | 618                  | 411712               | 2025-05-04 19:48:44  |
+| 40    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:44  |
+| 40    | Forward Checking      | HARD       | Solved     | 714                  | 2605632              | 2025-05-04 19:48:44  |
+| 40    | Backtracking with MRV | HARD       | Solved     | 197                  | 137128               | 2025-05-04 19:48:44  |
+| 41    | Dancing Links         | HARD       | Solved     | 777                  | 411712               | 2025-05-04 19:48:44  |
+| 41    | Backtracking          | HARD       | Solved     | 60                   | 0                    | 2025-05-04 19:48:44  |
+| 41    | Forward Checking      | HARD       | Solved     | 597                  | 2058168              | 2025-05-04 19:48:44  |
+| 41    | Backtracking with MRV | HARD       | Solved     | 164                  | 137128               | 2025-05-04 19:48:44  |
+| 42    | Dancing Links         | HARD       | Solved     | 682                  | 411712               | 2025-05-04 19:48:44  |
+| 42    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:45  |
+| 42    | Forward Checking      | HARD       | Solved     | 566                  | 1920136              | 2025-05-04 19:48:45  |
+| 42    | Backtracking with MRV | HARD       | Solved     | 154                  | 137128               | 2025-05-04 19:48:45  |
+| 43    | Dancing Links         | HARD       | Solved     | 590                  | 411712               | 2025-05-04 19:48:45  |
+| 43    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:45  |
+| 43    | Forward Checking      | HARD       | Solved     | 904                  | 2331808              | 2025-05-04 19:48:45  |
+| 43    | Backtracking with MRV | HARD       | Solved     | 225                  | 137128               | 2025-05-04 19:48:45  |
+| 44    | Dancing Links         | HARD       | Solved     | 572                  | 411728               | 2025-05-04 19:48:45  |
+| 44    | Backtracking          | HARD       | Solved     | 1                    | 0                    | 2025-05-04 19:48:46  |
+| 44    | Forward Checking      | HARD       | Solved     | 482                  | 1783016              | 2025-05-04 19:48:46  |
+| 44    | Backtracking with MRV | HARD       | Solved     | 123                  | 137128               | 2025-05-04 19:48:46  |
+| 45    | Dancing Links         | HARD       | Solved     | 583                  | 411712               | 2025-05-04 19:48:46  |
+| 45    | Backtracking          | HARD       | Solved     | 11                   | 0                    | 2025-05-04 19:48:46  |
+| 45    | Forward Checking      | HARD       | Solved     | 959                  | 2058392              | 2025-05-04 19:48:46  |
+| 45    | Backtracking with MRV | HARD       | Solved     | 5906                 | 274256               | 2025-05-04 19:48:46  |
+| 46    | Dancing Links         | EVIL       | Solved     | 609                  | 411728               | 2025-05-04 19:48:46  |
+| 46    | Backtracking          | EVIL       | Solved     | 1                    | 0                    | 2025-05-04 19:48:46  |
+| 46    | Forward Checking      | EVIL       | Solved     | 687                  | 2605912              | 2025-05-04 19:48:46  |
+| 46    | Backtracking with MRV | EVIL       | Solved     | 215                  | 137128               | 2025-05-04 19:48:46  |
+| 47    | Dancing Links         | EVIL       | Solved     | 548                  | 411712               | 2025-05-04 19:48:46  |
+| 47    | Backtracking          | EVIL       | Solved     | 1025                 | 0                    | 2025-05-04 19:48:47  |
+| 47    | Forward Checking      | EVIL       | Solved     | 550                  | 2195960              | 2025-05-04 19:48:47  |
+| 47    | Backtracking with MRV | EVIL       | Solved     | 202                  | 137128               | 2025-05-04 19:48:47  |
+| 48    | Dancing Links         | EVIL       | Solved     | 1037                 | 411728               | 2025-05-04 19:48:47  |
+| 48    | Backtracking          | EVIL       | Solved     | 2                    | 0                    | 2025-05-04 19:48:47  |
+| 48    | Forward Checking      | EVIL       | Solved     | 650                  | 2742944              | 2025-05-04 19:48:47  |
+| 48    | Backtracking with MRV | EVIL       | Solved     | 277                  | 137128               | 2025-05-04 19:48:47  |
+| 49    | Dancing Links         | EVIL       | Solved     | 556                  | 411728               | 2025-05-04 19:48:47  |
+| 49    | Backtracking          | EVIL       | Solved     | 1                    | 0                    | 2025-05-04 19:48:48  |
+| 49    | Forward Checking      | EVIL       | Solved     | 609                  | 2331528              | 2025-05-04 19:48:48  |
+| 49    | Backtracking with MRV | EVIL       | Solved     | 198                  | 137128               | 2025-05-04 19:48:48  |
+| 50    | Dancing Links         | EVIL       | Solved     | 525                  | 411728               | 2025-05-04 19:48:48  |
+| 50    | Backtracking          | EVIL       | Solved     | 1                    | 0                    | 2025-05-04 19:48:48  |
+| 50    | Forward Checking      | EVIL       | Solved     | 620                  | 2468520              | 2025-05-04 19:48:48  |
+| 50    | Backtracking with MRV | EVIL       | Solved     | 207                  | 137128               | 2025-05-04 19:48:48  |
+| 51    | Dancing Links         | EVIL       | Solved     | 521                  | 411728               | 2025-05-04 19:48:48  |
+| 51    | Backtracking          | EVIL       | Solved     | 18                   | 0                    | 2025-05-04 19:48:48  |
+| 51    | Forward Checking      | EVIL       | Solved     | 504                  | 1645952              | 2025-05-04 19:48:48  |
+| 51    | Backtracking with MRV | EVIL       | Solved     | 150                  | 137128               | 2025-05-04 19:48:48  |

@@ -23,7 +23,7 @@ public class MyMap<K, V> {
         /**
          * Constructs a new key-value entry.
          *
-         * @param key the key
+         * @param key   the key
          * @param value the value
          */
         Entry(K key, V value) {
@@ -55,9 +55,10 @@ public class MyMap<K, V> {
     }
 
     /**
-     * Puts a key-value pair into the map. If the key already exists, the value is updated.
+     * Puts a key-value pair into the map. If the key already exists, the value is
+     * updated.
      *
-     * @param key the key to put
+     * @param key   the key to put
      * @param value the value to associate with the key
      */
     public void put(K key, V value) {
@@ -161,4 +162,26 @@ public class MyMap<K, V> {
         }
         return keys; // O(n) where n is the number of keys in the map
     }
+
+    /**
+     * Returns the value associated with the specified key, or the default value if
+     * the key does not exist.
+     *
+     * @param key          the key to look up
+     * @param defaultValue the default value to return if the key does not exist
+     * @return the value associated with the key, or the default value
+     */
+    public V getOrDefault(K key, V defaultValue) {
+        int index = getBucketIndex(key);
+        if (buckets[index] != null) {
+            for (Object obj : buckets[index].toArray()) {
+                Entry<K, V> entry = (Entry<K, V>) obj;
+                if (entry.key.equals(key)) {
+                    return entry.value; // Return the value if the key exists
+                }
+            }
+        }
+        return defaultValue; // Return the default value if the key does not exist
+    }
+
 }
