@@ -196,27 +196,4 @@ public class ForwardChecking extends Solver {
         }
         return copy;
     }
-
-    /**
-     * Validates if a number can be placed in a cell.
-     *
-     * @return true if valid, false otherwise.
-     *         Time Complexity (Worst-case): O(27)
-     */
-    public boolean isValid(int row, int col, int num) {
-        int[][] grid = sudoku.getGrid();
-        for (int i = 0; i < SIZE; i++) {
-            if (grid[row][i] == num || grid[i][col] == num)
-                return false;
-        }
-        int boxRow = row / 3 * 3;
-        int boxCol = col / 3 * 3;
-        for (int i = boxRow; i < boxRow + 3; i++) {
-            for (int j = boxCol; j < boxCol + 3; j++) {
-                if (grid[i][j] == num)
-                    return false;
-            }
-        }
-        return true;
-    }
 }
