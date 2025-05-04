@@ -60,9 +60,9 @@ public class Main {
                 System.out.println("Memory (KB): " + memoryUsed / 1024);
                 // sudoku.print();
 
-                // if (solver.getName().equals("Dancing Links")) {
-                // sudoku.print();
-                // }
+                if (solver.getName().equals("Dancing Links")) {
+                sudoku.print();
+                }
             }
 
             System.out.println("----------");

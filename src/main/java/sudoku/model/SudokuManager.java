@@ -2,39 +2,35 @@ package sudoku.model;
 
 import java.util.Scanner;
 
+/**
+ * This method prompts the user to select a default Sudoku matrix difficulty level
+ * and returns the corresponding Sudoku matrix as a string.
+ * <p>
+ * The user is presented with four difficulty options: Easy, Medium, Hard, Evil
+ * Based on the user's choice, the method retrieves the appropriate Sudoku matrix
+ * from the {@code SudokuConstant} class.
+ * If the user provides an invalid choice (not between 1 and 4), the method
+ * prints an error message and returns {@code null}.
+ *
+ * <p><b>Time Complexity:</b> O(1) in the worst case, as the method performs a constant
+ * number of operations regardless of the input.
+ */
 public class SudokuManager {
 
     // Method to get the Sudoku matrix from the user
     public static String getSudokuMatrix(Scanner scanner) {
-        System.out.println("Choose an option:");
-        System.out.println("1. Enter a custom Sudoku matrix");
-        System.out.println("2. Choose a default Sudoku matrix");
-
+        System.out.println("Choose a default Sudoku matrix");
+        System.out.println("1. Easy");
+        System.out.println("2. Medium");
+        System.out.println("3. Hard");
+        System.out.println("4. Evil");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline character
 
         String sudokuMatrix = "";
 
-        if (choice == 1) {
-            // Enter a custom Sudoku matrix
-            System.out.println("Enter the Sudoku matrix (81 characters): ");
-            sudokuMatrix = scanner.nextLine();
-
-            if (sudokuMatrix.length() != 81) {
-                System.out.println("Invalid matrix length. The matrix must have 81 characters.");
-                return null;
-            }
-
-        } else if (choice == 2) {
-            // Choose a default Sudoku matrix
-            System.out.println("Choose difficulty level:");
-            System.out.println("1. Easy");
-            System.out.println("2. Medium");
-            System.out.println("3. Hard");
-            System.out.println("4. Evil");
-
-            int difficulty = scanner.nextInt();
-            switch (difficulty) {
+        if (choice > 0 && choice < 5) {
+            switch (choice) {
                 case 1:
                     sudokuMatrix = SudokuConstant.EASY;
                     break;
