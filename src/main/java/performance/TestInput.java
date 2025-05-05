@@ -5,12 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import sudoku.common.Utils;
 import sudoku.model.Sudoku;
 import sudoku.solver.BasicBacktracking;
 import sudoku.solver.DancingLinks;
 import sudoku.solver.ForwardChecking;
 import sudoku.solver.MRVBacktracking;
 import sudoku.solver.Solver;
+import static sudoku.model.SudokuConstant.N;
 
 /**
  * This class benchmarks the performance of different Sudoku solving algorithms
@@ -91,50 +93,42 @@ public class TestInput {
      *         bytes]
      */
     public static long[] realRunning(Solver solver) {
-        System.gc(); // Attempt garbage collection
+        try {
+            // Prepare measurement
+            Utils.getMemoryUsed(true);
+            long beforeMemory = Utils.getMemoryUsed(false);
+            long startTime = System.nanoTime();
 
-        Runtime runtime = Runtime.getRuntime();
-        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+            // Run solver with timeout
+            final boolean[] solved = { false };
+            Thread solverThread = new Thread(() -> {
+                solved[0] = solver.solve();
+            });
 
-        long startTime = System.nanoTime();
-        boolean status = solver.solve();
-        long endTime = System.nanoTime();
+            solverThread.start();
+            solverThread.join(2 * 60 * 1000);
 
-        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
-        long memoryUsed = memoryAfter - memoryBefore;
+            // Get results
+            long timeUsed = System.nanoTime() - startTime;
+            long afterMemory = Utils.getMemoryUsed(false);
+            long memoryUsed = afterMemory - beforeMemory;
 
-        long timeTaken = (endTime - startTime) / 1000; // microseconds
-        return new long[] { status ? 1L : 0L, timeTaken, memoryUsed };
-    }
+            // Handle timeout or failure
+            if (solverThread.isAlive()) {
+                solverThread.interrupt();
+                return new long[] { 0L, timeUsed / 1000, memoryUsed };
+            }
 
-    /**
-     * Special benchmarking for BasicBacktracking by running it 100 times.
-     * Used for more stable average metrics due to its simple implementation.
-     *
-     * @param solver instance of BasicBacktracking
-     * @return array of [status (1 if any run succeeded), avgTime(μs),
-     *         avgMemory(bytes)]
-     */
-    public static long[] backTrackingSolve(Solver solver) {
-        long totalTime = 0;
-        long totalMemory = 0;
-        int successCount = 0;
-        int runCount = 100;
+            return new long[] {
+                    solved[0] ? 1L : 0L,
+                    timeUsed / 1000, // Convert to microseconds
+                    memoryUsed
+            };
 
-        for (int i = 0; i < runCount; i++) {
-            long[] result = realRunning(solver);
-            boolean status = result[0] != 0;
-            totalTime += result[1];
-            totalMemory += result[2];
-            if (status)
-                successCount++;
+        } catch (Exception e) {
+            System.out.println("Error running solver: " + e.getMessage());
+            return new long[] { 0L, 0L, 0L }; // Return zeros on error
         }
-
-        long avgTime = totalTime / runCount;
-        long avgMemory = totalMemory / runCount;
-        long status = successCount > 0 ? 1L : 0L;
-
-        return new long[] { status, avgTime, avgMemory };
     }
 
     /**
@@ -162,7 +156,7 @@ public class TestInput {
                     String puzzle = parts[1].trim();
 
                     for (Solver solver : solvers) {
-                        Sudoku sudoku = new Sudoku(9);
+                        Sudoku sudoku = new Sudoku(N);
                         try {
                             sudoku.read(puzzle);
                             solver.setSudoku(sudoku);
@@ -170,12 +164,7 @@ public class TestInput {
                             throw new RuntimeException(e);
                         }
 
-                        long[] result;
-                        if (solver instanceof BasicBacktracking) {
-                            result = backTrackingSolve(solver);
-                        } else {
-                            result = realRunning(solver);
-                        }
+                        long[] result = realRunning(solver);
 
                         String algorithm = solver.getName();
                         String timestamp = java.time.LocalDateTime.now()

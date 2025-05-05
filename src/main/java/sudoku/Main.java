@@ -13,34 +13,23 @@ import sudoku.solver.MRVBacktracking;
 import sudoku.solver.Solver;
 
 /**
- * The Main class serves as the entry point for the Sudoku Solver application.
- * It reads a Sudoku puzzle from the user, validates it, and attempts to solve
- * it
- * using multiple solving algorithms. Each solver's performance is measured in
- * terms
- * of time and memory usage.
+ * The entry point for the Sudoku solver application.
+ * This class provides an interface to run multiple Sudoku solving algorithms
+ * and measure their performance in terms of execution time and memory usage.
  */
 public class Main {
+    /**
+     * Timeout limit in minutes for each solver.
+     */
+    private static final int TIMEOUT_MINUTES = 2;
 
     /**
-     * The main method is the entry point of the application. It orchestrates the
-     * process of reading a Sudoku puzzle, validating it, and solving it using
-     * different algorithms. The performance of each solver is measured and
-     * displayed.
+     * The main method to start the application.
+     * Reads a Sudoku puzzle from input, then attempts to solve it using
+     * several algorithms, printing out performance metrics and solutions.
      *
-     * @param args Command-line arguments (not used in this application).
-     * @throws Exception If an error occurs during execution.
-     *
-     *                   Big-O Complexity (Worst Case):
-     *                   - Reading and validating the Sudoku puzzle: O(N^2), where N
-     *                   is the size of the Sudoku grid.
-     *                   - Solving the Sudoku puzzle: Depends on the solver used.
-     *                   For example:
-     *                   - DancingLinks: O(2^(N^2)) in the worst case.
-     *                   - BasicBacktracking: O(9^(N^2)) in the worst case.
-     *                   - ForwardChecking: O(9^(N^2)) in the worst case.
-     *                   - MRVBacktracking: O(9^(N^2)) in the worst case.
-     *                   - Overall: Dominated by the solving algorithm's complexity.
+     * @param args Command line arguments (not used).
+     * @throws Exception if input or processing fails.
      */
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -59,46 +48,58 @@ public class Main {
         };
 
         for (Solver solver : solvers) {
+            solveAndMeasure(solver, input);
+            System.out.println("----------");
+        }
+    }
+
+    /**
+     * Executes a Sudoku solver on the given input and measures its performance.
+     *
+     * @param solver The solver instance to use.
+     * @param input  The input string representing the Sudoku puzzle.
+     */
+    private static void solveAndMeasure(Solver solver, String input) {
+        try {
             Sudoku sudoku = new Sudoku(N);
             sudoku.read(input);
             solver.setSudoku(sudoku);
 
-            Runtime.getRuntime().gc();
-            Thread.sleep(100);
-
+            // Prepare memory measurement
+            Utils.getMemoryUsed(true);
             long beforeMemory = Utils.getMemoryUsed(false);
             long startTime = System.nanoTime();
 
+            // Run solver with timeout
             final boolean[] solved = { false };
             Thread solverThread = new Thread(() -> {
                 solved[0] = solver.solve();
             });
 
             solverThread.start();
-            solverThread.join(2 * 60 * 1000);
+            solverThread.join(TIMEOUT_MINUTES * 60 * 1000);
 
+            // Measure time and memory
             long timeUsed = System.nanoTime() - startTime;
             long afterMemory = Utils.getMemoryUsed(false);
             long memoryUsed = afterMemory - beforeMemory;
 
+            // Output results
             System.out.println("==> " + solver.getName());
 
-            if (!solverThread.isAlive()) {
-                if (solved[0]) {
-                    System.out.println("Time (ms): " + timeUsed / 1_000_000);
-                    System.out.println("Memory (KB): " + memoryUsed / 1024);
-                    sudoku.print();
-                } else {
-                    System.out.println("Solver failed: Could not solve the Sudoku.");
-                    System.out.println("Time (ms): " + timeUsed / 1_000_000);
-                }
+            if (solverThread.isAlive()) {
+                solverThread.interrupt();
+                System.out.println("Timeout after " + TIMEOUT_MINUTES + " minutes!");
+            } else if (!solved[0]) {
+                System.out.println("No solution found");
             } else {
-                System.out.println("Solver failed: Timeout after 2 minutes.");
-                System.out.println("Time (ms): " + timeUsed / 1_000_000);
-                solverThread.interrupt(); 
+                System.out.println("Solved successfully!");
+                System.out.printf("Time: %.2f ms\n", timeUsed / 1_000_000.0);
+                System.out.printf("Memory: %.2f KB\n", memoryUsed / 1024.0);
+                sudoku.print();
             }
-
-            System.out.println("----------");
+        } catch (Exception e) {
+            System.out.println("Error running solver: " + e.getMessage());
         }
     }
 }
