@@ -1,37 +1,13 @@
 package sudoku.solver;
 
-import sudoku.Mycollection.MyMap;
-import sudoku.Mycollection.MySet;
-import sudoku.Mycollection.MyList;
+// import sudoku.Mycollection.MyList;
 
-/**
- * Optimized Forward Checking solver with MRV heuristic
- */
+// import sudoku.Mycollection.MyMap;
+// import sudoku.Mycollection.MySet;
+
+import java.util.*;;
+
 public class ForwardChecking extends Solver {
-
-    private static class Cell {
-        final int row, col;
-
-        Cell(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        @Override
-        public int hashCode() {
-            return 31 * row + col;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (!(obj instanceof Cell))
-                return false;
-            Cell other = (Cell) obj;
-            return row == other.row && col == other.col;
-        }
-    }
 
     public ForwardChecking() {
         super("Forward Checking");
@@ -40,60 +16,50 @@ public class ForwardChecking extends Solver {
     @Override
     public boolean solve() {
         int[][] grid = sudoku.getGrid();
-        MyMap<Cell, MySet<Integer>> domains = initializeDomains(grid);
+        Map<String, Set<Integer>> domains = initializeDomains(grid);
         return solveWithFC(grid, domains);
     }
 
-    private boolean solveWithFC(int[][] grid, MyMap<Cell, MySet<Integer>> domains) {
-        if (domains.size() == 0)
-            return true;
-
-        Cell cell = selectCellWithMRV(grid, domains);
+    private boolean solveWithFC(int[][] grid, Map<String, Set<Integer>> domains) {
+        int[] cell = selectCellWithMRV(grid, domains);
         if (cell == null)
-            return true;
+            return true; // puzzle solved
 
-        MySet<Integer> domain = domains.get(cell);
-        MyList<Integer> domainCopy = new MyList<>();
-        for (Object num : domain.toArray()) {
-            domainCopy.add((Integer) num);
-        }
+        int row = cell[0], col = cell[1];
+        String key = row + "," + col;
 
-        for (int num : domainCopy) {
-            grid[cell.row][cell.col] = num;
-            domains.remove(cell);
+        for (int num : new HashSet<>(domains.get(key))) {
+            if (isValid(row, col, num)) {
+                grid[row][col] = num;
+                Map<String, Set<Integer>> backup = deepCopy(domains);
 
-            MyList<Cell> modified = new MyList<>();
-            if (updateDomains(cell, num, domains, modified)) {
-                if (solveWithFC(grid, domains)) {
-                    return true;
+                // Forward checking
+                if (updateDomains(row, col, num, domains)) {
+                    if (solveWithFC(grid, domains))
+                        return true;
                 }
-            }
 
-            // Backtrack
-            grid[cell.row][cell.col] = 0;
-            domains.put(cell, domain);
-            restoreDomains(num, domains, modified);
+                // backtrack
+                grid[row][col] = 0;
+                domains = backup;
+            }
         }
 
         return false;
     }
 
-    private MyMap<Cell, MySet<Integer>> initializeDomains(int[][] grid) {
-        MyMap<Cell, MySet<Integer>> domains = new MyMap<>();
+    private Map<String, Set<Integer>> initializeDomains(int[][] grid) {
+        Map<String, Set<Integer>> domains = new HashMap<>();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (grid[row][col] == 0) {
-                    Cell cell = new Cell(row, col);
-                    MySet<Integer> domain = new MySet<>();
-
+                    Set<Integer> domain = new HashSet<>();
                     for (int num = 1; num <= SIZE; num++) {
-                        if (isValid(grid, row, col, num)) {
+                        if (isValid(row, col, num))
                             domain.add(num);
-                        }
                     }
-
-                    domains.put(cell, domain);
+                    domains.put(row + "," + col, domain);
                 }
             }
         }
@@ -101,39 +67,41 @@ public class ForwardChecking extends Solver {
         return domains;
     }
 
-    private boolean updateDomains(Cell cell, int num,
-            MyMap<Cell, MySet<Integer>> domains,
-            MyList<Cell> modified) {
-        // Check row
-        for (int col = 0; col < SIZE; col++) {
-            if (col != cell.col) {
-                Cell current = new Cell(cell.row, col);
-                if (updateDomain(current, num, domains, modified) == false) {
-                    return false;
-                }
-            }
-        }
-
-        // Check column
-        for (int row = 0; row < SIZE; row++) {
-            if (row != cell.row) {
-                Cell current = new Cell(row, cell.col);
-                if (updateDomain(current, num, domains, modified) == false) {
-                    return false;
-                }
-            }
-        }
-
-        // Check box
-        int boxRow = cell.row / 3 * 3;
-        int boxCol = cell.col / 3 * 3;
-
-        for (int row = boxRow; row < boxRow + 3; row++) {
-            for (int col = boxCol; col < boxCol + 3; col++) {
-                if (row != cell.row || col != cell.col) {
-                    Cell current = new Cell(row, col);
-                    if (updateDomain(current, num, domains, modified) == false) {
+    private boolean updateDomains(int row, int col, int num, Map<String, Set<Integer>> domains) {
+        for (int i = 0; i < SIZE; i++) {
+            if (i != col) {
+                String key = row + "," + i;
+                if (domains.containsKey(key)) {
+                    Set<Integer> domain = domains.get(key);
+                    domain.remove(num);
+                    if (domain.isEmpty())
                         return false;
+                }
+            }
+
+            if (i != row) {
+                String key = i + "," + col;
+                if (domains.containsKey(key)) {
+                    Set<Integer> domain = domains.get(key);
+                    domain.remove(num);
+                    if (domain.isEmpty())
+                        return false;
+                }
+            }
+        }
+
+        // 3x3 box
+        int boxRow = row / 3 * 3;
+        int boxCol = col / 3 * 3;
+        for (int i = boxRow; i < boxRow + 3; i++) {
+            for (int j = boxCol; j < boxCol + 3; j++) {
+                if (i != row || j != col) {
+                    String key = i + "," + j;
+                    if (domains.containsKey(key)) {
+                        Set<Integer> domain = domains.get(key);
+                        domain.remove(num);
+                        if (domain.isEmpty())
+                            return false;
                     }
                 }
             }
@@ -142,69 +110,28 @@ public class ForwardChecking extends Solver {
         return true;
     }
 
-    private boolean updateDomain(Cell cell, int num,
-            MyMap<Cell, MySet<Integer>> domains,
-            MyList<Cell> modified) {
-        if (domains.containsKey(cell)) {
-            MySet<Integer> domain = domains.get(cell);
-            if (domain.contains(num)) {
-                domain.remove(num);
-                modified.add(cell);
-                if (domain.isEmpty()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+    private int[] selectCellWithMRV(int[][] grid, Map<String, Set<Integer>> domains) {
+        int minSize = SIZE + 1;
+        int[] selected = null;
 
-    private void restoreDomains(int num,
-            MyMap<Cell, MySet<Integer>> domains,
-            MyList<Cell> modified) {
-        for (Cell cell : modified) {
-            domains.get(cell).add(num);
-        }
-    }
-
-    private Cell selectCellWithMRV(int[][] grid, MyMap<Cell, MySet<Integer>> domains) {
-        int minSize = Integer.MAX_VALUE;
-        Cell selected = null;
-
-        for (Cell cell : domains.keySet()) {
-            int size = domains.get(cell).size();
-            if (size < minSize) {
-                minSize = size;
-                selected = cell;
+        for (String key : domains.keySet()) {
+            Set<Integer> domain = domains.get(key);
+            if (grid[Integer.parseInt(key.split(",")[0])][Integer.parseInt(key.split(",")[1])] == 0
+                    && domain.size() < minSize) {
+                minSize = domain.size();
+                String[] parts = key.split(",");
+                selected = new int[] { Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) };
             }
         }
 
         return selected;
     }
 
-    private boolean isValid(int[][] grid, int row, int col, int num) {
-        // Check row
-        for (int c = 0; c < SIZE; c++) {
-            if (grid[row][c] == num)
-                return false;
+    private Map<String, Set<Integer>> deepCopy(Map<String, Set<Integer>> original) {
+        Map<String, Set<Integer>> copy = new HashMap<>();
+        for (Map.Entry<String, Set<Integer>> entry : original.entrySet()) {
+            copy.put(entry.getKey(), new HashSet<>(entry.getValue()));
         }
-
-        // Check column
-        for (int r = 0; r < SIZE; r++) {
-            if (grid[r][col] == num)
-                return false;
-        }
-
-        // Check box
-        int boxRow = row / 3 * 3;
-        int boxCol = col / 3 * 3;
-
-        for (int r = boxRow; r < boxRow + 3; r++) {
-            for (int c = boxCol; c < boxCol + 3; c++) {
-                if (grid[r][c] == num)
-                    return false;
-            }
-        }
-
-        return true;
+        return copy;
     }
 }
