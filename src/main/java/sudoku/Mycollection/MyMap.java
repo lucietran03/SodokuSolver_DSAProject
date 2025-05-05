@@ -1,187 +1,239 @@
 package sudoku.Mycollection;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-/**
- * A custom implementation of a Map (key-value pair) data structure.
- *
- * @param <K> the type of keys maintained by this map
- * @param <V> the type of mapped values
- */
-public class MyMap<K, V> {
+public class MyMap<K, V> implements Iterable<MyMap.Entry<K, V>> {
+    private static final int DEFAULT_CAPACITY = 16;
+    private static final float LOAD_FACTOR = 0.75f;
 
-    /**
-     * Entry class represents a key-value pair.
-     *
-     * @param <K> the type of key
-     * @param <V> the type of value
-     */
-    private static class Entry<K, V> {
-        K key;
+    private Entry<K, V>[] table;
+    private int size;
+
+    public MyMap() {
+        this(DEFAULT_CAPACITY);
+    }
+
+    @SuppressWarnings("unchecked")
+    public MyMap(int initialCapacity) {
+        if (initialCapacity <= 0) {
+            throw new IllegalArgumentException("Initial capacity must be positive");
+        }
+        this.table = (Entry<K, V>[]) new Entry[initialCapacity];
+        this.size = 0;
+    }
+
+    public static class Entry<K, V> {
+        final K key;
         V value;
+        Entry<K, V> next;
 
-        /**
-         * Constructs a new key-value entry.
-         *
-         * @param key   the key
-         * @param value the value
-         */
-        Entry(K key, V value) {
+        Entry(K key, V value, Entry<K, V> next) {
             this.key = key;
             this.value = value;
+            this.next = next;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public V setValue(V value) {
+            V oldValue = this.value;
+            this.value = value;
+            return oldValue;
         }
     }
 
-    private MyLinkedList<Entry<K, V>>[] buckets;
-    private int size;
-    private static final int INITIAL_CAPACITY = 16;
+    public V put(K key, V value) {
+        if (key == null) {
+            throw new NullPointerException("Key cannot be null");
+        }
 
-    /**
-     * Constructs a new empty map with the default initial capacity.
-     */
-    public MyMap() {
-        buckets = new MyLinkedList[INITIAL_CAPACITY];
+        int hash = hash(key);
+        int index = indexFor(hash, table.length);
+
+        for (Entry<K, V> e = table[index]; e != null; e = e.next) {
+            if (e.key.equals(key)) {
+                V oldValue = e.value;
+                e.value = value;
+                return oldValue;
+            }
+        }
+
+        addEntry(key, value, index);
+        return null;
+    }
+
+    public V get(K key) {
+        if (key == null) {
+            throw new NullPointerException("Key cannot be null");
+        }
+
+        int hash = hash(key);
+        int index = indexFor(hash, table.length);
+
+        for (Entry<K, V> e = table[index]; e != null; e = e.next) {
+            if (e.key.equals(key)) {
+                return e.value;
+            }
+        }
+
+        return null;
+    }
+
+    public V remove(K key) {
+        if (key == null) {
+            throw new NullPointerException("Key cannot be null");
+        }
+
+        int hash = hash(key);
+        int index = indexFor(hash, table.length);
+        Entry<K, V> prev = table[index];
+        Entry<K, V> e = prev;
+
+        while (e != null) {
+            Entry<K, V> next = e.next;
+            if (e.key.equals(key)) {
+                if (prev == e) {
+                    table[index] = next;
+                } else {
+                    prev.next = next;
+                }
+                size--;
+                return e.value;
+            }
+            prev = e;
+            e = next;
+        }
+
+        return null;
+    }
+
+    public boolean containsKey(K key) {
+        return get(key) != null;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public void clear() {
+        for (int i = 0; i < table.length; i++) {
+            table[i] = null;
+        }
         size = 0;
     }
 
-    /**
-     * Returns the index of the bucket where the key-value pair will be stored.
-     *
-     * @param key the key to find the bucket index for
-     * @return the bucket index
-     */
-    private int getBucketIndex(K key) {
-        return Math.abs(key.hashCode()) % buckets.length; // O(1)
-    }
-
-    /**
-     * Puts a key-value pair into the map. If the key already exists, the value is
-     * updated.
-     *
-     * @param key   the key to put
-     * @param value the value to associate with the key
-     */
-    public void put(K key, V value) {
-        int index = getBucketIndex(key);
-        if (buckets[index] == null) {
-            buckets[index] = new MyLinkedList<>();
-        }
-        for (Object obj : buckets[index].toArray()) {
-            Entry<K, V> entry = (Entry<K, V>) obj;
-            if (entry.key.equals(key)) {
-                entry.value = value; // Update existing key (O(n) in worst case)
-                return;
-            }
-        }
-        buckets[index].add(new Entry<>(key, value)); // Add new key-value pair (O(1) for add)
-        size++;
-    }
-
-    /**
-     * Returns the value associated with the specified key.
-     *
-     * @param key the key to look up
-     * @return the value associated with the key, or null if the key does not exist
-     */
-    public V get(K key) {
-        int index = getBucketIndex(key);
-        if (buckets[index] != null) {
-            for (Object obj : buckets[index].toArray()) {
-                Entry<K, V> entry = (Entry<K, V>) obj;
-                if (entry.key.equals(key)) {
-                    return entry.value; // O(n) in worst case if the bucket is long
-                }
-            }
-        }
-        return null; // O(1) for empty bucket
-    }
-
-    /**
-     * Checks if the map contains the specified key.
-     *
-     * @param key the key to check for
-     * @return true if the map contains the key, false otherwise
-     */
-    public boolean containsKey(K key) {
-        int index = getBucketIndex(key);
-        if (buckets[index] != null) {
-            for (Object obj : buckets[index].toArray()) {
-                Entry<K, V> entry = (Entry<K, V>) obj;
-                if (entry.key.equals(key)) {
-                    return true; // O(n) in worst case if the bucket is long
-                }
-            }
-        }
-        return false; // O(1) for empty bucket
-    }
-
-    /**
-     * Removes the entry associated with the specified key.
-     *
-     * @param key the key to remove
-     */
-    public void remove(K key) {
-        int index = getBucketIndex(key);
-        if (buckets[index] != null) {
-            MyLinkedList<Entry<K, V>> bucket = buckets[index];
-            Iterator<Entry<K, V>> iterator = bucket.iterator();
-            while (iterator.hasNext()) {
-                Entry<K, V> entry = iterator.next();
-                if (entry.key.equals(key)) {
-                    iterator.remove(); // O(n) in worst case if bucket is long
-                    size--; // Decrement size
-                    return;
-                }
-            }
-        }
-    }
-
-    /**
-     * Checks if the map is empty.
-     *
-     * @return true if the map is empty, false otherwise
-     */
-    public boolean isEmpty() {
-        return size == 0; // O(1)
-    }
-
-    /**
-     * Returns a set of all the keys in the map.
-     *
-     * @return a set of all the keys
-     */
     public MySet<K> keySet() {
-        MySet<K> keys = new MySet<>();
-        for (MyLinkedList<Entry<K, V>> bucket : buckets) {
-            if (bucket != null) {
-                for (Object obj : bucket.toArray()) {
-                    Entry<K, V> entry = (Entry<K, V>) obj;
-                    keys.add(entry.key); // O(1) for adding each key
-                }
-            }
+        MySet<K> set = new MySet<>();
+        for (Entry<K, V> entry : this) {
+            set.add(entry.key);
         }
-        return keys; // O(n) where n is the number of keys in the map
+        return set;
     }
 
-    /**
-     * Returns the value associated with the specified key, or the default value if
-     * the key does not exist.
-     *
-     * @param key          the key to look up
-     * @param defaultValue the default value to return if the key does not exist
-     * @return the value associated with the key, or the default value
-     */
-    public V getOrDefault(K key, V defaultValue) {
-        int index = getBucketIndex(key);
-        if (buckets[index] != null) {
-            for (Object obj : buckets[index].toArray()) {
-                Entry<K, V> entry = (Entry<K, V>) obj;
-                if (entry.key.equals(key)) {
-                    return entry.value; // Return the value if the key exists
-                }
-            }
+    private void addEntry(K key, V value, int index) {
+        Entry<K, V> e = table[index];
+        table[index] = new Entry<>(key, value, e);
+        if (size++ >= table.length * LOAD_FACTOR) {
+            resize(2 * table.length);
         }
-        return defaultValue; // Return the default value if the key does not exist
     }
 
+    @SuppressWarnings("unchecked")
+    private void resize(int newCapacity) {
+        Entry<K, V>[] newTable = (Entry<K, V>[]) new Entry[newCapacity];
+        transfer(newTable);
+        table = newTable;
+    }
+
+    private void transfer(Entry<K, V>[] newTable) {
+        for (Entry<K, V> e : table) {
+            while (e != null) {
+                Entry<K, V> next = e.next;
+                int index = indexFor(hash(e.key), newTable.length);
+                e.next = newTable[index];
+                newTable[index] = e;
+                e = next;
+            }
+        }
+    }
+
+    private int hash(K key) {
+        return key.hashCode();
+    }
+
+    private int indexFor(int hash, int length) {
+        return hash & (length - 1);
+    }
+
+    @Override
+    public Iterator<Entry<K, V>> iterator() {
+        return new Iterator<Entry<K, V>>() {
+            private int currentIndex = 0;
+            private Entry<K, V> currentEntry = null;
+            private Entry<K, V> nextEntry = null;
+
+            {
+                findNext();
+            }
+
+            private void findNext() {
+                while (currentIndex < table.length && (nextEntry = table[currentIndex]) == null) {
+                    currentIndex++;
+                }
+                if (nextEntry == null) {
+                    while (currentIndex < table.length) {
+                        if (table[currentIndex] != null) {
+                            nextEntry = table[currentIndex];
+                            break;
+                        }
+                        currentIndex++;
+                    }
+                }
+            }
+
+            @Override
+            public boolean hasNext() {
+                return nextEntry != null;
+            }
+
+            @Override
+            public Entry<K, V> next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                currentEntry = nextEntry;
+                nextEntry = nextEntry.next;
+
+                if (nextEntry == null) {
+                    currentIndex++;
+                    findNext();
+                }
+
+                return currentEntry;
+            }
+
+            @Override
+            public void remove() {
+                if (currentEntry == null) {
+                    throw new IllegalStateException();
+                }
+
+                K key = currentEntry.key;
+                MyMap.this.remove(key);
+                currentEntry = null;
+            }
+        };
+    }
 }

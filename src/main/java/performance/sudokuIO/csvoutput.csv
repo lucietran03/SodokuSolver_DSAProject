@@ -1,241 +1,241 @@
 Sudoku ID,Algorithm,Level,Status,Time Taken (ms),Memory Used (bytes)
-1,Dancing Links,EASY,Solved,4162,1062520
-1,Backtracking,EASY,Solved,354,684328
-1,Forward Checking,EASY,Solved,5489,952928
-1,Backtracking with MRV,EASY,Solved,840,60736
-2,Dancing Links,EASY,Solved,791,359384
-2,Backtracking,EASY,Solved,443,14744
-2,Forward Checking,EASY,Solved,2838,1185016
-2,Backtracking with MRV,EASY,Solved,427,90920
-3,Dancing Links,EASY,Solved,806,341632
-3,Backtracking,EASY,Solved,346,3776
-3,Forward Checking,EASY,Solved,1571,1010024
-3,Backtracking with MRV,EASY,Solved,384,86552
-4,Dancing Links,EASY,Solved,971,339232
-4,Backtracking,EASY,Solved,311,2648
-4,Forward Checking,EASY,Solved,743,1009928
-4,Backtracking with MRV,EASY,Solved,325,86552
-5,Dancing Links,EASY,Solved,899,339232
-5,Backtracking,EASY,Solved,239,2648
-5,Forward Checking,EASY,Solved,750,926096
-5,Backtracking with MRV,EASY,Solved,442,86552
-6,Dancing Links,EASY,Solved,770,339232
-6,Backtracking,EASY,Solved,295,2648
-6,Forward Checking,EASY,Solved,853,1009920
-6,Backtracking with MRV,EASY,Solved,379,86552
-7,Dancing Links,EASY,Solved,1293,339232
-7,Backtracking,EASY,Solved,266,2648
-7,Forward Checking,EASY,Solved,875,1093624
-7,Backtracking with MRV,EASY,Solved,462,86552
-8,Dancing Links,EASY,Solved,956,339232
-8,Backtracking,EASY,Solved,347,2648
-8,Forward Checking,EASY,Solved,833,1009672
-8,Backtracking with MRV,EASY,Solved,492,86552
-9,Dancing Links,EASY,Solved,816,339232
-9,Backtracking,EASY,Solved,355,2648
-9,Forward Checking,EASY,Solved,1028,1093560
-9,Backtracking with MRV,EASY,Solved,448,86552
-10,Dancing Links,EASY,Solved,860,339232
-10,Backtracking,EASY,Solved,265,2648
-10,Forward Checking,EASY,Solved,911,1051760
-10,Backtracking with MRV,EASY,Solved,515,86552
-11,Dancing Links,EASY,Solved,775,339232
-11,Backtracking,EASY,Solved,332,2648
-11,Forward Checking,EASY,Solved,702,925816
-11,Backtracking with MRV,EASY,Solved,341,44608
-12,Dancing Links,EASY,Solved,791,339232
-12,Backtracking,EASY,Solved,248,2648
-12,Forward Checking,EASY,Solved,870,925872
-12,Backtracking with MRV,EASY,Solved,321,86552
-13,Dancing Links,EASY,Solved,994,339232
-13,Backtracking,EASY,Solved,379,2648
-13,Forward Checking,EASY,Solved,761,925752
-13,Backtracking with MRV,EASY,Solved,426,86552
-14,Dancing Links,EASY,Solved,781,339232
-14,Backtracking,EASY,Solved,306,2648
-14,Forward Checking,EASY,Solved,613,841808
-14,Backtracking with MRV,EASY,Solved,337,86552
-15,Dancing Links,EASY,Solved,792,339232
-15,Backtracking,EASY,Solved,244,2648
-15,Forward Checking,EASY,Solved,737,925864
-15,Backtracking with MRV,EASY,Solved,325,86552
-16,Dancing Links,MEDIUM,Solved,807,339232
-16,Backtracking,MEDIUM,Solved,455,2648
-16,Forward Checking,MEDIUM,Solved,2976,2772336
-16,Backtracking with MRV,MEDIUM,Solved,358,86552
-17,Dancing Links,MEDIUM,Solved,760,339232
-17,Backtracking,MEDIUM,Solved,258,2648
-17,Forward Checking,MEDIUM,Solved,832,1093888
-17,Backtracking with MRV,MEDIUM,Solved,357,86552
-18,Dancing Links,MEDIUM,Solved,805,339232
-18,Backtracking,MEDIUM,Solved,236,2648
-18,Forward Checking,MEDIUM,Solved,556,1093640
-18,Backtracking with MRV,MEDIUM,Solved,277,86552
-19,Dancing Links,MEDIUM,Solved,784,339232
-19,Backtracking,MEDIUM,Solved,305,2648
-19,Forward Checking,MEDIUM,Solved,1170,1681112
-19,Backtracking with MRV,MEDIUM,Solved,359,86552
-20,Dancing Links,MEDIUM,Solved,845,339232
-20,Backtracking,MEDIUM,Solved,271,2648
-20,Forward Checking,MEDIUM,Solved,1088,1262112
-20,Backtracking with MRV,MEDIUM,Solved,338,86552
-21,Dancing Links,MEDIUM,Solved,836,339232
-21,Backtracking,MEDIUM,Solved,272,2648
-21,Forward Checking,MEDIUM,Solved,772,1093672
-21,Backtracking with MRV,MEDIUM,Solved,347,86552
-22,Dancing Links,MEDIUM,Solved,812,339232
-22,Backtracking,MEDIUM,Solved,411,2648
-22,Forward Checking,MEDIUM,Solved,804,1221280
-22,Backtracking with MRV,MEDIUM,Solved,442,86552
-23,Dancing Links,MEDIUM,Solved,866,339232
-23,Backtracking,MEDIUM,Solved,348,2648
-23,Forward Checking,MEDIUM,Solved,713,1261680
-23,Backtracking with MRV,MEDIUM,Solved,476,86552
-24,Dancing Links,MEDIUM,Solved,812,339232
-24,Backtracking,MEDIUM,Solved,359,2648
-24,Forward Checking,MEDIUM,Solved,830,1262184
-24,Backtracking with MRV,MEDIUM,Solved,295,86552
-25,Dancing Links,MEDIUM,Solved,776,339232
-25,Backtracking,MEDIUM,Solved,227,2648
-25,Forward Checking,MEDIUM,Solved,733,1093632
-25,Backtracking with MRV,MEDIUM,Solved,352,86552
-26,Dancing Links,MEDIUM,Solved,740,339232
-26,Backtracking,MEDIUM,Solved,245,2648
-26,Forward Checking,MEDIUM,Solved,802,1765520
-26,Backtracking with MRV,MEDIUM,Solved,405,86552
-27,Dancing Links,MEDIUM,Solved,1054,339232
-27,Backtracking,MEDIUM,Solved,465,2648
-27,Forward Checking,MEDIUM,Solved,774,1345488
-27,Backtracking with MRV,MEDIUM,Solved,460,86552
-28,Dancing Links,MEDIUM,Solved,876,356976
-28,Backtracking,MEDIUM,Solved,322,2648
-28,Forward Checking,MEDIUM,Solved,616,1093520
-28,Backtracking with MRV,MEDIUM,Solved,294,86552
-29,Dancing Links,MEDIUM,Solved,715,339232
-29,Backtracking,MEDIUM,Solved,277,2648
-29,Forward Checking,MEDIUM,Solved,820,1765040
-29,Backtracking with MRV,MEDIUM,Solved,313,86552
-30,Dancing Links,MEDIUM,Solved,789,339232
-30,Backtracking,MEDIUM,Solved,329,2648
-30,Forward Checking,MEDIUM,Solved,820,1261464
-30,Backtracking with MRV,MEDIUM,Solved,388,86552
-31,Dancing Links,HARD,Solved,801,339232
-31,Backtracking,HARD,Solved,856,2648
-31,Forward Checking,HARD,Solved,1017,2437032
-31,Backtracking with MRV,HARD,Solved,467,86552
-32,Dancing Links,HARD,Solved,924,339232
-32,Backtracking,HARD,Solved,1245,2648
-32,Forward Checking,HARD,Solved,1853,3715704
-32,Backtracking with MRV,HARD,Solved,583,30632
-33,Dancing Links,HARD,Solved,1050,340264
-33,Backtracking,HARD,Solved,4723,2648
-33,Forward Checking,HARD,Solved,1399,3527944
-33,Backtracking with MRV,HARD,Solved,1143,86552
-34,Dancing Links,HARD,Solved,811,339232
-34,Backtracking,HARD,Solved,1733,2648
-34,Forward Checking,HARD,Solved,1046,2101256
-34,Backtracking with MRV,HARD,Solved,410,86552
-35,Dancing Links,HARD,Solved,1167,339232
-35,Backtracking,HARD,Solved,2768,2648
-35,Forward Checking,HARD,Solved,5789,2218952
-35,Backtracking with MRV,HARD,Solved,2363,86552
-36,Dancing Links,HARD,Solved,956,339232
-36,Backtracking,HARD,Solved,778,2648
-36,Forward Checking,HARD,Solved,3027,2354832
-36,Backtracking with MRV,HARD,Solved,427,86552
-37,Dancing Links,HARD,Solved,823,339232
-37,Backtracking,HARD,Solved,933,2648
-37,Forward Checking,HARD,Solved,702,1345648
-37,Backtracking with MRV,HARD,Solved,448,86552
-38,Dancing Links,HARD,Solved,863,339232
-38,Backtracking,HARD,Solved,336,2648
-38,Forward Checking,HARD,Solved,768,1681432
-38,Backtracking with MRV,HARD,Solved,349,86552
-39,Dancing Links,HARD,Solved,783,339232
-39,Backtracking,HARD,Solved,502,2648
-39,Forward Checking,HARD,Solved,4890,7674648
-39,Backtracking with MRV,HARD,Solved,473,118744
-40,Dancing Links,HARD,Solved,883,339232
-40,Backtracking,HARD,Solved,392,2648
-40,Forward Checking,HARD,Solved,664,1513368
-40,Backtracking with MRV,HARD,Solved,332,86552
-41,Dancing Links,HARD,Solved,961,339232
-41,Backtracking,HARD,Solved,1377,2648
-41,Forward Checking,HARD,Solved,666,1345472
-41,Backtracking with MRV,HARD,Solved,642,86552
-42,Dancing Links,HARD,Solved,828,339232
-42,Backtracking,HARD,Solved,338,2648
-42,Forward Checking,HARD,Solved,959,1345776
-42,Backtracking with MRV,HARD,Solved,334,86552
-43,Dancing Links,HARD,Solved,868,339232
-43,Backtracking,HARD,Solved,257,2648
-43,Forward Checking,HARD,Solved,2220,1709224
-43,Backtracking with MRV,HARD,Solved,406,170440
-44,Dancing Links,HARD,Solved,789,338560
-44,Backtracking,HARD,Solved,477,2648
-44,Forward Checking,HARD,Solved,9931,7550536
-44,Backtracking with MRV,HARD,Solved,745,170440
-45,Dancing Links,HARD,Solved,999,338560
-45,Backtracking,HARD,Solved,251,2648
-45,Forward Checking,HARD,Solved,993,1513440
-45,Backtracking with MRV,HARD,Solved,426,170440
-46,Dancing Links,EVIL,Solved,746,338560
-46,Backtracking,EVIL,Solved,1123,2648
-46,Forward Checking,EVIL,Solved,1997,5872408
-46,Backtracking with MRV,EVIL,Solved,672,170440
-47,Dancing Links,EVIL,Solved,697,338560
-47,Backtracking,EVIL,Solved,834,2648
-47,Forward Checking,EVIL,Solved,999,2016456
-47,Backtracking with MRV,EVIL,Solved,502,170440
-48,Dancing Links,EVIL,Solved,791,338560
-48,Backtracking,EVIL,Solved,1034,2648
-48,Forward Checking,EVIL,Solved,1199,2688040
-48,Backtracking with MRV,EVIL,Solved,514,170440
-49,Dancing Links,EVIL,Solved,844,338560
-49,Backtracking,EVIL,Solved,343,2648
-49,Forward Checking,EVIL,Solved,881,1848504
-49,Backtracking with MRV,EVIL,Solved,712,170440
-50,Dancing Links,EVIL,Solved,941,338560
-50,Backtracking,EVIL,Solved,7988,2648
-50,Forward Checking,EVIL,Solved,1857,5368976
-50,Backtracking with MRV,EVIL,Solved,940,170440
-51,Dancing Links,EVIL,Solved,762,338560
-51,Backtracking,EVIL,Solved,422,2648
-51,Forward Checking,EVIL,Solved,922,2184112
-51,Backtracking with MRV,EVIL,Solved,843,170440
-52,Dancing Links,EVIL,Solved,800,338560
-52,Backtracking,EVIL,Solved,3197,2648
-52,Forward Checking,EVIL,Solved,1950,7047192
-52,Backtracking with MRV,EVIL,Solved,1788,170440
-53,Dancing Links,EVIL,Solved,821,338560
-53,Backtracking,EVIL,Solved,2479,2648
-53,Forward Checking,EVIL,Solved,1258,2855400
-53,Backtracking with MRV,EVIL,Solved,579,170440
-54,Dancing Links,EVIL,Solved,953,338560
-54,Backtracking,EVIL,Solved,553,2648
-54,Forward Checking,EVIL,Solved,1586,4030600
-54,Backtracking with MRV,EVIL,Solved,406,170440
-55,Dancing Links,EVIL,Solved,827,338560
-55,Backtracking,EVIL,Solved,5329,2648
-55,Forward Checking,EVIL,Solved,1191,3862256
-55,Backtracking with MRV,EVIL,Solved,647,170440
-56,Dancing Links,EVIL,Solved,930,338560
-56,Backtracking,EVIL,Solved,2851,2648
-56,Forward Checking,EVIL,Solved,1777,5704472
-56,Backtracking with MRV,EVIL,Solved,1288,170440
-57,Dancing Links,EVIL,Solved,819,338560
-57,Backtracking,EVIL,Solved,1076,2648
-57,Forward Checking,EVIL,Solved,1214,3358864
-57,Backtracking with MRV,EVIL,Solved,551,170440
-58,Dancing Links,EVIL,Solved,786,338560
-58,Backtracking,EVIL,Solved,19927,2648
-58,Forward Checking,EVIL,Solved,1099,2184672
-58,Backtracking with MRV,EVIL,Solved,2083,170440
-59,Dancing Links,EVIL,Solved,786,338560
-59,Backtracking,EVIL,Solved,7557,2648
-59,Forward Checking,EVIL,Solved,2986,7214920
-59,Backtracking with MRV,EVIL,Solved,3976,86552
-60,Dancing Links,EVIL,Solved,851,338560
-60,Backtracking,EVIL,Solved,3261,2648
-60,Forward Checking,EVIL,Solved,798,1848552
-60,Backtracking with MRV,EVIL,Solved,2393,170440
+1,Dancing Links,EASY,Solved,6131,840296
+1,Backtracking,EASY,Solved,364,335592
+1,Forward Checking,EASY,Solved,470,128632
+1,Backtracking with MRV,EASY,Solved,526,71792
+2,Dancing Links,EASY,Solved,1009,357496
+2,Backtracking,EASY,Solved,296,13488
+2,Forward Checking,EASY,Solved,445,177064
+2,Backtracking with MRV,EASY,Solved,325,90416
+3,Dancing Links,EASY,Solved,1399,341328
+3,Backtracking,EASY,Solved,360,3568
+3,Forward Checking,EASY,Solved,380,170600
+3,Backtracking with MRV,EASY,Solved,336,86552
+4,Dancing Links,EASY,Solved,908,339232
+4,Backtracking,EASY,Solved,238,2648
+4,Forward Checking,EASY,Solved,366,170456
+4,Backtracking with MRV,EASY,Solved,261,86552
+5,Dancing Links,EASY,Solved,858,339232
+5,Backtracking,EASY,Solved,181,2648
+5,Forward Checking,EASY,Solved,416,170456
+5,Backtracking with MRV,EASY,Solved,313,86552
+6,Dancing Links,EASY,Solved,805,339232
+6,Backtracking,EASY,Solved,271,2648
+6,Forward Checking,EASY,Solved,288,86552
+6,Backtracking with MRV,EASY,Solved,293,86552
+7,Dancing Links,EASY,Solved,935,339232
+7,Backtracking,EASY,Solved,295,2648
+7,Forward Checking,EASY,Solved,355,170456
+7,Backtracking with MRV,EASY,Solved,305,86552
+8,Dancing Links,EASY,Solved,882,339232
+8,Backtracking,EASY,Solved,498,2648
+8,Forward Checking,EASY,Solved,343,86552
+8,Backtracking with MRV,EASY,Solved,316,86552
+9,Dancing Links,EASY,Solved,798,339232
+9,Backtracking,EASY,Solved,261,2648
+9,Forward Checking,EASY,Solved,310,170456
+9,Backtracking with MRV,EASY,Solved,847,86552
+10,Dancing Links,EASY,Solved,802,339232
+10,Backtracking,EASY,Solved,215,2648
+10,Forward Checking,EASY,Solved,394,170488
+10,Backtracking with MRV,EASY,Solved,268,86552
+11,Dancing Links,EASY,Solved,766,339232
+11,Backtracking,EASY,Solved,296,2648
+11,Forward Checking,EASY,Solved,360,170456
+11,Backtracking with MRV,EASY,Solved,300,44608
+12,Dancing Links,EASY,Solved,735,339232
+12,Backtracking,EASY,Solved,241,2648
+12,Forward Checking,EASY,Solved,360,170456
+12,Backtracking with MRV,EASY,Solved,340,86552
+13,Dancing Links,EASY,Solved,862,339232
+13,Backtracking,EASY,Solved,186,2648
+13,Forward Checking,EASY,Solved,349,170456
+13,Backtracking with MRV,EASY,Solved,290,86552
+14,Dancing Links,EASY,Solved,861,339232
+14,Backtracking,EASY,Solved,298,2648
+14,Forward Checking,EASY,Solved,371,170456
+14,Backtracking with MRV,EASY,Solved,342,86552
+15,Dancing Links,EASY,Solved,830,339232
+15,Backtracking,EASY,Solved,505,2648
+15,Forward Checking,EASY,Solved,457,170456
+15,Backtracking with MRV,EASY,Solved,309,86552
+16,Dancing Links,MEDIUM,Solved,821,339232
+16,Backtracking,MEDIUM,Solved,306,2648
+16,Forward Checking,MEDIUM,Solved,528,254392
+16,Backtracking with MRV,MEDIUM,Solved,365,86552
+17,Dancing Links,MEDIUM,Solved,831,339232
+17,Backtracking,MEDIUM,Solved,236,2648
+17,Forward Checking,MEDIUM,Solved,283,170488
+17,Backtracking with MRV,MEDIUM,Solved,1360,86552
+18,Dancing Links,MEDIUM,Solved,794,339232
+18,Backtracking,MEDIUM,Solved,291,2648
+18,Forward Checking,MEDIUM,Solved,407,170456
+18,Backtracking with MRV,MEDIUM,Solved,556,86552
+19,Dancing Links,MEDIUM,Solved,839,339232
+19,Backtracking,MEDIUM,Solved,355,2648
+19,Forward Checking,MEDIUM,Solved,592,254360
+19,Backtracking with MRV,MEDIUM,Solved,424,86552
+20,Dancing Links,MEDIUM,Solved,1060,339232
+20,Backtracking,MEDIUM,Solved,291,2648
+20,Forward Checking,MEDIUM,Solved,451,170456
+20,Backtracking with MRV,MEDIUM,Solved,361,86552
+21,Dancing Links,MEDIUM,Solved,796,339232
+21,Backtracking,MEDIUM,Solved,405,2648
+21,Forward Checking,MEDIUM,Solved,338,170456
+21,Backtracking with MRV,MEDIUM,Solved,338,86552
+22,Dancing Links,MEDIUM,Solved,951,339232
+22,Backtracking,MEDIUM,Solved,451,2648
+22,Forward Checking,MEDIUM,Solved,789,338384
+22,Backtracking with MRV,MEDIUM,Solved,762,86552
+23,Dancing Links,MEDIUM,Solved,801,339232
+23,Backtracking,MEDIUM,Solved,449,2648
+23,Forward Checking,MEDIUM,Solved,402,170456
+23,Backtracking with MRV,MEDIUM,Solved,470,86552
+24,Dancing Links,MEDIUM,Solved,1003,339232
+24,Backtracking,MEDIUM,Solved,282,2648
+24,Forward Checking,MEDIUM,Solved,388,170456
+24,Backtracking with MRV,MEDIUM,Solved,432,86552
+25,Dancing Links,MEDIUM,Solved,806,339232
+25,Backtracking,MEDIUM,Solved,287,2648
+25,Forward Checking,MEDIUM,Solved,332,170456
+25,Backtracking with MRV,MEDIUM,Solved,524,86552
+26,Dancing Links,MEDIUM,Solved,832,339232
+26,Backtracking,MEDIUM,Solved,288,2648
+26,Forward Checking,MEDIUM,Solved,367,170456
+26,Backtracking with MRV,MEDIUM,Solved,513,86552
+27,Dancing Links,MEDIUM,Solved,786,339232
+27,Backtracking,MEDIUM,Solved,495,2648
+27,Forward Checking,MEDIUM,Solved,526,254360
+27,Backtracking with MRV,MEDIUM,Solved,384,86552
+28,Dancing Links,MEDIUM,Solved,936,366512
+28,Backtracking,MEDIUM,Solved,298,2648
+28,Forward Checking,MEDIUM,Solved,378,170456
+28,Backtracking with MRV,MEDIUM,Solved,364,86552
+29,Dancing Links,MEDIUM,Solved,849,339232
+29,Backtracking,MEDIUM,Solved,357,2648
+29,Forward Checking,MEDIUM,Solved,450,170456
+29,Backtracking with MRV,MEDIUM,Solved,334,86552
+30,Dancing Links,MEDIUM,Solved,867,339232
+30,Backtracking,MEDIUM,Solved,355,2648
+30,Forward Checking,MEDIUM,Solved,395,170456
+30,Backtracking with MRV,MEDIUM,Solved,389,86552
+31,Dancing Links,HARD,Solved,954,339232
+31,Backtracking,HARD,Solved,848,2648
+31,Forward Checking,HARD,Solved,482,338264
+31,Backtracking with MRV,HARD,Solved,790,86552
+32,Dancing Links,HARD,Solved,830,339232
+32,Backtracking,HARD,Solved,1275,2648
+32,Forward Checking,HARD,Solved,657,170488
+32,Backtracking with MRV,HARD,Solved,957,71888
+33,Dancing Links,HARD,Solved,851,340264
+33,Backtracking,HARD,Solved,4161,2648
+33,Forward Checking,HARD,Solved,410,254360
+33,Backtracking with MRV,HARD,Solved,1176,86552
+34,Dancing Links,HARD,Solved,887,339232
+34,Backtracking,HARD,Solved,1897,2648
+34,Forward Checking,HARD,Solved,409,254360
+34,Backtracking with MRV,HARD,Solved,349,86552
+35,Dancing Links,HARD,Solved,1128,339232
+35,Backtracking,HARD,Solved,3258,2648
+35,Forward Checking,HARD,Solved,3125,925704
+35,Backtracking with MRV,HARD,Solved,1959,86552
+36,Dancing Links,HARD,Solved,789,339232
+36,Backtracking,HARD,Solved,732,2648
+36,Forward Checking,HARD,Solved,508,254360
+36,Backtracking with MRV,HARD,Solved,410,86552
+37,Dancing Links,HARD,Solved,771,339232
+37,Backtracking,HARD,Solved,850,2648
+37,Forward Checking,HARD,Solved,410,170456
+37,Backtracking with MRV,HARD,Solved,404,86552
+38,Dancing Links,HARD,Solved,820,339232
+38,Backtracking,HARD,Solved,285,2648
+38,Forward Checking,HARD,Solved,492,170456
+38,Backtracking with MRV,HARD,Solved,489,86552
+39,Dancing Links,HARD,Solved,771,339232
+39,Backtracking,HARD,Solved,443,2648
+39,Forward Checking,HARD,Solved,516,422168
+39,Backtracking with MRV,HARD,Solved,514,86552
+40,Dancing Links,HARD,Solved,905,339232
+40,Backtracking,HARD,Solved,406,2648
+40,Forward Checking,HARD,Solved,409,170456
+40,Backtracking with MRV,HARD,Solved,398,86552
+41,Dancing Links,HARD,Solved,895,339232
+41,Backtracking,HARD,Solved,1353,2648
+41,Forward Checking,HARD,Solved,398,254360
+41,Backtracking with MRV,HARD,Solved,610,86552
+42,Dancing Links,HARD,Solved,775,339232
+42,Backtracking,HARD,Solved,248,2648
+42,Forward Checking,HARD,Solved,384,170456
+42,Backtracking with MRV,HARD,Solved,391,86552
+43,Dancing Links,HARD,Solved,917,339232
+43,Backtracking,HARD,Solved,327,2648
+43,Forward Checking,HARD,Solved,548,338296
+43,Backtracking with MRV,HARD,Solved,421,86552
+44,Dancing Links,HARD,Solved,852,339232
+44,Backtracking,HARD,Solved,585,2648
+44,Forward Checking,HARD,Solved,388,254360
+44,Backtracking with MRV,HARD,Solved,659,86552
+45,Dancing Links,HARD,Solved,945,339232
+45,Backtracking,HARD,Solved,278,2648
+45,Forward Checking,HARD,Solved,424,338264
+45,Backtracking with MRV,HARD,Solved,370,86552
+46,Dancing Links,EVIL,Solved,876,339232
+46,Backtracking,EVIL,Solved,1381,2648
+46,Forward Checking,EVIL,Solved,1662,2519936
+46,Backtracking with MRV,EVIL,Solved,653,86552
+47,Dancing Links,EVIL,Solved,788,339232
+47,Backtracking,EVIL,Solved,821,2648
+47,Forward Checking,EVIL,Solved,487,506128
+47,Backtracking with MRV,EVIL,Solved,510,86552
+48,Dancing Links,EVIL,Solved,799,339232
+48,Backtracking,EVIL,Solved,979,2648
+48,Forward Checking,EVIL,Solved,713,757896
+48,Backtracking with MRV,EVIL,Solved,516,86552
+49,Dancing Links,EVIL,Solved,879,339232
+49,Backtracking,EVIL,Solved,321,2648
+49,Forward Checking,EVIL,Solved,485,170456
+49,Backtracking with MRV,EVIL,Solved,662,86552
+50,Dancing Links,EVIL,Solved,951,339232
+50,Backtracking,EVIL,Solved,7629,2648
+50,Forward Checking,EVIL,Solved,361,254360
+50,Backtracking with MRV,EVIL,Solved,968,86552
+51,Dancing Links,EVIL,Solved,838,339232
+51,Backtracking,EVIL,Solved,471,2648
+51,Forward Checking,EVIL,Solved,436,170456
+51,Backtracking with MRV,EVIL,Solved,1167,86552
+52,Dancing Links,EVIL,Solved,766,339232
+52,Backtracking,EVIL,Solved,3038,2648
+52,Forward Checking,EVIL,Solved,642,841688
+52,Backtracking with MRV,EVIL,Solved,1875,86552
+53,Dancing Links,EVIL,Solved,770,339232
+53,Backtracking,EVIL,Solved,2034,2648
+53,Forward Checking,EVIL,Solved,457,254360
+53,Backtracking with MRV,EVIL,Solved,846,86552
+54,Dancing Links,EVIL,Solved,812,339232
+54,Backtracking,EVIL,Solved,654,2648
+54,Forward Checking,EVIL,Solved,695,254360
+54,Backtracking with MRV,EVIL,Solved,489,86552
+55,Dancing Links,EVIL,Solved,828,339232
+55,Backtracking,EVIL,Solved,4164,2648
+55,Forward Checking,EVIL,Solved,700,338264
+55,Backtracking with MRV,EVIL,Solved,1291,86552
+56,Dancing Links,EVIL,Solved,852,339232
+56,Backtracking,EVIL,Solved,3055,2648
+56,Forward Checking,EVIL,Solved,835,1261264
+56,Backtracking with MRV,EVIL,Solved,1304,86552
+57,Dancing Links,EVIL,Solved,835,339232
+57,Backtracking,EVIL,Solved,1018,2648
+57,Forward Checking,EVIL,Solved,720,1093488
+57,Backtracking with MRV,EVIL,Solved,522,86552
+58,Dancing Links,EVIL,Solved,849,339232
+58,Backtracking,EVIL,Solved,18591,2648
+58,Forward Checking,EVIL,Solved,505,254360
+58,Backtracking with MRV,EVIL,Solved,3551,86552
+59,Dancing Links,EVIL,Solved,1026,339232
+59,Backtracking,EVIL,Solved,7475,2648
+59,Forward Checking,EVIL,Solved,3466,1491024
+59,Backtracking with MRV,EVIL,Solved,3071,86568
+60,Dancing Links,EVIL,Solved,888,339232
+60,Backtracking,EVIL,Solved,3990,2648
+60,Forward Checking,EVIL,Solved,412,170456
+60,Backtracking with MRV,EVIL,Solved,1557,86552

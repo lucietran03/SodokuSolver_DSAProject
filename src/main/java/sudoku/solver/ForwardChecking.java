@@ -2,100 +2,98 @@ package sudoku.solver;
 
 import sudoku.Mycollection.MyMap;
 import sudoku.Mycollection.MySet;
+import sudoku.Mycollection.MyList;
 
 /**
- * The ForwardChecking class implements the forward checking algorithm to solve
- * Sudoku puzzles.
- * It extends the Solver class and overrides the solve method to perform the
- * forward checking search.
- * The algorithm reduces the search space by checking the implications of
- * assigning a value to a cell,
- * updating the domains of the remaining unassigned cells accordingly.
+ * Optimized Forward Checking solver with MRV heuristic
  */
 public class ForwardChecking extends Solver {
 
-    /**
-     * Constructs a new ForwardChecking solver with the name "Forward Checking".
-     */
+    private static class Cell {
+        final int row, col;
+
+        Cell(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        @Override
+        public int hashCode() {
+            return 31 * row + col;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (!(obj instanceof Cell))
+                return false;
+            Cell other = (Cell) obj;
+            return row == other.row && col == other.col;
+        }
+    }
+
     public ForwardChecking() {
         super("Forward Checking");
     }
 
-    /**
-     * Solves the Sudoku puzzle using the forward checking algorithm.
-     * The method initializes the domains of each unassigned cell and calls the
-     * helper method to solve the puzzle.
-     *
-     * @return true if the Sudoku puzzle is solved, false if no solution exists.
-     *         Time Complexity (Worst-case): O(9^81)
-     */
     @Override
     public boolean solve() {
         int[][] grid = sudoku.getGrid();
-        MyMap<String, MySet<Integer>> domains = initializeDomains(grid); // O(81 * 9 * 27)
+        MyMap<Cell, MySet<Integer>> domains = initializeDomains(grid);
         return solveWithFC(grid, domains);
     }
 
-    /**
-     * Solves the Sudoku puzzle using forward checking.
-     * Time Complexity (Worst-case): O(9^81)
-     */
-    private boolean solveWithFC(int[][] grid, MyMap<String, MySet<Integer>> domains) {
-        int[] cell = selectCellWithMRV(grid, domains); // O(81)
+    private boolean solveWithFC(int[][] grid, MyMap<Cell, MySet<Integer>> domains) {
+        if (domains.size() == 0)
+            return true;
+
+        Cell cell = selectCellWithMRV(grid, domains);
         if (cell == null)
             return true;
 
-        int row = cell[0], col = cell[1];
-        String key = row + "," + col;
-
-        MySet<Integer> domain = domains.get(key);
-        if (domain == null)
-            return false;
-
-        MySet<Integer> domainCopy = new MySet<>();
-        for (Object obj : domain.toArray()) { // O(9)
-            domainCopy.add((Integer) obj); // O(1) per add
+        MySet<Integer> domain = domains.get(cell);
+        MyList<Integer> domainCopy = new MyList<>();
+        for (Object num : domain.toArray()) {
+            domainCopy.add((Integer) num);
         }
 
-        for (Object obj : domainCopy.toArray()) { // Up to 9 iterations
-            int num = (Integer) obj;
-            if (isValid(row, col, num)) { // O(27)
-                grid[row][col] = num;
-                MyMap<String, MySet<Integer>> backup = deepCopy(domains); // O(81 * 9)
+        for (int num : domainCopy) {
+            grid[cell.row][cell.col] = num;
+            domains.remove(cell);
 
-                if (updateDomains(row, col, num, domains)) { // O(81)
-                    if (solveWithFC(grid, domains))
-                        return true;
+            MyList<Cell> modified = new MyList<>();
+            if (updateDomains(cell, num, domains, modified)) {
+                if (solveWithFC(grid, domains)) {
+                    return true;
                 }
-
-                grid[row][col] = 0;
-                domains = backup;
             }
+
+            // Backtrack
+            grid[cell.row][cell.col] = 0;
+            domains.put(cell, domain);
+            restoreDomains(num, domains, modified);
         }
 
         return false;
     }
 
-    /**
-     * Initializes the domains for each unassigned cell.
-     *
-     * @param grid the Sudoku grid.
-     * @return a map of domains for each unassigned cell.
-     *         Time Complexity (Worst-case): O(81 * 9 * 27) = O(19683)
-     */
-    private MyMap<String, MySet<Integer>> initializeDomains(int[][] grid) {
-        MyMap<String, MySet<Integer>> domains = new MyMap<>();
+    private MyMap<Cell, MySet<Integer>> initializeDomains(int[][] grid) {
+        MyMap<Cell, MySet<Integer>> domains = new MyMap<>();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (grid[row][col] == 0) {
+                    Cell cell = new Cell(row, col);
                     MySet<Integer> domain = new MySet<>();
+
                     for (int num = 1; num <= SIZE; num++) {
-                        if (isValid(row, col, num)) { // O(27)
-                            domain.add(num); // O(1)
+                        if (isValid(grid, row, col, num)) {
+                            domain.add(num);
                         }
                     }
-                    domains.put(row + "," + col, domain); // O(1)
+
+                    domains.put(cell, domain);
                 }
             }
         }
@@ -103,48 +101,39 @@ public class ForwardChecking extends Solver {
         return domains;
     }
 
-    /**
-     * Updates the domains after assigning a number.
-     *
-     * @return true if update is valid, false otherwise.
-     *         Time Complexity (Worst-case): O(81)
-     */
-    private boolean updateDomains(int row, int col, int num, MyMap<String, MySet<Integer>> domains) {
-        for (int i = 0; i < SIZE; i++) {
-            if (i != col) {
-                String key = row + "," + i;
-                if (domains.containsKey(key)) {
-                    MySet<Integer> domain = domains.get(key);
-                    domain.remove(num); // O(1)
-                    if (domain.isEmpty())
-                        return false;
+    private boolean updateDomains(Cell cell, int num,
+            MyMap<Cell, MySet<Integer>> domains,
+            MyList<Cell> modified) {
+        // Check row
+        for (int col = 0; col < SIZE; col++) {
+            if (col != cell.col) {
+                Cell current = new Cell(cell.row, col);
+                if (updateDomain(current, num, domains, modified) == false) {
+                    return false;
                 }
             }
         }
 
-        for (int i = 0; i < SIZE; i++) {
-            if (i != row) {
-                String key = i + "," + col;
-                if (domains.containsKey(key)) {
-                    MySet<Integer> domain = domains.get(key);
-                    domain.remove(num);
-                    if (domain.isEmpty())
-                        return false;
+        // Check column
+        for (int row = 0; row < SIZE; row++) {
+            if (row != cell.row) {
+                Cell current = new Cell(row, cell.col);
+                if (updateDomain(current, num, domains, modified) == false) {
+                    return false;
                 }
             }
         }
 
-        int boxRow = row / 3 * 3;
-        int boxCol = col / 3 * 3;
-        for (int i = boxRow; i < boxRow + 3; i++) {
-            for (int j = boxCol; j < boxCol + 3; j++) {
-                if (i != row || j != col) {
-                    String key = i + "," + j;
-                    if (domains.containsKey(key)) {
-                        MySet<Integer> domain = domains.get(key);
-                        domain.remove(num);
-                        if (domain.isEmpty())
-                            return false;
+        // Check box
+        int boxRow = cell.row / 3 * 3;
+        int boxCol = cell.col / 3 * 3;
+
+        for (int row = boxRow; row < boxRow + 3; row++) {
+            for (int col = boxCol; col < boxCol + 3; col++) {
+                if (row != cell.row || col != cell.col) {
+                    Cell current = new Cell(row, col);
+                    if (updateDomain(current, num, domains, modified) == false) {
+                        return false;
                     }
                 }
             }
@@ -153,47 +142,69 @@ public class ForwardChecking extends Solver {
         return true;
     }
 
-    /**
-     * Selects a cell using the Minimum Remaining Values (MRV) heuristic.
-     *
-     * @return coordinates [row, col], or null.
-     *         Time Complexity (Worst-case): O(81)
-     */
-    private int[] selectCellWithMRV(int[][] grid, MyMap<String, MySet<Integer>> domains) {
-        int minSize = SIZE + 1;
-        int[] selected = null;
+    private boolean updateDomain(Cell cell, int num,
+            MyMap<Cell, MySet<Integer>> domains,
+            MyList<Cell> modified) {
+        if (domains.containsKey(cell)) {
+            MySet<Integer> domain = domains.get(cell);
+            if (domain.contains(num)) {
+                domain.remove(num);
+                modified.add(cell);
+                if (domain.isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
-        for (String key : domains.keySet()) { // O(81)
-            MySet<Integer> domain = domains.get(key);
-            String[] parts = key.split(","); // O(1)
-            int row = Integer.parseInt(parts[0]);
-            int col = Integer.parseInt(parts[1]);
-            if (grid[row][col] == 0 && domain.size() < minSize) {
-                minSize = domain.size();
-                selected = new int[] { row, col };
+    private void restoreDomains(int num,
+            MyMap<Cell, MySet<Integer>> domains,
+            MyList<Cell> modified) {
+        for (Cell cell : modified) {
+            domains.get(cell).add(num);
+        }
+    }
+
+    private Cell selectCellWithMRV(int[][] grid, MyMap<Cell, MySet<Integer>> domains) {
+        int minSize = Integer.MAX_VALUE;
+        Cell selected = null;
+
+        for (Cell cell : domains.keySet()) {
+            int size = domains.get(cell).size();
+            if (size < minSize) {
+                minSize = size;
+                selected = cell;
             }
         }
 
         return selected;
     }
 
-    /**
-     * Deep copies the domain map.
-     *
-     * @param original the original domains map.
-     * @return a deep copy of the domains.
-     *         Time Complexity (Worst-case): O(81 * 9)
-     */
-    private MyMap<String, MySet<Integer>> deepCopy(MyMap<String, MySet<Integer>> original) {
-        MyMap<String, MySet<Integer>> copy = new MyMap<>();
-        for (String key : original.keySet()) { // O(81)
-            MySet<Integer> originalSet = original.get(key);
-            MySet<Integer> newSet = new MySet<>();
-            for (Object num : originalSet.toArray()) { // O(9)
-                newSet.add((Integer) num);
-            }
-            copy.put(key, newSet);
+    private boolean isValid(int[][] grid, int row, int col, int num) {
+        // Check row
+        for (int c = 0; c < SIZE; c++) {
+            if (grid[row][c] == num)
+                return false;
         }
-        return copy;
+
+        // Check column
+        for (int r = 0; r < SIZE; r++) {
+            if (grid[r][col] == num)
+                return false;
+        }
+
+        // Check box
+        int boxRow = row / 3 * 3;
+        int boxCol = col / 3 * 3;
+
+        for (int r = boxRow; r < boxRow + 3; r++) {
+            for (int c = boxCol; c < boxCol + 3; c++) {
+                if (grid[r][c] == num)
+                    return false;
+            }
+        }
+
+        return true;
     }
 }
