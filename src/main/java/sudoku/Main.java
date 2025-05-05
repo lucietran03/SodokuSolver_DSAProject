@@ -83,13 +83,19 @@ public class Main {
 
             System.out.println("==> " + solver.getName());
 
-            if (!solverThread.isAlive() && solved[0]) {
-                System.out.println("Time (ms): " + timeUsed / 1_000_000);
-                System.out.println("Memory (KB): " + memoryUsed / 1024);
-                sudoku.print();
+            if (!solverThread.isAlive()) {
+                if (solved[0]) {
+                    System.out.println("Time (ms): " + timeUsed / 1_000_000);
+                    System.out.println("Memory (KB): " + memoryUsed / 1024);
+                    sudoku.print();
+                } else {
+                    System.out.println("Solver failed: Could not solve the Sudoku.");
+                    System.out.println("Time (ms): " + timeUsed / 1_000_000);
+                }
             } else {
-                System.out.println("Solver failed: Timeout after 2 minutes or could not solve");
+                System.out.println("Solver failed: Timeout after 2 minutes.");
                 System.out.println("Time (ms): " + timeUsed / 1_000_000);
+                solverThread.interrupt(); 
             }
 
             System.out.println("----------");
