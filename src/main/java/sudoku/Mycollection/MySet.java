@@ -1,92 +1,94 @@
 package sudoku.Mycollection;
 
-import java.util.Iterator;
-
-public class MySet<E> implements Iterable<E> {
-    private MyLinkedList<E>[] buckets;
+public class MySet<E> {
+    private static final int DEFAULT_CAPACITY = 10;
+    private Object[] elements;
     private int size;
-    private static final int INITIAL_CAPACITY = 16;
 
     public MySet() {
-        buckets = new MyLinkedList[INITIAL_CAPACITY];
-        size = 0;
+        this.elements = new Object[DEFAULT_CAPACITY];
+        this.size = 0;
     }
 
-    private int getBucketIndex(E element) {
-        return Math.abs(element.hashCode()) % buckets.length;
-    }
-
-    public void add(E element) {
-        int index = getBucketIndex(element);
-        if (buckets[index] == null) {
-            buckets[index] = new MyLinkedList<>();
+    public MySet(int initialCapacity) {
+        if (initialCapacity <= 0) {
+            throw new IllegalArgumentException("Initial capacity must be positive");
         }
-        if (!buckets[index].contains(element)) {
-            buckets[index].add(element);
-            size++;
-        }
+        this.elements = new Object[initialCapacity];
+        this.size = 0;
     }
 
-    public void remove(E element) {
-        int index = getBucketIndex(element);
-        if (buckets[index] != null) {
-            if (buckets[index].remove(element)) {
-                size--;
+    // Basic operations
+
+    public boolean add(E e) {
+        if (contains(e)) {
+            return false;
+        }
+
+        ensureCapacity();
+        elements[size++] = e;
+        return true;
+    }
+
+    public boolean remove(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (safeEquals(o, elements[i])) {
+                removeAtIndex(i);
+                return true;
             }
         }
+        return false;
     }
 
-    public boolean contains(E element) {
-        int index = getBucketIndex(element);
-        return buckets[index] != null && buckets[index].contains(element);
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public Object[] toArray() {
-        Object[] result = new Object[size];
-        int index = 0;
-        for (MyLinkedList<E> bucket : buckets) {
-            if (bucket != null) {
-                for (Object element : bucket.toArray()) {
-                    result[index++] = element;
-                }
+    public boolean contains(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (safeEquals(o, elements[i])) {
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
     public int size() {
         return size;
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            private int bucketIndex = 0;
-            private Iterator<E> currentIterator = null;
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-            @Override
-            public boolean hasNext() {
-                while (bucketIndex < buckets.length) {
-                    if (currentIterator == null || !currentIterator.hasNext()) {
-                        if (buckets[bucketIndex] != null) {
-                            currentIterator = buckets[bucketIndex].iterator();
-                        }
-                        bucketIndex++;
-                    } else {
-                        return true;
-                    }
-                }
-                return false;
-            }
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
 
-            @Override
-            public E next() {
-                return currentIterator.next();
+    // Helper methods
+
+    private void ensureCapacity() {
+        if (size == elements.length) {
+            int newCapacity = elements.length * 2;
+            Object[] newElements = new Object[newCapacity];
+            for (int i = 0; i < size; i++) {
+                newElements[i] = elements[i];
             }
-        };
+            elements = newElements;
+        }
+    }
+
+    private void removeAtIndex(int index) {
+        // Shift all elements after the index left by one
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
+        }
+        elements[--size] = null; // Clear last element and decrement size
+    }
+
+    private boolean safeEquals(Object a, Object b) {
+        if (a == null) {
+            return b == null;
+        }
+        return a.equals(b);
     }
 }
