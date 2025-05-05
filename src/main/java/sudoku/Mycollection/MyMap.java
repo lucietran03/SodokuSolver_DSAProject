@@ -1,5 +1,19 @@
 package sudoku.Mycollection;
 
+/**
+ * A simple implementation of a hash map (key-value store) with basic
+ * operations.
+ * Supports resizing when the load factor exceeds a certain threshold.
+ *
+ * Big-O (Worst Case) Analysis:
+ * - put(): O(n), n is the number of entries in the table due to collisions
+ * (chaining).
+ * - get(): O(n) in the worst case when all entries hash to the same index
+ * (chaining).
+ * - remove(): O(n) in the worst case due to collisions (chaining).
+ * - containsKey(): O(n) in the worst case due to chaining.
+ * - clear(): O(n), as it needs to clear all entries in the table.
+ */
 public class MyMap<K, V> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -8,7 +22,9 @@ public class MyMap<K, V> {
     private int size;
     private float loadFactor;
 
-    // Entry class to hold key-value pairs
+    /**
+     * Entry class to hold key-value pairs.
+     */
     private static class Entry<K, V> {
         final K key;
         V value;
@@ -21,15 +37,27 @@ public class MyMap<K, V> {
         }
     }
 
-    // Constructors
+    /**
+     * Default constructor with default capacity and load factor.
+     */
     public MyMap() {
         this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
+    /**
+     * Constructor with a specified initial capacity.
+     */
     public MyMap(int initialCapacity) {
         this(initialCapacity, DEFAULT_LOAD_FACTOR);
     }
 
+    /**
+     * Constructor with specified initial capacity and load factor.
+     *
+     * @param initialCapacity the initial capacity of the map.
+     * @param loadFactor      the load factor, determining when to resize.
+     * @throws IllegalArgumentException if initialCapacity or loadFactor is invalid.
+     */
     @SuppressWarnings("unchecked")
     public MyMap(int initialCapacity, float loadFactor) {
         if (initialCapacity <= 0) {
@@ -44,8 +72,14 @@ public class MyMap<K, V> {
         this.size = 0;
     }
 
-    // Basic operations
-
+    /**
+     * Puts a key-value pair into the map.
+     * 
+     * @param key   the key.
+     * @param value the value.
+     * @return the previous value associated with the key, or null if no previous
+     *         value.
+     */
     public V put(K key, V value) {
         if (key == null) {
             return putForNullKey(value);
@@ -68,6 +102,12 @@ public class MyMap<K, V> {
         return null;
     }
 
+    /**
+     * Gets the value associated with a key.
+     * 
+     * @param key the key.
+     * @return the value associated with the key, or null if not found.
+     */
     public V get(K key) {
         if (key == null) {
             return getForNullKey();
@@ -85,6 +125,12 @@ public class MyMap<K, V> {
         return null;
     }
 
+    /**
+     * Removes the key-value pair associated with the key.
+     * 
+     * @param key the key.
+     * @return the value associated with the key, or null if the key was not found.
+     */
     public V remove(K key) {
         if (key == null) {
             return removeForNullKey();
@@ -113,18 +159,37 @@ public class MyMap<K, V> {
         return null;
     }
 
+    /**
+     * Checks if the map contains a key.
+     * 
+     * @param key the key.
+     * @return true if the map contains the key, false otherwise.
+     */
     public boolean containsKey(K key) {
         return get(key) != null;
     }
 
+    /**
+     * Returns the number of key-value pairs in the map.
+     * 
+     * @return the size of the map.
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Returns whether the map is empty.
+     * 
+     * @return true if the map is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Clears all entries from the map.
+     */
     public void clear() {
         for (int i = 0; i < table.length; i++) {
             table[i] = null;

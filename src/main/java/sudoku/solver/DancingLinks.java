@@ -3,43 +3,34 @@ package sudoku.solver;
 import sudoku.solver.dancinglinks.AlgorithmX;
 
 /**
- * The DancingLinks class is a solver for the Sudoku puzzle using the Dancing Links algorithm.
- * It extends the Solver class and implements the solve method, which applies Algorithm X
- * to solve the puzzle.
- * <p>
- * The Dancing Links algorithm is a highly efficient algorithm for solving exact cover problems,
- * and it can be applied to Sudoku as an exact cover problem. This implementation uses the AlgorithmX
- * class to perform the actual solving.
- * <p>
- * Big O Complexity:
- * - The worst-case time complexity of the Dancing Links algorithm is generally considered to be
- *   exponential (O(2^n)), where n is the number of variables. However, this is highly dependent
- *   on the problem instance, and the algorithm's performance can vary significantly with different
- *   Sudoku grids.
- *
- * @see AlgorithmX
+ * The DancingLinks class is an implementation of a Sudoku solver using the 
+ * Dancing Links algorithm, which is a technique for solving the exact cover 
+ * problem efficiently. This class extends the Solver base class.
+ * 
+ * <p>Time Complexity (Worst Case):</p>
+ * <ul>
+ *   <li>Constructor: O(1)</li>
+ *   <li>{@link #solve()}: O(2^n), where n is the number of constraints to satisfy.</li>
+ * </ul>
  */
 public class DancingLinks extends Solver {
 
     /**
-     * Constructs a new DancingLinks solver with the name "Dancing Links".
-     * <p>
-     * Big O Complexity: O(1) in the worst case, as this is a simple constructor.
+     * Constructs a new DancingLinks solver instance with the name "Dancing Links".
+     * 
+     * <p>Time Complexity: O(1)</p>
      */
     public DancingLinks() {
         super("Dancing Links");
     }
 
     /**
-     * Solves the Sudoku puzzle using the Dancing Links (Algorithm X) method.
-     * <p>
-     * The method initializes the Algorithm X solver and runs it on the current Sudoku grid
-     * to find a solution. It uses the `run` method from the AlgorithmX class to perform the actual
-     * solving.
-     * <p>
-     * Big O Complexity: O(2^n) in the worst case, where n is the number of variables in the exact cover problem.
-     *
-     * @return true if the puzzle is solved, false otherwise.
+     * Solves the Sudoku puzzle using the Dancing Links algorithm.
+     * 
+     * @return {@code true} if the Sudoku puzzle is solved successfully, 
+     *         {@code false} otherwise.
+     * 
+     * <p>Time Complexity (Worst Case): O(2^n), where n is the number of constraints to satisfy.</p>
      */
     @Override
     public boolean solve() {

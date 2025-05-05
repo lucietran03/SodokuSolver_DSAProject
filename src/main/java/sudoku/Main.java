@@ -96,7 +96,12 @@ public class Main {
                 System.out.println("Solved successfully!");
                 System.out.printf("Time: %.2f ms\n", timeUsed / 1_000_000.0);
                 System.out.printf("Memory: %.2f KB\n", memoryUsed / 1024.0);
-                sudoku.print();
+                if (sudoku.isSolved()) {
+                    sudoku.print();
+                } else {
+                    System.out.println("Solution is invalid!");
+                }
+
             }
         } catch (Exception e) {
             System.out.println("Error running solver: " + e.getMessage());

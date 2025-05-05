@@ -7,41 +7,32 @@ import java.nio.file.Paths;
 
 import sudoku.common.Utils;
 import sudoku.model.Sudoku;
-import sudoku.solver.BasicBacktracking;
-import sudoku.solver.DancingLinks;
-import sudoku.solver.ForwardChecking;
-import sudoku.solver.MRVBacktracking;
-import sudoku.solver.Solver;
+import sudoku.solver.*;
 import static sudoku.model.SudokuConstant.N;
 
 /**
- * This class benchmarks the performance of different Sudoku solving algorithms
- * by running each solver on multiple Sudoku puzzles, recording average
- * solving time and memory usage.
+ * Benchmarks different Sudoku solving algorithms on multiple puzzles.
+ * It performs warm-up runs, real executions, and logs time and memory usage.
  *
- * Big-O (Worst Case) Analysis of Solvers:
- * - BasicBacktracking: O(9^(N*N)) — brute-force, exponential in worst case.
- * - ForwardChecking: O(9^(N*N)), but with early pruning reduces actual run
- * time.
- * - MRVBacktracking: O(9^(N*N)), uses heuristics like MRV and degree
- * to lower branching.
- * - DancingLinks (DLX): O(N), theoretically fast with sparse matrix
- * backtracking, but still exponential worst case.
- * 
+ * Solver complexities (worst-case):
+ * - BasicBacktracking: O(9^(N*N)) — brute-force search.
+ * - ForwardChecking: O(9^(N*N)) — with pruning via domain filtering.
+ * - MRVBacktracking: O(9^(N*N)) — heuristic-based with better practical
+ * performance.
+ * - DancingLinks (DLX): O(N) per operation — optimized for exact cover,
+ * exponential overall.
  */
 public class TestInput {
 
-    /**
-     * Path to the input file that contains Sudoku puzzles in level:puzzle format
-     */
+    /** Path to the input file with level:puzzle entries */
     private static final String inputFilePath = Paths.get(
             System.getProperty("user.dir"),
             "src", "main", "java", "performance", "sudokuIO", "input.txt").toString();
 
-    /** Number of dummy warm-up runs to prepare JVM and reduce JIT effects */
+    /** Number of warm-up runs per solver to reduce JIT impact */
     private static final int dummyRuns = 10;
 
-    /** Array of solvers to be benchmarked */
+    /** Array of solver strategies to benchmark */
     private static final Solver[] solvers = {
             new DancingLinks(),
             new BasicBacktracking(),
@@ -50,12 +41,11 @@ public class TestInput {
     };
 
     /**
-     * Performs warm-up runs with each solver to allow JVM optimizations (e.g., JIT
-     * compilation).
+     * Performs warm-up executions for each solver on a subset of puzzles.
      *
-     * @param inputFilePath the path to the file with Sudoku puzzles
-     * @param dummyRuns     number of warm-up runs per solver
-     * @throws IOException if file cannot be read
+     * @param inputFilePath path to input puzzles
+     * @param dummyRuns     number of runs per solver
+     * @throws IOException if file access fails
      */
     public static void dummyRuns(String inputFilePath, int dummyRuns) throws IOException {
         for (Solver solver : solvers) {
@@ -78,7 +68,7 @@ public class TestInput {
                         throw new RuntimeException(e);
                     }
 
-                    solver.solve(); // Warm-up execution
+                    solver.solve();
                     currentRun++;
                 }
             }
@@ -86,63 +76,65 @@ public class TestInput {
     }
 
     /**
-     * Executes a real Sudoku solve with timing and memory measurements.
+     * Executes the solver with timing and memory usage measurement.
      *
-     * @param solver the solver to be tested
-     * @return an array of [solved:1|0, timeTaken in microseconds, memoryUsed in
-     *         bytes]
+     * @param solver the Sudoku solver to benchmark
+     * @return array [solved:1|0, time in microseconds, memory in bytes]
      */
     public static long[] realRunning(Solver solver) {
         try {
-            // Prepare measurement
-            Utils.getMemoryUsed(true);
+            Utils.getMemoryUsed(true); // Trigger GC
             long beforeMemory = Utils.getMemoryUsed(false);
             long startTime = System.nanoTime();
 
-            // Run solver with timeout
             final boolean[] solved = { false };
             Thread solverThread = new Thread(() -> {
                 solved[0] = solver.solve();
             });
 
             solverThread.start();
-            solverThread.join(2 * 60 * 1000);
+            solverThread.join(2 * 60 * 1000); // 2-minute timeout
 
-            // Get results
             long timeUsed = System.nanoTime() - startTime;
             long afterMemory = Utils.getMemoryUsed(false);
             long memoryUsed = afterMemory - beforeMemory;
 
-            // Handle timeout or failure
             if (solverThread.isAlive()) {
-                solverThread.interrupt();
+                solverThread.interrupt(); // Force stop
                 return new long[] { 0L, timeUsed / 1000, memoryUsed };
             }
 
+            boolean isActuallySolved = false;
+            try {
+                isActuallySolved = solver.getSudoku().isSolved();
+            } catch (Exception e) {
+                System.out.println("Error checking solved state: " + e.getMessage());
+            }
+
             return new long[] {
-                    solved[0] ? 1L : 0L,
-                    timeUsed / 1000, // Convert to microseconds
+                    (solved[0] && isActuallySolved) ? 1L : 0L,
+                    timeUsed / 1000,
                     memoryUsed
             };
 
         } catch (Exception e) {
             System.out.println("Error running solver: " + e.getMessage());
-            return new long[] { 0L, 0L, 0L }; // Return zeros on error
+            return new long[] { 0L, 0L, 0L };
         }
     }
 
     /**
-     * Main execution: performs warm-up, benchmarking, and logs results.
-     * Reads puzzles, benchmarks solvers, records individual and summary statistics.
+     * Runs benchmarking on all puzzles using all solvers.
+     * Records results in output file with timestamps.
      *
-     * @param args command-line arguments (not used)
+     * @param args unused
      */
     public static void main(String[] args) {
         try {
             dummyRuns(inputFilePath, dummyRuns);
-            WriteFile.clearFile(); // Prepare output
+            WriteFile.clearFile();
 
-            int sudokuId = 1; // Start counting puzzles from 1
+            int sudokuId = 1;
 
             try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
                 String line;
@@ -174,11 +166,10 @@ public class TestInput {
                         long timeTaken = result[1];
                         long memoryUsed = result[2];
 
-                        // Add sudokuId to the output
                         WriteFile.writeFile(sudokuId, level, status, timeTaken, memoryUsed, algorithm, timestamp);
                     }
 
-                    sudokuId++; // Increase puzzle id for next puzzle
+                    sudokuId++;
                 }
             }
 
