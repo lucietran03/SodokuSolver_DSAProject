@@ -97,7 +97,7 @@ public class WriteFile {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             if (isFileEmpty) {
                 writer.write(String.format("| %-5s | %-21s | %-10s | %-10s | %-20s | %-20s | %-20s |",
-                        "ID", "Algorithm", "Level", "Status", "Time Taken (ms)", "Memory Used (bytes)", "Time"));
+                        "ID", "Algorithm", "Level", "Status", "Time Taken (ms)", "Memory Used (KB)", "Time"));
                 writer.newLine();
                 writer.write(String.format("| %-5s | %-21s | %-10s | %-10s | %-20s | %-20s | %-20s |",
                         "-----", "---------------------", "----------", "----------", "--------------------",
@@ -105,13 +105,16 @@ public class WriteFile {
                 writer.newLine();
             }
 
+            // Chia memoryUsed cho 1024 để chuyển đổi sang KB
+            long memoryInKB = memoryUsed / 1024;
+
             writer.write(String.format("| %-5s | %-21s | %-10s | %-10s | %-20s | %-20s | %-20s |",
                     id,
                     algorithm,
                     level,
                     (status ? "Solved" : "Unsolved"),
                     time,
-                    memoryUsed,
+                    memoryInKB, // Sử dụng memoryInKB thay vì memoryUsed
                     timestamp));
             writer.newLine();
         } catch (IOException e) {
@@ -141,9 +144,12 @@ public class WriteFile {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             if (isFileEmpty) {
-                writer.write("Sudoku ID,Algorithm,Level,Status,Time Taken (ms),Memory Used (bytes)");
+                writer.write("Sudoku ID,Algorithm,Level,Status,Time Taken (ms),Memory Used (KB)");
                 writer.newLine();
             }
+
+            // Chia memoryUsed cho 1024 để chuyển đổi sang KB
+            long memoryInKB = memoryUsed / 1024;
 
             String csvLine = String.format("%d,%s,%s,%s,%d,%d",
                     id,
@@ -151,7 +157,7 @@ public class WriteFile {
                     level,
                     (status ? "Solved" : "Unsolved"),
                     time,
-                    memoryUsed);
+                    memoryInKB); // Sử dụng memoryInKB thay vì memoryUsed
 
             writer.write(csvLine);
             writer.newLine();
