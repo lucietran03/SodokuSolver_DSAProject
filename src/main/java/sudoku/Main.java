@@ -35,7 +35,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = SudokuManager.getSudokuMatrix(scanner);
 
-        if (input == null) {
+        if (input == null||input.length()!=81) {
             System.out.println("Provided Sudoku is invalid. Exiting the program.");
             return;
         }
