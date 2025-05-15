@@ -19,17 +19,18 @@ public class SudokuManager {
 
     // Method to get the Sudoku matrix from the user
     public static String getSudokuMatrix(Scanner scanner) {
-        System.out.println("Choose a default Sudoku matrix");
+        System.out.println("Choose a default Sudoku matrix or input your own:");
         System.out.println("1. Easy");
         System.out.println("2. Medium");
         System.out.println("3. Hard");
         System.out.println("4. Evil");
+        System.out.println("5. Input your own Sudoku matrix");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline character
 
         String sudokuMatrix = "";
 
-        if (choice > 0 && choice < 5) {
+        if (choice > 0 && choice < 6) {
             switch (choice) {
                 case 1:
                     sudokuMatrix = SudokuConstant.EASY;
@@ -42,6 +43,10 @@ public class SudokuManager {
                     break;
                 case 4:
                     sudokuMatrix = SudokuConstant.EVIL;
+                    break;
+                case 5:
+                    System.out.println("Please input your Sudoku matrix as a single string:");
+                    sudokuMatrix = scanner.nextLine();
                     break;
                 default:
                     System.out.println("Invalid choice.");
