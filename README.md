@@ -1,6 +1,6 @@
 # Sudoku Solver - Algorithms and Analysis Project - Group 03
 
-## Youtube Presentation Link
+## Presentation Link
 
 <!-- https://youtu.be/mHvwhyJk0Lo?si=yz3FXE4SMF-ts-HF -->
 
