@@ -2,7 +2,7 @@
 
 ## Presentation Link
 
-<!-- https://youtu.be/mHvwhyJk0Lo?si=yz3FXE4SMF-ts-HF -->
+https://rmiteduau-my.sharepoint.com/:v:/g/personal/s3914633_rmit_edu_vn/EaM4ycE-zEFGkZ-zn4lLmZ0B-HAJvi5umk5ZqzM1bvrJlQ?e=s2q4JB
 
 ## GitHub link
 
