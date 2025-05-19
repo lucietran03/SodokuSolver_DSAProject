@@ -16,6 +16,9 @@ public class AlgorithmX extends Solver {
 
     // Validate the grid: 9x9, values 0-9
     private boolean isValidGrid(int[][] grid) {
+        if (grid == null || grid.length != 9) {
+            return false;
+        }
         for (int i = 0; i < 9; i++) {
             if (grid[i] == null || grid[i].length != 9) {
                 return false;
@@ -254,14 +257,21 @@ public class AlgorithmX extends Solver {
             return false;
         }
 
+        solution.clear(); // Clear any previous solution
         buildMatrix();
+        
         if (search()) {
             int[][] result = new int[9][9];
+            // Copy initial grid values
+            for (int i = 0; i < 9; i++) {
+                System.arraycopy(grid[i], 0, result[i], 0, 9);
+            }
+            // Update with solution values
             for (Node node : solution) {
                 int[] placement = getPlacementFromRow(node.rowIdx);
                 result[placement[0]][placement[1]] = placement[2];
             }
-            // Update the sudoku grid with the solution
+            // Update the sudoku grid
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     grid[i][j] = result[i][j];

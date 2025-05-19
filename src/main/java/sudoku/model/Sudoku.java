@@ -31,7 +31,7 @@ public class Sudoku {
      */
     public Sudoku(int size) {
         SIZE = size;
-        N = size * size;
+        N = SudokuConstant.N;  // Use the constant N value
 
         grid = new int[N][N];
         for (int i = 0; i < N; i++)
@@ -58,13 +58,13 @@ public class Sudoku {
      * Time Complexity: O(N^2) in the worst case, where N is the size of the entire grid.
      */
     public void read(String input) throws Exception {
-        if (input.length() != N) { // N is 81
-            throw new IllegalArgumentException("Input length must be " + (N));
+        if (input.length() != N * N) { // N is 9, so N*N is 81
+            throw new IllegalArgumentException("Input length must be " + (N * N));
         }
 
         int index = 0;
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 char c = input.charAt(index);
                 grid[i][j] = Character.getNumericValue(c);
                 index++;
