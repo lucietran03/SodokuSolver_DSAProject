@@ -1,4 +1,4 @@
-package org.example;
+package DancingLink_AlgorithmsX;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +27,7 @@ public class SudokuController {
     long duration;
 
     public void loadPuzzle(String difficulty) {
-        int[][][] problems = ProblemList.getAllProblems();
+        int[][][] problems = DancingLink_AlgorithmsX.ProblemList.getAllProblems();
         switch (difficulty) {
             case "Easy":
                 puzzle = problems[0];
@@ -49,7 +49,7 @@ public class SudokuController {
     }
 
     public void loadPuzzleByIndex(int index) {
-        int[][][] problems = ProblemList.getAllProblems();
+        int[][][] problems = DancingLink_AlgorithmsX.ProblemList.getAllProblems();
         if (index >= 0 && index < problems.length) {
             puzzle = problems[index];
             displayPuzzle(puzzle);
@@ -121,7 +121,7 @@ public class SudokuController {
         }
 
         // Solve the Sudoku puzzle
-        SudokuSolver solver = new SudokuSolver(userGrid);
+        org.example.SudokuSolver solver = new org.example.SudokuSolver(userGrid);
         long startTime = System.nanoTime();
         int[][] solution = solver.solve();
         long endTime = System.nanoTime();

@@ -2,6 +2,10 @@ package org.example;
 
 import java.util.*;
 import java.util.Scanner;
+
+import org.example.NodeDS.ColumnNode;
+import org.example.NodeDS.Node;
+
 public class SudokuSolver {
 
 
@@ -9,29 +13,6 @@ public class SudokuSolver {
     private List<Node> solution;
     private int[][] grid;
     private int[][] exactCoverMatrix;
-
-
-
-
-    // DLX Node class for the dancing links structure
-    static class Node {
-        Node left, right, up, down;
-        ColumnNode column;
-        int rowIdx; // Store the exactCoverMatrix row index
-
-        Node() {
-            left = right = up = down = this;
-        }
-    }
-
-    // ColumnNode for the column headers in the DLX matrix
-    static class ColumnNode extends Node {
-        int size;
-        ColumnNode() {
-            super();
-            column = this;
-        }
-    }
 
 
     public SudokuSolver(int[][] grid) {
@@ -42,6 +23,7 @@ public class SudokuSolver {
         this.grid = grid;
         solution = new ArrayList<>();
     }
+
 
     // Validate the grid: 9x9, values 0-9
     private boolean isValidGrid(int[][] grid) {
@@ -61,13 +43,13 @@ public class SudokuSolver {
     /// STEP1 : create the exact cover matrix
     // Build the exact cover matrix as an int 2D array
     private void buildExactCoverMatrix() {
-        ///  step1.1 define constraints, refer to question1 in step1.1
+        ///  step1.1 define constraints
         int n = 9;
         int constraints = 4; // Row-Column, Row-Number, Column-Number, Box-Number
         int rows = n * n * n; // Possible placements: 9x9 cells x 9 numbers
         int cols = n * n * constraints; // 4 constraints per cell
 
-        /// 324 X 729 MATRIX refer to question1.1 in step1
+        /// 324 X 729 MATRIX
         exactCoverMatrix = new int[rows][cols];
         int rowIdx = 0;
         /// step1.2 : create the 729 row and 324 column matrix
@@ -76,7 +58,6 @@ public class SudokuSolver {
                 for (int v = 1; v <= n; v++) {
                     ///  this is used to handle for the provided hint
                     ///  grid[r][c] != 0 meaning that the cell is already filled => dont need to generate possible row
-                    ///  for example : if we have 30hints, what actually row we have ? refer to question 1.4
                     if (grid[r][c] != 0 && grid[r][c] != v) continue;
                     /// step1.3 : create the row for the exact cover matrix
                     ///  using the supporter createExactCoverRow to create the row.
@@ -88,19 +69,17 @@ public class SudokuSolver {
         }
 
         /// Trim the matrix to the actual number of rows used
-        ///  refer to question 1.4
         int[][] trimmedMatrix = new int[rowIdx][cols];
         for (int i = 0; i < rowIdx; i++) {
             System.arraycopy(exactCoverMatrix[i], 0, trimmedMatrix[i], 0, cols);
         }
         exactCoverMatrix = trimmedMatrix;
     }
-    ///
-    // Create a single row for the exact cover matrix
+    /// Create a single row for the exact cover matrix
     private int[] createExactCoverRow(int r, int c, int v, int n, int cols) {
         int[] row = new int[cols];
         int box = (r / 3) * 3 + c / 3;
-        ///  THIS IS JUST A FORMULA TO CREATE THE ROW, REFER TO THE FORMULA step1.3
+        ///  THIS IS JUST A FORMULA TO CREATE THE ROW.
 
         // Constraint 1: Row-Column (each cell has exactly one number)
         int col1 = r * n + c;
@@ -132,7 +111,6 @@ public class SudokuSolver {
         ColumnNode[] columns = new ColumnNode[cols];
         ColumnNode prev = root;
         for (int i = 0; i < cols; i++) {
-            ///  question 2.1 : why create the header necessary ?
             ///  CIRCULAR LINKED LIST , the last node points to the first node
             ///  header : column <-> column0 <-> column2 <-> ... <-> columnN <-> column0
             columns[i] = new ColumnNode();
@@ -161,12 +139,14 @@ public class SudokuSolver {
                 }
             }
 
-            /// Link nodes horizontally
+            ///  step 2.4 Link nodes horizontally
             ///nodes[0] ↔ nodes[1] ↔ nodes[2] ↔ nodes[3] ↔ nodes[0].
             for (int i = 0; i < nodeCount; i++) {
                 nodes[i].right = nodes[(i + 1) % nodeCount];
                 nodes[(i + 1) % nodeCount].left = nodes[i];
             }
+
+            ///  step 2.5 Link nodes vertically
             /**
              * ColumnNode
              *   ↑↓
@@ -180,7 +160,6 @@ public class SudokuSolver {
              *   ↑↓
              * ColumnNode
              */
-            /// Link nodes vertically
             for (int i = 0; i < nodeCount; i++) {
                 Node up = nodes[i].column.up;  /// get the up node of the column (or the last node added)
                 nodes[i].up = up; /// link the up node to the current node ( the current node is last node added)
@@ -324,7 +303,7 @@ public class SudokuSolver {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[][][] problems = ProblemList.getAllProblems();
+        int[][][] problems = DancingLink_AlgorithmsX.ProblemList.getAllProblems();
 
         while (true) {
             System.out.println("Choose a Sudoku problem to solve:");

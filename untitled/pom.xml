@@ -37,7 +37,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>org.example.Javafx</mainClass>
+                    <mainClass>DancingLink_AlgorithmsX.Javafx</mainClass>
                 </configuration>
             </plugin>
         </plugins>

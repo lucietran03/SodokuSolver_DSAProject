@@ -1,4 +1,4 @@
-package org.example;
+package DancingLink_AlgorithmsX;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +42,7 @@ public class MenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SudokuBoard.fxml"));
             Parent root = loader.load();
 
-            SudokuController sudokuController = loader.getController();
+            DancingLink_AlgorithmsX.SudokuController sudokuController = loader.getController();
 
             if ("Random (6-12)".equals(selectedDifficulty)) {
                 Random random = new Random();
@@ -64,7 +64,7 @@ public class MenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SudokuBoard.fxml"));
             Parent root = loader.load();
 
-            SudokuController sudokuController = loader.getController();
+            DancingLink_AlgorithmsX.SudokuController sudokuController = loader.getController();
             sudokuController.prepareForCustomInput(); // Prepare the board for user input
 
             Stage stage = (Stage) button1.getScene().getWindow();

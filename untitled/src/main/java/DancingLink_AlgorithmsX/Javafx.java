@@ -1,4 +1,4 @@
-package org.example;
+package DancingLink_AlgorithmsX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

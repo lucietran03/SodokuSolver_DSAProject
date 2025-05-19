@@ -1,10 +1,7 @@
-org/example/SudokuSolver_Ver2$ColumnNode.class
-org/example/SudokuController.class
-org/example/SudokuSolver$ColumnNode.class
-org/example/SudokuSolver_Ver2$Node.class
-org/example/SudokuSolver$Node.class
-org/example/SudokuSolver_Ver2.class
-org/example/ProblemList.class
-org/example/Javafx.class
-org/example/MenuController.class
+org/example/NodeDS/Node.class
+DancingLink_AlgorithmsX/MenuController.class
 org/example/SudokuSolver.class
+org/example/NodeDS/ColumnNode.class
+DancingLink_AlgorithmsX/ProblemList.class
+DancingLink_AlgorithmsX/Javafx.class
+DancingLink_AlgorithmsX/SudokuController.class

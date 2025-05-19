@@ -1,4 +1,4 @@
-package org.example;
+package DancingLink_AlgorithmsX;
 
 public class ProblemList {
 
