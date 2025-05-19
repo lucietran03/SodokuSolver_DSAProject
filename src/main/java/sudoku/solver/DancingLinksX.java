@@ -16,7 +16,7 @@ import sudoku.solver.dancinglinks.AlgorithmX;
  * satisfy.</li>
  * </ul>
  */
-public class DancingLinks extends Solver {
+public class DancingLinksX extends Solver {
 
     /**
      * Constructs a new DancingLinks solver instance with the name "Dancing Links".
@@ -25,7 +25,7 @@ public class DancingLinks extends Solver {
      * Time Complexity: O(1)
      * </p>
      */
-    public DancingLinks() {
+    public DancingLinksX() {
         super("Dancing Links");
     }
 
@@ -42,9 +42,8 @@ public class DancingLinks extends Solver {
      */
     @Override
     public boolean solve() {
-        AlgorithmX solver = new AlgorithmX(sudoku.getGrid());
-        int[][] solution = solver.solve();
-
-        return solution != null;
+        AlgorithmX solver = new AlgorithmX();
+        solver.setSudoku(sudoku);
+        return solver.solve();
     }
 }

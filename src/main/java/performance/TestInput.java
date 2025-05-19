@@ -34,7 +34,7 @@ public class TestInput {
 
     /** Array of solver strategies to benchmark */
     private static final Solver[] solvers = {
-            new DancingLinks(),
+            new DancingLinksX(),
             new BasicBacktracking(),
             new ForwardChecking(),
             new MRVBacktracking(),

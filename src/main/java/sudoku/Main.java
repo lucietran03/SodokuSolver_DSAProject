@@ -7,7 +7,7 @@ import sudoku.model.Sudoku;
 import static sudoku.model.SudokuConstant.N;
 import sudoku.model.SudokuManager;
 import sudoku.solver.BasicBacktracking;
-import sudoku.solver.DancingLinks;
+import sudoku.solver.DancingLinksX;
 import sudoku.solver.ForwardChecking;
 import sudoku.solver.MRVBacktracking;
 import sudoku.solver.Solver;
@@ -41,10 +41,11 @@ public class Main {
         }
 
         Solver[] solvers = {
-                new DancingLinks(),
+                new DancingLinksX(),
                 new BasicBacktracking(),
                 new ForwardChecking(),
                 new MRVBacktracking(),
+            
         };
 
         for (Solver solver : solvers) {

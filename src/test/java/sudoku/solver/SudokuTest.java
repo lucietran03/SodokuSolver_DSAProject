@@ -30,7 +30,7 @@ class SudokuTest {
      */
     @Test
     void testDancingLinksSolver() throws Exception {
-        testSolver(new DancingLinks());  // Test the Dancing Links solver
+        testSolver(new DancingLinksX());  // Test the Dancing Links solver
     }
 
     /**
