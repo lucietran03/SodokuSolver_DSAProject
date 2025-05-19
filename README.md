@@ -22,21 +22,6 @@ The contribution scores for the team members are as follows:
 
 We agree with the contribution score listed above.
 
-<!-- ## Overview
-
-This project is a Sudoku Solver implemented using Data Structures and Algorithms (DSA). It provides an efficient solution to solve Sudoku puzzles programmatically.
-
-## Features
-
--   Solves any valid Sudoku puzzle.
--   Implements backtracking, MRV, Forward Checking and Dancing Links algorithm for solving.
--   Validates Sudoku rules (row, column, and subgrid constraints).
-
-## Requirements
-
--   Python 3.x or higher
--   Libraries: None (pure Python implementation)
-
 ## Usage
 
 1. Clone the repository:
@@ -51,4 +36,10 @@ This project is a Sudoku Solver implemented using Data Structures and Algorithms
     ```bash
     javac Main.java
     java Main
-    ``` -->
+
+
+## How to run the Tests
+1. Navigate to the **test** folder of the project.
+2. Open the Java class containing the algorithm you want to test.
+3. Click **Run** on that Java file. The algorithm will execute and solve all 9 problems (ranging from easy to hard), which have been formatted for automated testing.
+4. After execution, you can select another Java file in the **test** folder to continue testing different algorithms.
