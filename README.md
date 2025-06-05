@@ -4,18 +4,24 @@ This repository contains a Java-based Sudoku solver that implements multiple alg
 
 ## Project Info
 
-This project involves the design and implementation of a Java-based Sudoku Solver that can efficiently solve 9x9 Sudoku puzzles using advanced algorithmic strategies. The solver takes a partially completed Sudoku board as input (represented as a 2D array of integers) and fills in the empty cells (marked as 0) to produce a valid solution that adheres to all Sudoku constraints.
+This project is a Java-based Sudoku Solver that efficiently solves 9x9 puzzles using multiple algorithms. It takes a board with empty cells (`0`s) and returns a completed solution while satisfying all Sudoku rules.
 
-Our implementation includes multiple solving approaches—Backtracking, Forward Checking, MRV Heuristics, and Dancing Links (Algorithm X)—to explore and compare their efficiency and effectiveness across various difficulty levels. The core method, `solve(int[][] puzzle)`, returns a fully solved 9x9 grid or raises an exception if no solution is found within 2 minutes.
+Implemented solvers include:
+- **Backtracking**
+- **Forward Checking**
+- **MRV Heuristics**
+- **Dancing Links (Algorithm X)**
 
-In addition to correctness, the project also emphasizes performance analysis, including memory usage and execution time, allowing a deeper understanding of which algorithms perform best under different conditions. Custom data structures are used where appropriate to optimize performance.
+The method `solve(int[][] puzzle)` returns a solved board or throws an exception if no solution is found within 2 minutes.
 
-This project was developed as part of the **COSC2469/ COSC2722/ COSC2658/ COSC3120 - Algorithms and Analysis/Data Structures and Algorithms** course and demonstrates applied algorithm design, problem-solving skills, and performance evaluation techniques.
+Beyond correctness, the project evaluates performance in terms of execution time and memory usage across different puzzle difficulties. It also uses custom data structures to enhance efficiency.
 
--   Language: **Java**
--   Tested with: **JUnit**
--   Build status: **Compiles and runs successfully in console**
--   License: **MIT**
+Developed as part of the **COSC2469 / COSC2722 / COSC2658 / COSC3120 - Algorithms and Analysis / Data Structures and Algorithms** course.
+
+- Language: **Java**  
+- Tested with: **JUnit**  
+- Build status: **Compiles and runs in console**  
+- License: **MIT**
 
 ## Table of Contents
 
@@ -130,19 +136,17 @@ src
             └───solver
 ```
 
-## Contributing
+## Contributors
 
-The contribution scores for the team members are as follows:
+This project was developed by:
 
-| Member                | S_ID     | Contribution Score |
-| --------------------- | -------- | ------------------ |
-| Chan Yong Park        | s4021263 | 5                  |
-| Le Hung               | s4061665 | 5                  |
-| Tran Dong Nghi        | s3914633 | 5                  |
-| Huynh Nguyen Minh Nhu | s4104540 | 5                  |
-| Tran Hoang Nguyen     | s4054071 | 5                  |
+- [@lucietran03](https://github.com/lucietran03) — Tran Dong Nghi  
+- [@chanpark-dev](https://github.com/chanpark-dev) — Chan Yong Park  
+- [@VanDel1](https://github.com/VanDel1) — Le Hung  
+- [@rakeoohuynh](https://github.com/rakeoohuynh) — Huynh Nguyen Minh Nhu  
+- [@nguyentran74](https://github.com/nguyentran74) — Tran Hoang Nguyen
 
-We agree with the contribution score listed above.
+> Originally created as a team project for an Algorithms and Data Structures course at RMIT.
 
 ## License
 
