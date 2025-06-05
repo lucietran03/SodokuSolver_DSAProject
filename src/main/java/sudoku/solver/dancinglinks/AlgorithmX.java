@@ -2,7 +2,6 @@ package sudoku.solver.dancinglinks;
 
 import java.util.*;
 import sudoku.solver.Solver;
-import sudoku.model.Sudoku;
 
 public class AlgorithmX extends Solver {
     private ColumnNode root;

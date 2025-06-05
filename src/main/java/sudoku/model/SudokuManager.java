@@ -2,17 +2,23 @@ package sudoku.model;
 
 import java.util.Scanner;
 
+import sudoku.common.InputValidator;
+
 /**
- * This method prompts the user to select a default Sudoku matrix difficulty level
+ * This method prompts the user to select a default Sudoku matrix difficulty
+ * level
  * and returns the corresponding Sudoku matrix as a string.
  * <p>
  * The user is presented with four difficulty options: Easy, Medium, Hard, Evil
- * Based on the user's choice, the method retrieves the appropriate Sudoku matrix
+ * Based on the user's choice, the method retrieves the appropriate Sudoku
+ * matrix
  * from the {@code SudokuConstant} class.
  * If the user provides an invalid choice (not between 1 and 4), the method
  * prints an error message and returns {@code null}.
  *
- * <p><b>Time Complexity:</b> O(1) in the worst case, as the method performs a constant
+ * <p>
+ * <b>Time Complexity:</b> O(1) in the worst case, as the method performs a
+ * constant
  * number of operations regardless of the input.
  */
 public class SudokuManager {
@@ -47,6 +53,11 @@ public class SudokuManager {
                 case 5:
                     System.out.println("Please input your Sudoku matrix as a single string:");
                     sudokuMatrix = scanner.nextLine();
+                    try {
+                        InputValidator.validateInput(sudokuMatrix);
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Error: " + e.getMessage());
+                    }
                     break;
                 default:
                     System.out.println("Invalid choice.");
